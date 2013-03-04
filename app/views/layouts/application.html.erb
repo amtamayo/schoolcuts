@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Title -->
+    <title>School closings</title>
+
+    <!-- Meta -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-title" content="ODI" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, width=device-width" />
+    <%= csrf_meta_tags %>
+    
+    <!-- Styles -->
+    <link href="/assets/master.css" media="Screen" rel="stylesheet" type="text/css" />
+
+    
+    <!-- JavaScript -->
+    <%= javascript_include_tag "application" %>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+    <script src="http://code.highcharts.com/highcharts.js" type="text/javascript"></script>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>

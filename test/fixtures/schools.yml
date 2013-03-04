@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  cps_id: 
+  short_name: MyString
+  full_name: MyString
+  latitude: 1.5
+  longitude: 1.5
+  street_address: MyString
+  community_area: MyString
+  school_type: MyString
+  access_type: MyString
+
+two:
+  cps_id: 
+  short_name: MyString
+  full_name: MyString
+  latitude: 1.5
+  longitude: 1.5
+  street_address: MyString
+  community_area: MyString
+  school_type: MyString
+  access_type: MyString

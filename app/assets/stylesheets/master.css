@@ -1,0 +1,103 @@
+/*-------------------------+
+ | Site: School closings   |
+ | Part: Master stylesheet |
+ +-------------------------*/
+
+
+/* Imports
+=====================================================================*/
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic|Lora:400,400italic,700,700italic);
+@import "/styles/reset.css";
+
+
+/* Fonts
+======================================================================*/
+body { font-family: Lora, Georgia, "Times New Roman", Times, serif; }
+.mute { font-family: "Open Sans", Arial, sans-serif; }
+
+
+/* Basics
+======================================================================*/
+a { color: #3b5cb2; text-decoration: none; }
+a:hover { text-decoration: underline; }
+body { font-size: 16px; line-height: 1.5; margin-bottom: 40px; }
+blockquote, dl, ol, p, table, ul { margin-bottom: 1em; }
+cite, em { font-style: italic; }
+h1 { font-size: 32px; line-height: 1.03; margin-bottom: 0.5em; }
+h1, strong, h3, h4, h5, h6 { font-weight: bold; }
+h2 { font-size: 27px; line-height: 1.11; margin-bottom: 0.5em; }
+h3 { font-size: 23px; line-height: 1.3; margin-bottom: 0.5em; }
+hr { background: #ddd; border: 0; clear: both; color: #ddd; height: 1px; margin: 1em 0; }
+ol { list-style: decimal; margin-left: 2em; }
+li { margin-bottom: 0.5em; }
+ul { list-style: disc; margin-left: 2em; }
+
+
+/* Layout
+======================================================================*/
+.clear { clear: both; }
+#content { padding-bottom: 40px; }
+#content, #footer, #header-content { margin: 0 auto; width: 980px; }
+
+/* Columns */
+.c2l, .c2r { width: 48%; }
+.c2l, .c3l, .c3m { float: left; }
+.c2r, .c3r { float: right; }
+.c3l { margin-right: 3%; }
+.c3l, .c3m, .c3r { width: 31%; }
+
+
+/* Content
+======================================================================*/
+
+/* Action links */
+.action {
+    background: #3b5cb2;
+    border-radius: 5px;
+    color: #fff;
+    display: inline-block;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 0.3em 1em;
+}
+
+/* Compare */
+#compare h2, #compare h3 { text-align: center; }
+#compare h3 { font-style: italic; font-weight: bold; }
+
+/* Examples */
+.examples dd, .examples dt { padding-left: 35.43%; }
+.examples dt { clear: both; font-weight: bold; padding-top: 20px; }
+.examples dt:first-child { padding-top: 0; }
+.examples img { float: left; margin: 6px 0 0 -168px; }
+.examples p { margin-bottom: 0.5em; }
+
+/* Footer */
+#footer { border-top: 1px solid #ddd; padding-top: 30px; }
+#footer-primary { float: left; width: 65.68%; }
+#footer-secondary { float: right; width: 31.29%; }
+
+/* Header */
+#header { border-bottom: 1px solid #ddd; margin-bottom: 30px; padding: 30px 0; }
+#logo { float: left; font-size: 40px; }
+#sharing { float: right; }
+
+/* Intro */
+#intro { background: #e8ebf6; border-radius: 10px; margin-bottom: 40px; padding: 30px 30px 10px; }
+#intro [class *= "c3"] { text-align: center; }
+#intro p:last-child { margin-bottom: 0; }
+
+/* Map */
+#map { border: 1px solid #ddd; height: 340px; }
+
+/* Muted text */
+.mute { color: #555; font-size: 13px; }
+
+/* School list */
+#schools { font-size: 14px; }
+#schools li { margin: 0; }
+#schools ol { list-style: none; margin-left: 0; }
+
+/* School profile */
+#profile-primary { float: left; margin-bottom: 30px; width: 65.68%; }
+#profile-secondary { float: right; margin-bottom: 30px; width: 31.29%; }

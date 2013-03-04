@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Cps:</b>
+  <%= @school.cps_id %>
+</p>
+
+<p>
+  <b>Short name:</b>
+  <%= @school.short_name %>
+</p>
+
+<p>
+  <b>Full name:</b>
+  <%= @school.full_name %>
+</p>
+
+<p>
+  <b>Latitude:</b>
+  <%= @school.latitude %>
+</p>
+
+<p>
+  <b>Longitude:</b>
+  <%= @school.longitude %>
+</p>
+
+<p>
+  <b>Street address:</b>
+  <%= @school.street_address %>
+</p>
+
+<p>
+  <b>Community area:</b>
+  <%= @school.community_area %>
+</p>
+
+<p>
+  <b>School type:</b>
+  <%= @school.school_type %>
+</p>
+
+<p>
+  <b>Access type:</b>
+  <%= @school.access_type %>
+</p>
+
+
+<%= link_to 'Edit', edit_school_path(@school) %> |
+<%= link_to 'Back', schools_path %>
