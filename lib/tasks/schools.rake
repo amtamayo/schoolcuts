@@ -36,10 +36,42 @@ namespace :cps do
 		}
 	end
 	
+	desc "import race demographics"
+	task :import_race => :environment do
+		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
+
+		list = CSV.read(inputfile, :headers => true )
+		list.each { |row|
+			school = School.find_by_cps_id(row[0].to_i)
+			if (!school.nil?)
+				puts "Importing race demographic for #{row[1].to_s}"
+				Race.create(:school_id=>school.id, :ethnicity=>'Asian', :percent=>row[10].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Black', :percent=>row[11].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Hispanic', :percent=>row[12].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Multi-racial', :percent=>row[13].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Native American', :percent=>row[14].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Not Available', :percent=>row[15].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Hawaiian Pacific', :percent=>row[16].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'White', :percent=>row[17].to_f)
+			else
+				puts "School #{row[1].to_s} not found"
+			end
+		}
+		
+	end
+	
+	desc "Show column names"
+		task :list_import_column_names => :environment do
+		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
+
+		list = CSV.read(inputfile, :headers => true )
+		list.header
+    end
+	
 	desc "Show path"
 		task :show_default_path => :environment do
-    puts "PATH: #{Rails.root.to_s}/lib/tasks/data/schools.csv"
-  end
+		puts "PATH: #{Rails.root.to_s}/lib/tasks/data/schools.csv"
+    end
 end
 
 
