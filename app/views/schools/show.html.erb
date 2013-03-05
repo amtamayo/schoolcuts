@@ -1,50 +1,72 @@
-<p id="notice"><%= notice %></p>
+<!-- Content -->
+<div id="content">
+    <div id="intro">
+        <h1><%= link_to 'Home', root_url %> &raquo; <%= @school.short_name %></h1>
+        <p>[FULL NAME]<%= @school.full_name %> &bull; [PHONE NUMBER] &bull; <%= @school.community_area %> &bull; <%= @school.street_address %>, Chicago, Illinois</p>
+        <div class="clear"></div>
+    </div>
+    
+    <div id="profile-primary">
+        <h2>Closest schools if this school is closed</h2>
+        <p>If CPS closes <%= @school.short_name %>, students may be assigned to the schools below. <a href="#">More&hellip;</a></p>
+        
+        <div id="map"></div>
+    </div>
+    
+    <div id="profile-secondary">
+        <p><a class="action" href="#comparison">Jump to evaluation data</a></p>
+        
+        <h2>Demographics</h2>
+        
+        <p><a href="http://www.cps.edu/Schools/Pages/school.aspx?id=<%= @school.cps_id %>">View more demographics at CPS.edu</a> &raquo;</p>
+    </div>
+    
+    <div class="clear"></div><hr />
+    
+    <div id="compare">
+        <!-- <h2>What does CPS look at and what else could be considered?</h2> -->
+        
+        <div class="c2l">
+            <h3>Why is this school on the closing list?</h3>
+            
+            <div class="dataset">
+                <h4>CPS Performance level</h4>
+                <p>Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
+                <p class="mute">Source: <a href="http://www.cps.edu/Schools/Pages/school.aspx?id=<%= @school.cps_id %>">Chicago Public Schools School Profile</a></p>
+            </div>
+            <div class="dataset">
+                <h4>CPS Utilization rate</h4>
+                <p>Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
+                <p class="mute">Source: <a href="http://cps.edu/About_CPS/Policies_and_guidelines/Pages/qualityschools.aspx">CPS Space Utilization and Enrollment Data for School Year 2012-2013</a></p>
+            </div>
+        </div>
+        <div class="c2r">
+            <h3>What do we know about this school?</h3>
+                       
+            <div class="dataset">
+                <h4>Does student performance improve over time?</h4>
+                <p>ISAT cohort trends. Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
+                <p class="mute">Source: <a href="#">IIRC Source</a></p>
+            </div>
+            <div class="dataset">
+                <h4>Is this school organized for improvement?</h4>
+                <p>UChicago's 5Essentials. Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
+                <p class="mute">Source: <a href="https://cps.5-essentials.org/2012/s/<%= @school.cps_id.to_s %>">5Essentials</a></p>
+            </div>
+            <div class="dataset">
+                <h4>How stable has the school been?</h4>
+                <p>Probation staus + mobility + enrollment trends. Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
+                <p class="mute">Source: <a href="http://cps.edu/SchoolData/Pages/SchoolData.aspx">Chicago Public Schools Performance Data</a></p>
+            </div>
+            <div class="dataset">
+                <h4>Is this school really underutilized?</h4>
+                <p>CPS vs Apples to Apples. Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
+                <p class="mute">Source: <a href="http://cpsutilization.kalov.net/alt">Apples 2 Apples Alternative 2012-2013 School Utilization </a></p>
+            </div>
+        </div>
+        
+        <div class="clear"></div>
+    </div>
+</div>
+<!-- /Content -->
 
-<p>
-  <b>Cps:</b>
-  <%= @school.cps_id %>
-</p>
-
-<p>
-  <b>Short name:</b>
-  <%= @school.short_name %>
-</p>
-
-<p>
-  <b>Full name:</b>
-  <%= @school.full_name %>
-</p>
-
-<p>
-  <b>Latitude:</b>
-  <%= @school.latitude %>
-</p>
-
-<p>
-  <b>Longitude:</b>
-  <%= @school.longitude %>
-</p>
-
-<p>
-  <b>Street address:</b>
-  <%= @school.street_address %>
-</p>
-
-<p>
-  <b>Community area:</b>
-  <%= @school.community_area %>
-</p>
-
-<p>
-  <b>School type:</b>
-  <%= @school.school_type %>
-</p>
-
-<p>
-  <b>Access type:</b>
-  <%= @school.access_type %>
-</p>
-
-
-<!-- %= link_to 'Edit', edit_school_path(@school) %> | -->
-<%= link_to 'Back', root_url %>

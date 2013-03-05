@@ -1,23 +1,3 @@
-<div id="header">
-    <div id="header-content">
-        <div id="logo">Catchy Title</div>
-        
-        <div id="sharing">
-            <!-- AddThis Button BEGIN -->
-            <div class="addthis_toolbox addthis_default_style ">
-                <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-                <a class="addthis_button_tweet"></a>
-                <a class="addthis_counter addthis_pill_style"></a>
-            </div>
-            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5131303d07eaa9f3"></script>
-            <!-- AddThis Button END -->
-        </div>
-        
-        <div class="clear"></div>
-    </div>
-</div>
-<!-- /Header -->
-
 <!-- Content -->
 <div id="content">
     <div id="intro">
@@ -47,7 +27,7 @@
     </div>
     
     <div class="c2l">
-        <h2><strong>129 schools</strong> are being considered</h2>
+        <h2><strong><%= @schools.size.to_s %> schools</strong> are being considered</h2>
         <p>Find your school to see what options will be available if it's closed and compare how CPS evaluates it to what else could be considered.</p>
         
         <div id="schools">
@@ -123,30 +103,4 @@
 </div>
 <!-- /Content -->
 
-<!-- Footer -->
-<div id="footer">
-    <div id="footer-primary">
-        <h2>About this project</h2>
-        <p>The purpose of this project is to highlight At doluptae dernam fugiae quodici comnis ium nus explit quatibusam del inctur, sam es et volorepe evelia metquam, totatius accullorepro dustiis as velestrum vitatius im aut officid quas inciusant ex ellicabo. Nem. Nequi dollit omnihit, quuntur, coreptium aliquiam nusandae. Os ea dolor andam, sunt esciis audit volorum aut rem. Itatur, unturerum doleni totatem eium susam, omnihic itatem in pratiossimpe qui qui alit hillor se re, aut aut et am, que non renihil magnien imporit acera voloreh enditassi dem dolor molorectium quam rercid</p>
-        <p><a href="#">Learn more about the data &raquo;</a></p>
-    </div>
-    
-    <div id="footer-secondary">
-        <h2>Collaborators</h2>
-        
-        <p>Meet the talented and dedicated individuals who created this project.</p>
-        
-        <p>
-            Jeanne Marie Olson, Apples 2 Apples
-            <br />Josh Kalov, Organization
-            <br />Lincoln Chandler, Organization
-            <br />Anna Marie-Tamayo, Organization
-            <br />Elnaz Moshfeghian, Open Data Institute
-            <br />Paul Baker, Open Data Institute
-            <br />Nick Rougeux, Open Data Institute
-        </p>
-    </div>
-    
-    <div class="clear"></div>
-</div>
-<!-- /Footer -->
+
