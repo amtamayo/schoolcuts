@@ -60,6 +60,79 @@ namespace :cps do
 		
 	end
 	
+	desc "import isat scores"
+	task :import_isat_score => :environment do
+		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
+		
+		IsatScore.delete_all()
+
+		list = CSV.read(inputfile, :headers => true )
+		list.each { |row|
+			puts "ISAT for #{row[0].to_s} #{row[79].to_s}"
+			school = School.find_by_cps_id(row[0].to_i)
+			if (!school.nil?)
+				puts "Importing ISAT scores for #{row[1].to_s}"
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2006, :year_to=>2007, :percent=>row[79].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2007, :year_to=>2008, :percent=>row[80].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2008, :year_to=>2009, :percent=>row[81].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2009, :year_to=>2010, :percent=>row[82].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2010, :year_to=>2011, :percent=>row[83].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2011, :year_to=>2012, :percent=>row[84].to_f)
+				
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2006, :year_to=>2007, :percent=>row[91].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2007, :year_to=>2008, :percent=>row[92].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2008, :year_to=>2009, :percent=>row[93].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2009, :year_to=>2010, :percent=>row[94].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2010, :year_to=>2011, :percent=>row[95].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2011, :year_to=>2012, :percent=>row[96].to_f)
+				
+				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2006, :year_to=>2007, :percent=>nil)
+				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2007, :year_to=>2008, :percent=>row[103].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2008, :year_to=>2009, :percent=>nil)
+				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2009, :year_to=>2010, :percent=>nil)
+				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2010, :year_to=>2011, :percent=>row[104].to_f)				
+				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2011, :year_to=>2012, :percent=>nil)
+			else
+				puts "School #{row[1].to_s} not found"
+			end
+
+		}
+		
+	end
+	
+    desc "import enrollment"
+    task :import_enrollment => :environment do
+        inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
+
+        Enrollment.delete_all()
+        
+        list = CSV.read(inputfile, :headers => true)
+        list.each { |row|
+        	school = School.find_by_cps_id(row[0].to_i)
+        	if (!school.nil?)
+        	    puts "Enrollment for #{row[0].to_s} #{row[1].to_s}"
+        	    Enrollment.create(:school_id=>school.id, :year_from=>1999, :year_to=>2000, :count=>row[30].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2000, :year_to=>2001, :count=>row[31].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2001, :year_to=>2002, :count=>row[32].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2002, :year_to=>2003, :count=>row[33].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2003, :year_to=>2004, :count=>row[34].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2004, :year_to=>2005, :count=>row[35].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2005, :year_to=>2006, :count=>row[36].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2006, :year_to=>2007, :count=>row[37].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2007, :year_to=>2008, :count=>row[38].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2008, :year_to=>2009, :count=>row[39].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2009, :year_to=>2010, :count=>row[40].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2010, :year_to=>2011, :count=>row[41].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2011, :year_to=>2012, :count=>row[42].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2012, :year_to=>2013, :count=>row[43].to_i)
+        	else
+        	 	puts "School #{row[1].to_s} not found"
+            end
+        }
+    end
+
+
+
 	desc "Show column names"
 		task :list_import_column_names => :environment do
 		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
