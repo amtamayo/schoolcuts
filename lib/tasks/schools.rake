@@ -60,6 +60,7 @@ namespace :cps do
 		
 	end
 	
+<<<<<<< HEAD
 	desc "import isat scores"
 	task :import_isat_score => :environment do
 		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
@@ -100,6 +101,8 @@ namespace :cps do
 		
 	end
 	
+=======
+>>>>>>> 035ae6a3d14e8f1c0b14cb2983e76e09048b162e
     desc "import enrollment"
     task :import_enrollment => :environment do
         inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"

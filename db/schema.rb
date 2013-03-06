@@ -12,6 +12,7 @@
 # It's strongly recommended to check this file into your version control system.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20130306030858) do
 
   create_table "isat_scores", :force => true do |t|
@@ -21,6 +22,8 @@ ActiveRecord::Schema.define(:version => 20130306030858) do
     t.string   "subject"
     t.float    "percent"
 =======
+=======
+>>>>>>> 035ae6a3d14e8f1c0b14cb2983e76e09048b162e
 ActiveRecord::Schema.define(:version => 20130306030901) do
 
   create_table "enrollments", :force => true do |t|
@@ -28,6 +31,9 @@ ActiveRecord::Schema.define(:version => 20130306030901) do
     t.integer  "year_from"
     t.integer  "year_to"
     t.integer  "count"
+<<<<<<< HEAD
+>>>>>>> 035ae6a3d14e8f1c0b14cb2983e76e09048b162e
+=======
 >>>>>>> 035ae6a3d14e8f1c0b14cb2983e76e09048b162e
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

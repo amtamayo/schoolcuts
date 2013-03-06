@@ -15,7 +15,6 @@
 /tmp
 
 # Ignore database config file
-=======
 Gemfile
 Gemfile.lock
 /config/database.yml
