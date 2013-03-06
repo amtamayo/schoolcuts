@@ -29,23 +29,26 @@ development:
   encoding: unicode
   database: cps_schools_development	
   pool: 5
-  username: amarie
+  host: localhost
+  user: 
   password: 
 
-development:
+
+test:
   adapter: postgresql
   encoding: unicode
   database: cps_schools_test	
   pool: 5
-  username: amarie
+  user: 
   password: 
 
-development:
+
+production:
   adapter: postgresql
   encoding: unicode
   database: cps_schools_development	
   pool: 5
-  username: amarie
+  user: 
   password: 
   timeout: 5000
 
