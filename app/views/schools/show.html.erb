@@ -1,90 +1,15 @@
 <!-- Javascript -->
 
-<!-- Enrollment -->
 <script>
 $(function () {
-    var enrollment_chart;
+	
+	var enrollment_chart, race_chart, isat_chart;
     $(document).ready(function() {
-        enrollment_chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'chart-enrollment',
-                type: 'line',
-                marginRight: 1,
-                marginBottom: 25
-            },
-            title: {
-                text: '',
-                x: -20 //center
-            },
-            subtitle: {
-                text: '',
-                x: -20
-            }, 
-            xAxis: {
-                categories: <%= raw @school.enrollments.map{|enrollment| enrollment.year_to.to_s} %>
-
-            },
-            yAxis: {
-                title: {
-                    text: '20th Day Enrollment'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-            tooltip: {
-                formatter: function() {
-                        return '<b>'+ this.series.name +'</b><br/>'+
-                        this.x +': '+ this.y;
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -10,
-                y: 100,
-                borderWidth: 0
-            },
-            series: [{
-                name: '20th Day Enrollment',
-                data: <%= raw @school.enrollments.map{|enrollment| enrollment.count.to_i} %>
-            }]
-        });
-    });
     
-});
-</script>
-<!--Enrollment -->
-
-<!-- Javascript -->
-
-
-<!-- Content -->
-<div id="content">
-    <div id="intro">
-        <h1><%= link_to 'Home', root_url %> &raquo; <%= @school.short_name %></h1>
-        <p>[FULL NAME]<%= @school.full_name %> &bull; [PHONE NUMBER] &bull; <%= @school.community_area %> &bull; <%= @school.street_address %>, Chicago, Illinois</p>
-        <div class="clear"></div>
-    </div>
-    
-    <div id="profile-primary">
-        <h2>Closest schools if this school is closed</h2>
-        <p>If CPS closes <%= @school.short_name %>, students may be assigned to the schools below. <a href="#">More&hellip;</a></p>
-        
-        <div id="map"></div>
-    </div>
-    
-    <div id="profile-secondary">
-    	<script>
-		$(function () {
-		    var chart;
-		    $(document).ready(function() {
-		        chart = new Highcharts.Chart({
+    	//RACE CHART
+    	race_chart = new Highcharts.Chart({
 	            chart: {
-	                renderTo: 'demo-chart',
+	                renderTo: 'race-chart',
 	                type: 'bar'
 	            },
 	            title: {
@@ -139,17 +64,141 @@ $(function () {
 	            series: [{
 	                data: <%= raw @school.races.map{ |r| r.percent} %>
 	            }]
-	            });
-			});
-			
-		    
-		});
-		</script>
-    	<div id="demo-chart"></div>
-        <p><a class="action" href="#comparison">Jump to evaluation data</a></p>
+	    });
+    
+    	//ENROLLMENT CHART
+        enrollment_chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'chart-enrollment',
+                type: 'line',
+                marginRight: 1,
+                marginBottom: 25
+            },
+            title: {
+                text: '',
+                x: -20 //center
+            },
+            subtitle: {
+                text: '',
+                x: -20
+            }, 
+            xAxis: {
+                categories: <%= raw @school.enrollments.map{|enrollment| enrollment.year_to.to_s} %>
+
+            },
+            yAxis: {
+                title: {
+                    text: '20th Day Enrollment'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        this.x +': '+ this.y;
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -10,
+                y: 100,
+                borderWidth: 0
+            },
+            series: [{
+                name: '20th Day Enrollment',
+                data: <%= raw @school.enrollments.map{|enrollment| enrollment.count.to_i} %>
+            }]
+        });
+        
+        //ISAT CHART
+        isat_chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'chart-isat',
+                type: 'line',
+                marginRight: 1,
+                marginBottom: 25
+            },
+            title: {
+                text: '',
+                x: -20 //center
+            },
+            subtitle: {
+                text: '',
+                x: -20
+            }, 
+            xAxis: {
+                categories: <%= raw @school.isat_scores.map{|i| i.year_to}.inspect %>
+
+            },
+            yAxis: {
+                title: {
+                    text: '% of students that meet or exceed state standards'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        this.x +': '+ this.y;
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -10,
+                y: 100,
+                borderWidth: 0
+            },
+            series: [{
+                name: 'Reading',
+                data: <%= raw @school.isat_scores.where("subject = 'Reading'").map{|s| s.percent} %>
+            }, {
+             name: 'Math',
+                data: <%= raw @school.isat_scores.where("subject = 'Math'").map{|s| s.percent} %>
+            }, {
+             name: 'Science',
+                data: <%= raw @school.isat_scores.where("subject = 'Science'").map{|s| if(s.percent.nil?) then 0 else s.percent end} %>
+
+            }]
+        });
+    });
+    
+});
+</script>
+<!-- Javascript -->
+
+
+<!-- Content -->
+<div id="content">
+    <div id="intro">
+        <h1><%= link_to 'Home', root_url %> &raquo; <%= @school.short_name %></h1>
+        <p><%= @school.full_name %> &bull; [PHONE NUMBER] &bull; <%= @school.community_area %> &bull; <%= @school.street_address %>, Chicago, Illinois</p>
+        <div class="clear"></div>
+    </div>
+    
+    <div id="profile-primary">
+        <h2>Closest schools if this school is closed</h2>
+        <p>If CPS closes <%= @school.short_name %>, students may be assigned to the schools below. <a href="#">More&hellip;</a></p>
+        
+        <div id="map"></div>
+    </div>
+    
+    <div id="profile-secondary">
+    	<p><a class="action" href="#comparison">Jump to evaluation data</a></p>
         
         <h2>Demographics</h2>
-        
+        <div id="race-chart"></div>
         <p><a href="http://www.cps.edu/Schools/Pages/school.aspx?id=<%= @school.cps_id %>">View more demographics at CPS.edu</a> &raquo;</p>
     </div>
     
@@ -179,9 +228,7 @@ $(function () {
                 <h4>Does student performance improve over time?</h4>
                 <p>ISAT cohort trends. Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
                 
-                <div id="chart-isat">
-                
-                </div>
+                <div id="chart-isat"></div>
                 
                 <p class="mute">Source: <a href="#">IIRC Source</a></p>
             </div>
