@@ -14,6 +14,73 @@
     </div>
     
     <div id="profile-secondary">
+    	<script>
+		$(function () {
+		    var chart;
+		    $(document).ready(function() {
+		        chart = new Highcharts.Chart({
+	            chart: {
+	                renderTo: 'demo-chart',
+	                type: 'bar'
+	            },
+	            title: {
+	                text: 'Population by Ethnicity 2012'
+	            },
+	            subtitle: {
+	                text: 'Source: CPS'
+	            },
+	            xAxis: {
+	                categories: <%= raw @school.races.map{ |r| r.ethnicity }.inspect %>,
+	                title: {
+	                    text: null
+	                }
+	            },
+	            yAxis: {
+	                min: 0,
+	                title: {
+	                    text: 'Population(%)',
+	                    align: 'high'
+	                },
+	                labels: {
+	                    overflow: 'justify'
+	                }
+	            },
+	            tooltip: {
+	                formatter: function() {
+	                    return ''+
+	                        this.series.name +': '+ this.y +' percent';
+	                }
+	            },
+	            plotOptions: {
+	                bar: {
+	                    dataLabels: {
+	                        enabled: true
+	                    }
+	                }
+	            },
+	            legend: {
+	                layout: 'vertical',
+	                align: 'right',
+	                verticalAlign: 'top',
+	                x: -100,
+	                y: 100,
+	                floating: true,
+	                borderWidth: 1,
+	                backgroundColor: '#FFFFFF',
+	                shadow: true
+	            },
+	            credits: {
+	                enabled: false
+	            },
+	            series: [{
+	                data: <%= raw @school.races.map{ |r| r.percent} %>
+	            }]
+	            });
+			});
+		    
+		});
+		</script>
+    	<div id="demo-chart"></div>
         <p><a class="action" href="#comparison">Jump to evaluation data</a></p>
         
         <h2>Demographics</h2>
