@@ -11,15 +11,6 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130306030858) do
-
-  create_table "isat_scores", :force => true do |t|
-    t.integer  "school_id"
-    t.integer  "year_from"
-    t.integer  "year_to"
-    t.string   "subject"
-    t.float    "percent"
-
 ActiveRecord::Schema.define(:version => 20130306030901) do
 
   create_table "enrollments", :force => true do |t|
@@ -27,6 +18,16 @@ ActiveRecord::Schema.define(:version => 20130306030901) do
     t.integer  "year_from"
     t.integer  "year_to"
     t.integer  "count"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "isat_scores", :force => true do |t|
+    t.integer  "school_id"
+    t.integer  "year_from"
+    t.integer  "year_to"
+    t.string   "subject"
+    t.float    "percent"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
