@@ -1,3 +1,53 @@
+<!-- Javascript -->
+<!-- Mobility -->
+<script>
+$(function () {
+    var mobility_chart;
+    $(document).ready(function() {
+        mobility_chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'chart-mobility',
+                type: 'line',
+                
+                marginBottom: 25
+            },
+            title: {
+                text: '',
+                x: -20 //center
+            },
+            subtitle: {
+                text: '',
+           
+            },
+            xAxis: {
+                categories: <%= raw @school.mobilities.map{ |mobility| mobility.year_to.to_s} %>
+            },
+            yAxis: {
+                title: {
+                    text: 'Rate'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1
+                }]
+            },
+            tooltip: {
+                formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        this.x +': '+ this.y;
+                }
+            },
+            series: [{
+                name: '',
+                data: <%= raw @school.mobilities.map{|mobility| mobility.rate}.inspect %>
+            }]
+        });
+    });
+});
+</script>
+<!-- Mobility -->
+<!-- End Javascript -->
+
 <!-- Content -->
 <div id="content">
     <div id="intro">
@@ -123,6 +173,7 @@
             <div class="dataset">
                 <h4>How stable has the school been?</h4>
                 <p>Probation staus + mobility + enrollment trends. Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
+                <div id="chart-mobility"></div>
                 <p class="mute">Source: <a href="http://cps.edu/SchoolData/Pages/SchoolData.aspx">Chicago Public Schools Performance Data</a></p>
             </div>
             <div class="dataset">

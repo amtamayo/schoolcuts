@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  school_id: 1
+  year_from: 1
+  year_to: 1
+  rate: 1.5
+
+two:
+  school_id: 1
+  year_from: 1
+  year_to: 1
+  rate: 1.5

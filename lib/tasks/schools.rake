@@ -60,6 +60,36 @@ namespace :cps do
 		
 	end
 	
+	desc "import mobility rates"
+	task :import_mobility_rates => :environment do
+		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
+		
+		Mobility.delete_all()
+		
+		list = CSV.read(inputfile, :headers => true)
+		list.each { |row|
+			school = School.find_by_cps_id(row[0].to_i)
+			if(!school.nil?)
+				puts "Mobility for 1999-2000 #{row[0].to_s} #{row[65].to_s}"
+				Mobility.create(:school_id=>school.id, :year_from=>1999, :year_to=>2000, :rate=>row[65].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2000, :year_to=>2001, :rate=>row[66].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2001, :year_to=>2002, :rate=>row[67].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2002, :year_to=>2003, :rate=>row[68].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2003, :year_to=>2004, :rate=>row[69].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2004, :year_to=>2005, :rate=>row[70].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2005, :year_to=>2006, :rate=>row[71].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2006, :year_to=>2007, :rate=>row[72].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2007, :year_to=>2008, :rate=>row[73].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2008, :year_to=>2009, :rate=>row[74].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2009, :year_to=>2010, :rate=>row[75].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2010, :year_to=>2011, :rate=>row[76].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2011, :year_to=>2012, :rate=>row[77].to_f)
+			else
+				puts "School #{row[1].to_s} not found"
+			end
+		}
+	end
+	
 	desc "Show column names"
 		task :list_import_column_names => :environment do
 		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"

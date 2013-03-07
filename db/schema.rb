@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130305033247) do
+ActiveRecord::Schema.define(:version => 20130306030839) do
+
+  create_table "mobilities", :force => true do |t|
+    t.integer  "school_id"
+    t.integer  "year_from"
+    t.integer  "year_to"
+    t.float    "rate"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "races", :force => true do |t|
     t.integer  "school_id"
