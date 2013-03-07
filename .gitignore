@@ -13,3 +13,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore database config file
+Gemfile
+Gemfile.lock
+database.yml

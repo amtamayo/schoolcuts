@@ -3,4 +3,6 @@ class School < ActiveRecord::Base
   
   has_many :races
   has_many :mobilities
+  has_many :isat_scores
+  has_many :enrollments
 end
