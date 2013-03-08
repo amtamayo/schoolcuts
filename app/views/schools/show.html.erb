@@ -469,91 +469,13 @@ $(function () {
                 <p>Schools that score under a point threshold for Performance Policy calculations are placed on academic probation, which then trigger various interventions from the District to try and improve performance. More...</p>
                 
                 <ol class="probation">
-	                <li class=<%= @school.probations.where("year_from=1996").first.status%>>
-	                	<span class="status"><%= @school.probations.where("year_from=1996").first.status%></span> 
-	                	<span class="from">&lsquo;96</span>
-	                	<span class="to">&lsquo;97</span>
-	                </li>
-	                <li class=<%= @school.probations.where("year_from=1997").first.status%>>
-	                	<span class="status"><%= @school.probations.where("year_from=1997").first.status%></span> 
-	                	<span class="from">&lsquo;97</span>
-	                	<span class="to">&lsquo;98</span>
-	                </li>
-	                <li class=<%= @school.probations.where("year_from=1998").first.status%>>
-	                	<span class="status"><%= @school.probations.where("year_from=1998").first.status%></span> 
-	                	<span class="from">&lsquo;98</span>
-	                	<span class="to">&lsquo;99</span>
-	                </li>
-	                <li class=<%= @school.probations.where("year_from=1999").first.status%>>
-	                	<span class="status"><%= @school.probations.where("year_from=1999").first.status%></span> 
-	                	<span class="from">&lsquo;99</span>
-	                	<span class="to">&lsquo;00</span>
-	                </li>
-	                <li class=<%= @school.probations.where("year_from=2000").first.status%>>
-	                	<span class="status"><%= @school.probations.where("year_from=2000").first.status%></span> 
-	                	<span class="from">&lsquo;00</span>
-	                	<span class="to">&lsquo;01</span>
-	                </li>
-	                <li class=<%= @school.probations.where("year_from=2001").first.status%>>
-	                	<span class="status"><%= @school.probations.where("year_from=2001").first.status%></span> 
-	                	<span class="from">&lsquo;01</span>
-	                	<span class="to">&lsquo;02</span>
-	                </li>
-	                <li class=<%= @school.probations.where("year_from=2002").first.status%>>
-	                	<span class="status"><%= @school.probations.where("year_from=2002").first.status%></span> 
-	                	<span class="from">&lsquo;02</span>
-	                	<span class="to">&lsquo;03</span>
-	                </li>
-	                <li class=<%= @school.probations.where("year_from=2003").first.status%>>
-	                	<span class="status"><%= @school.probations.where("year_from=2003").first.status%></span> 
-	                	<span class="from">&lsquo;03</span>
-	                	<span class="to">&lsquo;04</span>
-	                </li>
-	                <li class=<%= @school.probations.where("year_from=2004").first.status%>>
-	                	<span class="status"><%= @school.probations.where("year_from=2004").first.status%></span> 
-	                	<span class="from">&lsquo;04</span>
-	                	<span class="to">&lsquo;05</span>
-	                </li>
-	                <li class=<%= @school.probations.where("year_from=2005").first.status%>>
-	                	<span class="status"><%= @school.probations.where("year_from=2005").first.status%></span> 
-	                	<span class="from">&lsquo;05</span>
-	                	<span class="to">&lsquo;06</span>
-	                </li>
-	                <li class=<%= @school.probations.where("year_from=2006").first.status%>>
-	                	<span class="status"><%= @school.probations.where("year_from=2006").first.status%></span> 
-	                	<span class="from">&lsquo;06</span>
-	                	<span class="to">&lsquo;07</span>
-	                </li>
-	                <li class=<%= @school.probations.where("year_from=2007").first.status%>>
-	                	<span class="status"><%= @school.probations.where("year_from=2007").first.status%></span> 
-	                	<span class="from">&lsquo;07</span>
-	                	<span class="to">&lsquo;08</span>
-	                </li>
-	                <li class=<%= @school.probations.where("year_from=2008").first.status%>>
-	                	<span class="status"><%= @school.probations.where("year_from=2008").first.status%></span> 
-	                	<span class="from">&lsquo;08</span>
-	                	<span class="to">&lsquo;09</span>
-	                </li>
-	                <li class=<%= @school.probations.where("year_from=2009").first.status%>>
-	                	<span class="status"><%= @school.probations.where("year_from=2009").first.status%></span> 
-	                	<span class="from">&lsquo;09</span>
-	                	<span class="to">&lsquo;10</span>
-	                </li>
-	                <li class=<%= @school.probations.where("year_from=2010").first.status%>>
-	                	<span class="status"><%= @school.probations.where("year_from=2010").first.status%></span> 
-	                	<span class="from">&lsquo;10</span>
-	                	<span class="to">&lsquo;11</span>
-	                </li>
-	                <li class=<%= @school.probations.where("year_from=2011").first.status%>>
-	                	<span class="status"><%= @school.probations.where("year_from=2011").first.status%></span> 
-	                	<span class="from">&lsquo;11</span>
-	                	<span class="to">&lsquo;12</span>
-	                </li>
-	                <li class=<%= @school.probations.where("year_from=2012").first.status%>>
-	                	<span class="status"><%= @school.probations.where("year_from=2012").first.status%></span> 
-	                	<span class="from">&lsquo;12</span>
-	                	<span class="to">&lsquo;13</span>
-	                </li>
+                  <% @school.probations.each{| p | %>
+	              			<li class=<%= p.status%>>
+		            	 	<span class="status"><%= p.status%></span>
+		            	 	<span class="from"><%= p.year_from.to_s %></span>
+		            	 	<span class="to"><%= p.year_to.to_s %></span>
+	            	 	</li>
+	            	<% } %>                
 	           	</ol>
                 
                 <p>Mobility rate trend</p>
