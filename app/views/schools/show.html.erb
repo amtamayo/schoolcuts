@@ -320,7 +320,10 @@ $(function () {
 <div id="content">
     <div id="intro">
         <h1><%= link_to 'Home', root_url %> &raquo; <%= @school.short_name %></h1>
-        <p><%= @school.full_name %> &bull; <%= @school.phone %> &bull; <%= @school.community_area %> &bull; <%= @school.street_address %>, Chicago, Illinois <%= @school.zip%></p>
+        <p>
+        	<%= @school.full_name %> &bull; <%= @school.phone %> &bull; <%= @school.community_area.split(' ').map {|w| w.capitalize }.join(' ') %> &bull; 
+        	<%= @school.street_address %>, Chicago, Illinois <%= @school.zip%>
+        </p>
         <div class="clear"></div>
     </div>
     
@@ -350,23 +353,8 @@ $(function () {
             <h3>Why is this school on the closing list?</h3>
             
             <div class="dataset">
-                <h4>CPS Performance level</h4>
-                <p>Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
-                
-                <div class="levels">
-	                <ol>
-	                	<li class=<%= if(@school.level=="Level 1") then @school.level.downcase.tr(' ','') end %>><strong>Level</strong><span>1</span></li>
-	                	<li class=<%= if(@school.level=="Level 2") then @school.level.downcase.tr(' ','') end %>><strong>Level</strong><span>2</span></li>
-	                	<li class=<%= if(@school.level=="Level 3") then @school.level.downcase.tr(' ','') end %>><strong>Level</strong><span>3</span></li>
-	                </ol>
-	                <p class="mute">Level 1 is best</p>
-                </div>
-                
-                <p class="mute">Source: <a href="http://www.cps.edu/Schools/Pages/school.aspx?id=<%= @school.cps_id %>">Chicago Public Schools School Profile</a></p>
-            </div>
-            <div class="dataset">
                 <h4>CPS Utilization rate</h4>
-                <p>Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
+                <p>This measure compares the numbers of students attending a school to the amount of students that CPS believes that school can accommodate, based on the number of eligible homerooms and an average of contractually-maximum homeroom limits. More...</p>
                 
                 <p><%= @school.utilizations.first.homerooms.to_f %> Homerooms</p>
                 <p><%= @school.utilizations.first.other_rooms.to_f %> Other classrooms</p>
@@ -381,13 +369,29 @@ $(function () {
                 
                 <p class="mute">Source: <a href="http://cps.edu/About_CPS/Policies_and_guidelines/Pages/qualityschools.aspx">CPS Space Utilization and Enrollment Data for School Year 2012-2013</a></p>
             </div>
+            
+            <div class="dataset">
+                <h4>CPS Performance level</h4>
+                <p>The Performance Level is the CPS indicator of school quality based on a formula that considers ISAT test scores and attendance rates. Level 1 is indicates a school that has the highest scores on this metric, and Level 3 is the lowest. More...</p>
+                
+                <div class="levels">
+	                <ol>
+	                	<li class=<%= if(@school.level=="Level 1") then @school.level.downcase.tr(' ','') end %>><strong>Level</strong><span>1</span></li>
+	                	<li class=<%= if(@school.level=="Level 2") then @school.level.downcase.tr(' ','') end %>><strong>Level</strong><span>2</span></li>
+	                	<li class=<%= if(@school.level=="Level 3") then @school.level.downcase.tr(' ','') end %>><strong>Level</strong><span>3</span></li>
+	                </ol>
+	                <p class="mute">Level 1 is best</p>
+                </div>
+                
+                <p class="mute">Source: <a href="http://www.cps.edu/Schools/Pages/school.aspx?id=<%= @school.cps_id %>">Chicago Public Schools School Profile</a></p>
+            </div>
         </div>
         <div class="c2r">
             <h3>What do we know about this school?</h3>
                        
             <div class="dataset">
                 <h4>Does student performance improve over time?</h4>
-                <p>ISAT cohort trends. Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
+                <p>The ISAT cohort trend focuses on a single class of students, and follows their progress in Math, Reading and Science from 3rd grade through 8th grade. Cohort trends can reveal if students begin at a testing disadvantage and improve over time, whereas composite score trends are negatively skewed by lower initial scores.</p>
                 
                 <div id="chart-isat"></div>
                 
@@ -395,7 +399,7 @@ $(function () {
             </div>
             <div class="dataset">
                 <h4>Is this school organized for improvement?</h4>
-                <p>UChicago's 5Essentials. Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
+                <p>The University of Chicago identifies 5 Essential elements common to successful schools. Schools that have better scores for the majority of these elements are thought to be better set up for success. More...</p>
                 
                 <div class="essentials-charts">
                 	<div class="c2l">
@@ -452,13 +456,17 @@ $(function () {
 						</div>
 		                <!-- /2012 Essentials -->
 					</div>
+					<p> Need legend. </p>
                 </div>
                 
                 <p class="clear mute">Source: <a href="https://cps.5-essentials.org/2012/s/<%= @school.cps_id.to_s %>">5Essentials</a></p>
             </div>
             <div class="dataset">
                 <h4>How stable has the school been?</h4>
-                <p>Probation staus + mobility + enrollment trends. Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
+                <p>Need explanation.</p>
+                
+                <p>Probation status trend</p>
+                <p>Schools that score under a point threshold for Performance Policy calculations are placed on academic probation, which then trigger various interventions from the District to try and improve performance. More...</p>
                 
                 <ol class="probation">
 	                <li class=<%= @school.probations.where("year_from=1996").first.status%>>
@@ -548,16 +556,14 @@ $(function () {
 	                </li>
 	           	</ol>
                 
+                <p>Mobility rate trend</p>
+                <p>Mobility rates measure the percentage of students moving into or out of a school at times other than the beginning or end of a school year.  Some of these students might move to other schools within the district, while others may be moving in or out of the District. More...</p>
                 <div id="chart-mobility"></div>
 
+                <p>Enrollment trend explanation. More...</p>
                 <div id="chart-enrollment"></div>
                 
                 <p class="mute">Source: <a href="http://cps.edu/SchoolData/Pages/SchoolData.aspx">Chicago Public Schools Performance Data</a></p>
-            </div>
-            <div class="dataset">
-                <h4>Is this school really underutilized?</h4>
-                <p>CPS vs Apples to Apples. Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
-                <p class="mute">Source: <a href="http://cpsutilization.kalov.net/alt">Apples 2 Apples Alternative 2012-2013 School Utilization </a></p>
             </div>
         </div>
         

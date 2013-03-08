@@ -1,24 +1,18 @@
 <!-- Content -->
 <div id="content">
     <div id="intro">
-        <h1>Is CPS looking at the right data for closing schools?</h1>
-        <p>Optati sit vel maionecepe nihit, et, eriatur, apeliqui demolupta voluptaquam as dem nonesseque sit lam autem est volor molecatur?Nos pratiore labo. Ut magnatur, nonsequae cus se enda prem. Ressinvent, volum asimporum assint dolupta tecaborum met natiatem doloria nis.</p>
+        <h1>43,360 students await school closings decision</h1>
+        <p>In limiting the examination of potential school closings to a standard utilization formula and a high-level performance metric, CPS risks making decisions that could damage the long-term educational outcomes of students from specific neighborhoods, the stability of neighborhoods, and the trust/engagement of parents across the District. We’ve assembled this data hoping to provide a clearer pictures of these schools, and offer some insight into choices parents will have to make if/when their neighborhood school is closed.</p>
         
-        <div class="c3l">
+        <div class="c2l">
             <p>
-                <strong>Performance level</strong>
+                <strong>43,630 students</strong>
                 <br />Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi
             </p>
         </div>
-        <div class="c3m">
+        <div class="c2r">
             <p>
-                <strong>ISAT composite score</strong>
-                <br />Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi
-            </p>
-        </div>
-        <div class="c3r">
-            <p>
-                <strong>Utilization rate</strong>
+                <strong>5,964 students with special needs</strong>
                 <br />Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi
             </p>
         </div>
@@ -37,18 +31,18 @@
             	 	<% num_schools = @schools.size  %>
             	 	<% num_column_schools = num_schools / num_columns  %>
             	 	<% i = 0 %>
-            	 	<% for i in 0..(num_column_schools * 1) %>
+            	 	<% for i in 0..(num_column_schools * 1 - 1) %>
 	            	 	<li><a href="schools/<%= @schools[i].id %>"><%= @schools[i].short_name %></a></li>
 	            	<% end %>
-	            	<% i = num_column_schools * 1 + 1 %>
+	            	<% i = num_column_schools * 1 %>
                 </ol>
             </div>
             <div class="c3m">
             	 <ol>
-	            	<% for i in i..num_column_schools * 2 %>
+	            	<% for i in i..(num_column_schools * 2 - 1) %>
 	            	 	<li><a href="schools/<%= @schools[i].id %>"><%= @schools[i].short_name %></a></li>
 	            	<% end %>
-	            	<% i = num_column_schools * 2 + 1 %>
+	            	<% i = num_column_schools * 2 %>
                 </ol>
             </div>
             <div class="c3r">
@@ -64,34 +58,34 @@
     <div class="c2r">
         <h2>A clearer picture with more data</h2>
         
-        <p>In addition to performance levels, ISAT composite scores, and utilization rates, CPS could use the following datasets to gain a much clearer picture about each school.</p>
+        <p>In addition to performance levels, and utilization rates, CPS could use the following datasets to gain a much clearer picture about each school.</p>
         
         <dl class="examples">
-            <dt><img alt="" src="http://dummyimage.com/138" /> 5Essentials trends</dt>
+            <dt><img alt="" src="http://dummyimage.com/138" /> ISAT score trends by cohort</dt>
             <dd>
-                <p>Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore. Ut elloressi issenditio tem met raepuda.</p>
+                <p>The ISAT cohort trend focuses on a single class of students, and follows their progress in Math, Reading and Science from 3rd grade through 8th grade.</p>
                 <p class="mute">Left: <a href="#">Ira F Aldridge Elementary School</a></p>
             </dd>
             
             <dt><img alt="" src="http://dummyimage.com/138" /> 5Essentials trends</dt>
             <dd>
-                <p>Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore. Ut elloressi issenditio tem met raepuda.</p>
+                <p>The University of Chicago identifies 5 Essential elements common to successful schools. Schools that have better scores for the majority of these elements are thought to be better set up for success.</p>
                 <p class="mute">Left: <a href="#">Ira F Aldridge Elementary School</a></p>
             </dd>
             
-            <dt><img alt="" src="http://dummyimage.com/138" /> 5Essentials trends</dt>
+            <dt><img alt="" src="http://dummyimage.com/138" /> Probation status trends</dt>
             <dd>
-                <p>Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore. Ut elloressi issenditio tem met raepuda.</p>
+                <p>Schools that score under a point threshold for Performance Policy calculations are placed on academic probation, which then trigger various interventions from the District to try and improve performance.</p>
                 <p class="mute">Left: <a href="#">Ira F Aldridge Elementary School</a></p>
             </dd>
             
-            <dt><img alt="" src="http://dummyimage.com/138" /> 5Essentials trends</dt>
+            <dt><img alt="" src="http://dummyimage.com/138" /> Mobility rate trends</dt>
             <dd>
-                <p>Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore. Ut elloressi issenditio tem met raepuda.</p>
+                <p>Mobility rates measure the percentage of students moving into or out of a school at times other than the beginning or end of a school year.  Some of these students might move to other schools within the district, while others may be moving in or out of the District.</p>
                 <p class="mute">Left: <a href="#">Ira F Aldridge Elementary School</a></p>
             </dd>
             
-            <dt><img alt="" src="http://dummyimage.com/138" /> 5Essentials trends</dt>
+            <dt><img alt="" src="http://dummyimage.com/138" /> Enrollment trends</dt>
             <dd>
                 <p>Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore. Ut elloressi issenditio tem met raepuda.</p>
                 <p class="mute">Left: <a href="#">Ira F Aldridge Elementary School</a></p>
