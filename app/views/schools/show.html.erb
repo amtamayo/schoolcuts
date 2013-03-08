@@ -236,7 +236,8 @@ $(function () {
     function initialize() {
       map = new google.maps.Map(document.getElementById('map'), {
         center: new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>),
-        zoom: 13
+        zoom: 13,
+        scrollwheel: false
       });
       var style = [
         {
@@ -309,8 +310,7 @@ $(function () {
         styleId: 2,
         templateId: 2,
       });
-
-    
+      
     }
     google.maps.event.addDomListener(window, 'load', initialize);
   </script>
