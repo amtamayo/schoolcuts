@@ -12,26 +12,32 @@ namespace :cps do
 			school = School.find_by_cps_id(row[0].to_i)
 			if school.nil?
 				School.create(
-					:access_type => row[9].to_s,
-					:community_area => row[5].to_s,
+					:access_type => row[10].to_s,
+					:community_area => row[6].to_s,
 					:cps_id => row[0].to_i,
 					:full_name => row[2].to_s,
-					:latitude => row[6].to_f,
-					:longitude => row[7].to_f,
-					:school_type => row[8].to_s,
+					:latitude => row[7].to_f,
+					:level => row[11].to_s,
+					:longitude => row[8].to_f,
+					:phone => row[3].to_s,
+					:school_type => row[9].to_s,
 					:short_name => row[1].to_s,
-					:street_address => row[4].to_s
+					:street_address => row[4].to_s,
+					:zip => row[5].to_i
 				)
 			else
-				school.access_type = row[9].to_s
-				school.community_area = row[5].to_s
+				school.access_type = row[10].to_s
+				school.community_area = row[6].to_s
 				school.cps_id = row[0].to_i
 				school.full_name = row[2].to_s
-				school.latitude = row[6].to_f
-				school.longitude = row[7].to_f
+				school.latitude = row[7].to_f
+				school.level = row[11].to_s
+				school.longitude = row[8].to_f
+				school.phone = row[3].to_s
 				school.school_type = row[8].to_s
 				school.short_name = row[1].to_s
 				school.street_address = row[4].to_s
+				school.zip = row[5].to_i
 			end
 		}
 	end
@@ -45,14 +51,14 @@ namespace :cps do
 			school = School.find_by_cps_id(row[0].to_i)
 			if (!school.nil?)
 				puts "Importing race demographic for #{row[1].to_s}"
-				Race.create(:school_id=>school.id, :ethnicity=>'Asian', :percent=>row[11].to_f)
-				Race.create(:school_id=>school.id, :ethnicity=>'Black', :percent=>row[12].to_f)
-				Race.create(:school_id=>school.id, :ethnicity=>'Hispanic', :percent=>row[13].to_f)
-				Race.create(:school_id=>school.id, :ethnicity=>'Multi-racial', :percent=>row[14].to_f)
-				Race.create(:school_id=>school.id, :ethnicity=>'Native American', :percent=>row[15].to_f)
-				Race.create(:school_id=>school.id, :ethnicity=>'Not Available', :percent=>row[16].to_f)
-				Race.create(:school_id=>school.id, :ethnicity=>'Hawaiian Pacific', :percent=>row[17].to_f)
-				Race.create(:school_id=>school.id, :ethnicity=>'White', :percent=>row[18].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Asian', :percent=>row[12].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Black', :percent=>row[13].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Hispanic', :percent=>row[14].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Multi-racial', :percent=>row[15].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Native American', :percent=>row[16].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Not Available', :percent=>row[17].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Hawaiian Pacific', :percent=>row[18].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'White', :percent=>row[19].to_f)
 			else
 				puts "School #{row[1].to_s} not found"
 			end
@@ -71,25 +77,25 @@ namespace :cps do
 			school = School.find_by_cps_id(row[0].to_i)
 			if (!school.nil?)
 				puts "Importing ISAT scores for #{row[1].to_s}"
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2006, :year_to=>2007, :percent=>row[88].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2007, :year_to=>2008, :percent=>row[89].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2008, :year_to=>2009, :percent=>row[90].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2009, :year_to=>2010, :percent=>row[91].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2010, :year_to=>2011, :percent=>row[92].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2011, :year_to=>2012, :percent=>row[93].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2006, :year_to=>2007, :percent=>row[89].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2007, :year_to=>2008, :percent=>row[90].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2008, :year_to=>2009, :percent=>row[91].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2009, :year_to=>2010, :percent=>row[92].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2010, :year_to=>2011, :percent=>row[93].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2011, :year_to=>2012, :percent=>row[94].to_f)
 				
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2006, :year_to=>2007, :percent=>row[100].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2007, :year_to=>2008, :percent=>row[101].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2008, :year_to=>2009, :percent=>row[102].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2009, :year_to=>2010, :percent=>row[103].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2010, :year_to=>2011, :percent=>row[104].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2011, :year_to=>2012, :percent=>row[105].to_f)
-				
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2006, :year_to=>2007, :percent=>row[101].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2007, :year_to=>2008, :percent=>row[102].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2008, :year_to=>2009, :percent=>row[103].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2009, :year_to=>2010, :percent=>row[104].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2010, :year_to=>2011, :percent=>row[105].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2011, :year_to=>2012, :percent=>row[106].to_f)
+		
 				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2006, :year_to=>2007, :percent=>nil)
-				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2007, :year_to=>2008, :percent=>row[112].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2007, :year_to=>2008, :percent=>row[113].to_f)
 				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2008, :year_to=>2009, :percent=>nil)
 				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2009, :year_to=>2010, :percent=>nil)
-				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2010, :year_to=>2011, :percent=>row[113].to_f)				
+				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2010, :year_to=>2011, :percent=>row[114].to_f)				
 				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2011, :year_to=>2012, :percent=>nil)
 			else
 				puts "School #{row[1].to_s} not found"
@@ -108,27 +114,86 @@ namespace :cps do
         	school = School.find_by_cps_id(row[0].to_i)
         	if (!school.nil?)
         	    puts "Enrollment for #{row[0].to_s} #{row[1].to_s}"
-        	    Enrollment.create(:school_id=>school.id, :year_from=>1999, :year_to=>2000, :count=>row[31].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2000, :year_to=>2001, :count=>row[32].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2001, :year_to=>2002, :count=>row[33].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2002, :year_to=>2003, :count=>row[34].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2003, :year_to=>2004, :count=>row[35].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2004, :year_to=>2005, :count=>row[36].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2005, :year_to=>2006, :count=>row[37].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2006, :year_to=>2007, :count=>row[38].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2007, :year_to=>2008, :count=>row[39].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2008, :year_to=>2009, :count=>row[40].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2009, :year_to=>2010, :count=>row[41].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2010, :year_to=>2011, :count=>row[42].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2011, :year_to=>2012, :count=>row[43].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2012, :year_to=>2013, :count=>row[44].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>1999, :year_to=>2000, :count=>row[32].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2000, :year_to=>2001, :count=>row[33].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2001, :year_to=>2002, :count=>row[34].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2002, :year_to=>2003, :count=>row[35].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2003, :year_to=>2004, :count=>row[36].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2004, :year_to=>2005, :count=>row[37].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2005, :year_to=>2006, :count=>row[38].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2006, :year_to=>2007, :count=>row[39].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2007, :year_to=>2008, :count=>row[40].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2008, :year_to=>2009, :count=>row[41].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2009, :year_to=>2010, :count=>row[42].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2010, :year_to=>2011, :count=>row[43].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2011, :year_to=>2012, :count=>row[44].to_i)
+        	    Enrollment.create(:school_id=>school.id, :year_from=>2012, :year_to=>2013, :count=>row[45].to_i)
         	else
         	 	puts "School #{row[1].to_s} not found"
             end
         }
     end
 
+    desc "import essential"
+    task :import_essential => :environment do
+    	inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
+    	
+    	Essential.delete_all()
+    	
+    	list = CSV.read(inputfile, :headers => true)
+    	list.each {|row|
+    		school = School.find_by_cps_id(row[0].to_i)
+    		if(!school.nil?)
+    			puts "Essential for #{row[0].to_s} #{row[1].to_s}"
+    			Essential.create(:school_id=>school.id, :category=>'instruction', :year_from=>2010, :year_to=>2011 , :rating=>row[127].to_s)
+    			Essential.create(:school_id=>school.id, :category=>'instruction', :year_from=>2011, :year_to=>2012 , :rating=>row[128].to_s)
+    			Essential.create(:school_id=>school.id, :category=>'leaders', :year_from=>2010, :year_to=>2011 , :rating=>row[129].to_s)
+    			Essential.create(:school_id=>school.id, :category=>'leaders', :year_from=>2011, :year_to=>2012 , :rating=>row[130].to_s)
+    			Essential.create(:school_id=>school.id, :category=>'teachers', :year_from=>2010, :year_to=>2011 , :rating=>row[131].to_s)
+    			Essential.create(:school_id=>school.id, :category=>'teachers', :year_from=>2011, :year_to=>2012 , :rating=>row[132].to_s)
+    			Essential.create(:school_id=>school.id, :category=>'families', :year_from=>2010, :year_to=>2011 , :rating=>row[133].to_s)
+    			Essential.create(:school_id=>school.id, :category=>'families', :year_from=>2011, :year_to=>2012 , :rating=>row[134].to_s)
+    			Essential.create(:school_id=>school.id, :category=>'environment', :year_from=>2010, :year_to=>2011 , :rating=>row[135].to_s)
+    			Essential.create(:school_id=>school.id, :category=>'environment', :year_from=>2011, :year_to=>2012 , :rating=>row[136].to_s)
+    		else
+        	 	puts "School #{row[1].to_s} not found"
+            end
+        }
+    end
+    
+    desc "import probation"
+    task :import_probation => :environment do
+        inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
 
+        Probation.delete_all()
+        
+        list = CSV.read(inputfile, :headers => true)
+        list.each { |row|
+        	school = School.find_by_cps_id(row[0].to_i)
+        	if (!school.nil?)
+        	    puts "Probation for #{row[0].to_s} #{row[1].to_s}"
+        	    Probation.create(:school_id=>school.id, :year_from=>1996, :year_to=>1997, :status=>row[74].to_s)
+        	    Probation.create(:school_id=>school.id, :year_from=>1997, :year_to=>1998, :status=>row[73].to_s)
+        	    Probation.create(:school_id=>school.id, :year_from=>1998, :year_to=>1999, :status=>row[72].to_s)
+        	    Probation.create(:school_id=>school.id, :year_from=>1999, :year_to=>2000, :status=>row[71].to_s)
+        	    Probation.create(:school_id=>school.id, :year_from=>2000, :year_to=>2001, :status=>row[70].to_s)
+        	    Probation.create(:school_id=>school.id, :year_from=>2001, :year_to=>2002, :status=>row[69].to_s)
+        	    Probation.create(:school_id=>school.id, :year_from=>2002, :year_to=>2002, :status=>row[68].to_s)
+        	    Probation.create(:school_id=>school.id, :year_from=>2003, :year_to=>2004, :status=>row[67].to_s)
+        	    Probation.create(:school_id=>school.id, :year_from=>2004, :year_to=>2005, :status=>row[66].to_s)
+        	    Probation.create(:school_id=>school.id, :year_from=>2005, :year_to=>2006, :status=>row[65].to_s)
+        	    Probation.create(:school_id=>school.id, :year_from=>2006, :year_to=>2007, :status=>row[64].to_s)
+        	    Probation.create(:school_id=>school.id, :year_from=>2007, :year_to=>2008, :status=>row[63].to_s)
+        	    Probation.create(:school_id=>school.id, :year_from=>2008, :year_to=>2009, :status=>row[62].to_s)
+        	    Probation.create(:school_id=>school.id, :year_from=>2009, :year_to=>2010, :status=>row[61].to_s)
+        	    Probation.create(:school_id=>school.id, :year_from=>2010, :year_to=>2011, :status=>row[60].to_s)
+        	    Probation.create(:school_id=>school.id, :year_from=>2011, :year_to=>2012, :status=>row[59].to_s)
+        	    Probation.create(:school_id=>school.id, :year_from=>2012, :year_to=>2013, :status=>row[58].to_s)
+        	else
+        	 	puts "School #{row[1].to_s} not found"
+            end
+        }
+    end
 
 	desc "Show column names"
 		task :list_import_column_names => :environment do
@@ -161,6 +226,8 @@ namespace :cps do
     	Rake::Task['cps:import_race'].invoke
     	Rake::Task['cps:import_isat_score'].invoke
     	Rake::Task['cps:import_enrollment'].invoke
+    	Rake::Task['cps:import_essential'].invoke
+    	Rake::Task['cps:import_probation'].invoke
     end
 end
 

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  school_id: 1
+  category: MyString
+  rating: MyString
+
+two:
+  school_id: 1
+  category: MyString
+  rating: MyString

@@ -6,14 +6,14 @@
 
 /* Imports
 =====================================================================*/
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic|Lora:400,400italic,700,700italic);
+@import url(http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Open+Sans:400italic,700italic,400,700,800);
 @import "/styles/reset.css";
 
 
 /* Fonts
 ======================================================================*/
 body { font-family: Lora, Georgia, "Times New Roman", Times, serif; }
-.mute { font-family: "Open Sans", Arial, sans-serif; }
+.essentials .title, .levels, .mute, .probation { font-family: "Open Sans", Arial, sans-serif; }
 
 
 /* Basics
@@ -60,6 +60,53 @@ ul { list-style: disc; margin-left: 2em; }
     font-weight: bold;
     padding: 0.3em 1em;
 }
+
+/* Charts */
+#race-chart { height: 275px; }
+
+	/* 5Essentials */
+	.essentials { height: 220px; margin-bottom: 15px; position: relative; }
+	.essentials .category { background: #ddd; border: 8px solid #fff; height: 45%; position: absolute; width: 45%; }
+	.essentials .title { display: block; font-size: 13px; line-height: 1.3; position: absolute; width: 80%; }
+	.essentials-charts h4 { text-align: center; }
+	
+		/* Categories */
+		.essentials .environment { bottom: 0; left: 0; }
+		.essentials .environment .title { bottom: 10px; left: 10px; }
+		.essentials .families { bottom: 0; right: 0; text-align: right; }
+		.essentials .families .title { bottom: 10px; right: 10px; }
+		.essentials .instruction { border-radius: 300px; left: 53px; text-align: center; top: 53px; z-index: 1000; }
+		.essentials .instruction .title { margin: 0 auto; padding-top: 33px; position: static; }
+		.essentials .leaders { left: 0; top: 0; }
+		.essentials .leaders .title { left: 10px; top: 10px }
+		.essentials .teachers { right: 0; text-align: right; top: 0; }
+		.essentials .teachers .title { right: 10px; top: 10px; }
+		
+		/* Colors */
+		.essentials .very-strong { background: #488714; }
+		.essentials .strong { background: #77a161; }
+		.essentials .neutral { background: #ebcc71; }
+		.essentials .weak { background: #cf7e53; }
+		.essentials .very-weak { background: #9e241d; color: #fff; }
+	
+	/* Levels */
+	.levels li { background: #ccc; color: #fff; float: left; margin: 0 3px 5px 0; padding: 7px 10px; }
+	.levels li.level1 { background: #48871; }
+	.levels li.level2 { background: #ebcc71; }
+	.levels li.level3 { background: #9e241d; }
+	.levels .mute { clear: both; text-align: center; }
+	.levels ol { line-height: 1.1; list-style: none; margin: 0 auto; text-align: center; text-transform: uppercase; width: 50%; }
+	.levels span { font-size: 36px; font-weight: 800; }
+	.levels strong { display: block; font-size: 18px; }
+	
+	/* Probation */
+	.probation { font-size: 11px; list-style: none; margin-left: 0; text-align: center; }
+	.probation li { float: left; margin-bottom: 20px; width: 5.7%; }
+	.probation li.no { color: #77a161; }
+	.probation li.yes { color: #9e241d; }
+	.probation span { display: block; }
+	.probation .status { font-size: 12px; font-weight: bold; text-transform: uppercase; }
+		
 
 /* Compare */
 #compare h2, #compare h3 { text-align: center; }

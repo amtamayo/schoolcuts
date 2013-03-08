@@ -9,168 +9,156 @@ $(function () {
     	//RACE CHART
     	race_chart = new Highcharts.Chart({
 	            chart: {
-	                renderTo: 'race-chart',
+	            	renderTo: 'race-chart',
 	                type: 'bar'
 	            },
-	            title: {
-	                text: 'Population by Ethnicity 2012'
-	            },
-	            subtitle: {
-	                text: 'Source: CPS'
-	            },
-	            xAxis: {
-	                categories: <%= raw @school.races.map{ |r| r.ethnicity }.inspect %>,
-	                title: {
-	                    text: null
-	                }
-	            },
-	            yAxis: {
-	                min: 0,
-	                title: {
-	                    text: 'Population(%)',
-	                    align: 'high'
-	                },
-	                labels: {
-	                    overflow: 'justify'
-	                }
-	            },
-	            tooltip: {
-	                formatter: function() {
-	                    return ''+
-	                        this.series.name +': '+ this.y +' percent';
-	                }
-	            },
+	            credits: {enabled: false},
+	            legend: { enabled: false },
 	            plotOptions: {
 	                bar: {
+	                    borderWidth: 0,
 	                    dataLabels: {
 	                        enabled: true
-	                    }
+	                    },
+	                    groupPadding: 0,
+	                    shadow: false
 	                }
-	            },
-	            legend: {
-	                layout: 'vertical',
-	                align: 'right',
-	                verticalAlign: 'top',
-	                x: -100,
-	                y: 100,
-	                floating: true,
-	                borderWidth: 1,
-	                backgroundColor: '#FFFFFF',
-	                shadow: true
-	            },
-	            credits: {
-	                enabled: false
 	            },
 	            series: [{
 	                data: <%= raw @school.races.map{ |r| r.percent} %>
-	            }]
+	            }],
+	            title: { text: '' },
+	            tooltip: { enabled: false },
+	            xAxis: {
+	                categories: <%= raw @school.races.map{ |r| r.ethnicity }.inspect %>,
+	                tickLength: 0
+	            },
+	            yAxis: {
+	            	gridLineWidth: 0,
+	                labels: { enabled: false },
+	                title: { text: '' }
+	            }
 	    });
     
     	//ENROLLMENT CHART
         enrollment_chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'chart-enrollment',
-                type: 'line',
-                marginRight: 1,
-                marginBottom: 25
+                type: 'line'
             },
-            title: {
-                text: '',
-                x: -20 //center
+            credits: {enabled: false},
+            legend: {enabled:false},
+            plotOptions: {
+	            line: {
+	            	marker: {
+		            	lineColor: "#fff",
+		            	lineWidth: 1.5,
+		            	radius: 5
+	            	},
+		            shadow: false
+	            }
             },
-            subtitle: {
-                text: '',
-                x: -20
-            }, 
-            xAxis: {
-                categories: <%= raw @school.enrollments.map{|enrollment| enrollment.year_to.to_s} %>
-
-            },
-            yAxis: {
-                title: {
-                    text: '20th Day Enrollment'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
+            series: [{
+                name: '20th Day Enrollment',
+                data: <%= raw @school.enrollments.map{|e| if(e.count.nil?) then '' else e.count.to_i end} %>
+            }],
+            subtitle: { text: ''}, 
+            title: { text: '' },
             tooltip: {
                 formatter: function() {
                         return '<b>'+ this.series.name +'</b><br/>'+
                         this.x +': '+ this.y;
                 }
             },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -10,
-                y: 100,
-                borderWidth: 0
+            xAxis: {
+                categories: <%= raw @school.enrollments.map{|e| e.year_to.to_s} %>,
+                gridLineColor: "#dfdfdf",
+                gridLineWidth: 1,
+                tickLength: 0
             },
-            series: [{
-                name: '20th Day Enrollment',
-                data: <%= raw @school.enrollments.map{|enrollment| enrollment.count.to_i} %>
-            }]
+            yAxis: {
+            	gridLineColor: "#dfdfdf",
+            	min: 0,
+            	labels: {
+	            	formatter: function(){
+		            	return this.value;
+	            	}
+            	},
+            	lineWidth: 1,
+            	tickLength: 0,
+                title: {
+                    text: 'Number of students enrolled'
+                }
+            }
         });
         
         //ISAT CHART
         isat_chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'chart-isat',
-                type: 'line',
-                marginRight: 1,
-                marginBottom: 25
+                type: 'line'
             },
-            title: {
-                text: '',
-                x: -20 //center
-            },
-            subtitle: {
-                text: '',
-                x: -20
-            }, 
-            xAxis: {
-                categories: <%= raw @school.isat_scores.map{|i| i.year_to}.inspect %>
-
-            },
-            yAxis: {
-                title: {
-                    text: '% of students that meet or exceed state standards'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-            tooltip: {
-                formatter: function() {
-                        return '<b>'+ this.series.name +'</b><br/>'+
-                        this.x +': '+ this.y;
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -10,
-                y: 100,
-                borderWidth: 0
+            credits: { enabled: false },
+            legend: { borderWidth: 0 },
+            plotOptions: {
+	            line: {
+	            	marker: {
+		            	lineColor: "#fff",
+		            	lineWidth: 1.5,
+		            	radius: 5
+	            	},
+		            shadow: false
+	            }
             },
             series: [{
                 name: 'Reading',
-                data: <%= raw @school.isat_scores.where("subject = 'Reading'").map{|s| s.percent} %>
+                data: <%= raw @school.isat_scores.where("subject = 'Reading'").map{|s| if(s.percent.nil?) then '' else s.percent end} %>
             }, {
              name: 'Math',
-                data: <%= raw @school.isat_scores.where("subject = 'Math'").map{|s| s.percent} %>
+                data: <%= raw @school.isat_scores.where("subject = 'Math'").map{|s| if(s.percent.nil?) then '' else s.percent end} %>
             }, {
              name: 'Science',
-                data: <%= raw @school.isat_scores.where("subject = 'Science'").map{|s| if(s.percent.nil?) then 0 else s.percent end} %>
+                data: <%= raw @school.isat_scores.where("subject = 'Science'").map{|s| if(s.percent.nil?) then '' else s.percent end} %>
 
-            }]
+            }],
+            subtitle: { text: '' }, 
+            title: { text: '' },
+            tooltip: {
+                borderColor: "#ccc",
+                formatter: function() {
+                	var s = "<strong>" + this.x + "</strong>";
+                	
+                	$.each(this.points, function(i, point){
+                		if (point.y > 0)
+	                		s += "<br />" + point.series.name + ": " + point.y + "%";
+                	});
+                	
+                	return s;
+                },
+                shared: true
+            },
+            xAxis: {
+                categories: <%= raw @school.isat_scores.map{|i| i.year_to}.inspect %>,
+                gridLineColor: "#dfdfdf",
+                gridLineWidth: 1,
+                tickLength: 0
+            },
+            yAxis: {
+            	gridLineColor: "#dfdfdf",
+            	max: 100,
+            	min: 0,
+            	labels: {
+	            	formatter: function(){
+		            	return this.value + "%";
+	            	}
+            	},
+            	lineWidth: 1,
+            	tickLength: 0,
+                title: {
+                	style: { fontWeight: "normal" },
+                    text: 'Students that meet or exceed state standards'
+                }
+            }
         });
     });
     
@@ -183,7 +171,7 @@ $(function () {
 <div id="content">
     <div id="intro">
         <h1><%= link_to 'Home', root_url %> &raquo; <%= @school.short_name %></h1>
-        <p><%= @school.full_name %> &bull; [PHONE NUMBER] &bull; <%= @school.community_area %> &bull; <%= @school.street_address %>, Chicago, Illinois</p>
+        <p><%= @school.full_name %> &bull; <%= @school.phone %> &bull; <%= @school.community_area %> &bull; <%= @school.street_address %>, Chicago, Illinois <%= @school.zip%></p>
         <div class="clear"></div>
     </div>
     
@@ -198,6 +186,8 @@ $(function () {
     	<p><a class="action" href="#comparison">Jump to evaluation data</a></p>
         
         <h2>Demographics</h2>
+        
+        <h3>Race/ethnicity</h3>
         <div id="race-chart"></div>
         <p><a href="http://www.cps.edu/Schools/Pages/school.aspx?id=<%= @school.cps_id %>">View more demographics at CPS.edu</a> &raquo;</p>
     </div>
@@ -213,6 +203,17 @@ $(function () {
             <div class="dataset">
                 <h4>CPS Performance level</h4>
                 <p>Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
+                
+                <div class="levels">
+	                <ol>
+	                	<li class=<%= if(@school.level=="Level 1") then @school.level.downcase.tr(' ','') end %>><strong>Level</strong><span>1</span></li>
+	                	<li class=<%= if(@school.level=="Level 2") then @school.level.downcase.tr(' ','') end %>><strong>Level</strong><span>2</span></li>
+	                	<li class=<%= if(@school.level=="Level 3") then @school.level.downcase.tr(' ','') end %>><strong>Level</strong><span>3</span></li>
+	                </ol>
+	                <!--<p><%= @school.level %></p>-->
+	                <p class="mute">Lower is better</p>
+                </div>
+                
                 <p class="mute">Source: <a href="http://www.cps.edu/Schools/Pages/school.aspx?id=<%= @school.cps_id %>">Chicago Public Schools School Profile</a></p>
             </div>
             <div class="dataset">
@@ -235,12 +236,160 @@ $(function () {
             <div class="dataset">
                 <h4>Is this school organized for improvement?</h4>
                 <p>UChicago's 5Essentials. Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
-                <p class="mute">Source: <a href="https://cps.5-essentials.org/2012/s/<%= @school.cps_id.to_s %>">5Essentials</a></p>
+                
+                <div class="essentials-charts">
+                	<div class="c2l">
+		                <!-- 2011 Essentials -->
+		                <h4>2011</h4>
+		                <div class="essentials">
+						    <div class="category leaders <%= @school.essentials.where("category = 'leaders' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'leaders' AND year_to=2011").first.rating.capitalize %>">
+						    	<span class="title">Effective leaders</span>
+						    </div>
+						    <div class="category teachers <%= @school.essentials.where("category = 'teachers' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'teachers' AND year_to=2011").first.rating.capitalize %>">
+						    	<span class="title">Collaborative teachers</span>
+						    </div>
+						    <div class="category instruction <%= @school.essentials.where("category = 'instruction' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'instruction' AND year_to=2011").first.rating.capitalize %>">
+						    	<span class="title">Ambitious instruction</span>
+						    </div>
+						    <div class="category environment <%= @school.essentials.where("category = 'environment' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'environment' AND year_to=2011").first.rating.capitalize %>">
+						    	<span class="title">Supportive environment</span>
+						    </div>
+						    <div class="category families <%= @school.essentials.where("category = 'families' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'families' AND year_to=2011").first.rating.capitalize %>">
+						    	<span class="title">Involved families</span>
+						    </div>
+						</div>
+						<!-- /2011 Essentials -->
+                	</div>
+					<div class="c2r">
+						<h4>2012</h4>
+						<!-- 2012 Essentials -->
+						<div class="essentials">
+						    <div class="category leaders <%= @school.essentials.where("category = 'leaders' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'leaders' AND year_to=2012").first.rating.capitalize %>">
+						    	<span class="title">Effective leaders</span>
+						    </div>
+						    <div class="category teachers <%= @school.essentials.where("category = 'teachers' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'teachers' AND year_to=2012").first.rating.capitalize %>">
+						    	<span class="title">Collaborative teachers</span>
+						    </div>
+						    <div class="category instruction <%= @school.essentials.where("category = 'instruction' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'instruction' AND year_to=2012").first.rating.capitalize %>">
+						    	<span class="title">Ambitious instruction</span>
+						    </div>
+						    <div class="category environment <%= @school.essentials.where("category = 'environment' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'environment' AND year_to=2012").first.rating.capitalize %>">
+						    	<span class="title">Supportive environment</span>
+						    </div>
+						    <div class="category families <%= @school.essentials.where("category = 'families' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'families' AND year_to=2012").first.rating.capitalize %>">
+						    	<span class="title">Involved families</span>
+						    </div>
+						</div>
+		                <!-- /2012 Essentials -->
+					</div>
+                </div>
+                
+                <p class="clear mute">Source: <a href="https://cps.5-essentials.org/2012/s/<%= @school.cps_id.to_s %>">5Essentials</a></p>
             </div>
             <div class="dataset">
                 <h4>How stable has the school been?</h4>
                 <p>Probation staus + mobility + enrollment trends. Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
+                
+                <ol class="probation">
+	                <li class=<%= @school.probations.where("year_from=1996").first.status%>>
+	                	<span class="status"><%= @school.probations.where("year_from=1996").first.status%></span> 
+	                	<span class="from">&lsquo;96</span>
+	                	<span class="to">&lsquo;97</span>
+	                </li>
+	                <li class=<%= @school.probations.where("year_from=1997").first.status%>>
+	                	<span class="status"><%= @school.probations.where("year_from=1997").first.status%></span> 
+	                	<span class="from">&lsquo;97</span>
+	                	<span class="to">&lsquo;98</span>
+	                </li>
+	                <li class=<%= @school.probations.where("year_from=1998").first.status%>>
+	                	<span class="status"><%= @school.probations.where("year_from=1998").first.status%></span> 
+	                	<span class="from">&lsquo;98</span>
+	                	<span class="to">&lsquo;99</span>
+	                </li>
+	                <li class=<%= @school.probations.where("year_from=1999").first.status%>>
+	                	<span class="status"><%= @school.probations.where("year_from=1999").first.status%></span> 
+	                	<span class="from">&lsquo;99</span>
+	                	<span class="to">&lsquo;00</span>
+	                </li>
+	                <li class=<%= @school.probations.where("year_from=2000").first.status%>>
+	                	<span class="status"><%= @school.probations.where("year_from=2000").first.status%></span> 
+	                	<span class="from">&lsquo;00</span>
+	                	<span class="to">&lsquo;01</span>
+	                </li>
+	                <li class=<%= @school.probations.where("year_from=2001").first.status%>>
+	                	<span class="status"><%= @school.probations.where("year_from=2001").first.status%></span> 
+	                	<span class="from">&lsquo;01</span>
+	                	<span class="to">&lsquo;02</span>
+	                </li>
+	                <li class=<%= @school.probations.where("year_from=2002").first.status%>>
+	                	<span class="status"><%= @school.probations.where("year_from=2002").first.status%></span> 
+	                	<span class="from">&lsquo;02</span>
+	                	<span class="to">&lsquo;03</span>
+	                </li>
+	                <li class=<%= @school.probations.where("year_from=2003").first.status%>>
+	                	<span class="status"><%= @school.probations.where("year_from=2003").first.status%></span> 
+	                	<span class="from">&lsquo;03</span>
+	                	<span class="to">&lsquo;04</span>
+	                </li>
+	                <li class=<%= @school.probations.where("year_from=2004").first.status%>>
+	                	<span class="status"><%= @school.probations.where("year_from=2004").first.status%></span> 
+	                	<span class="from">&lsquo;04</span>
+	                	<span class="to">&lsquo;05</span>
+	                </li>
+	                <li class=<%= @school.probations.where("year_from=2005").first.status%>>
+	                	<span class="status"><%= @school.probations.where("year_from=2005").first.status%></span> 
+	                	<span class="from">&lsquo;05</span>
+	                	<span class="to">&lsquo;06</span>
+	                </li>
+	                <li class=<%= @school.probations.where("year_from=2006").first.status%>>
+	                	<span class="status"><%= @school.probations.where("year_from=2006").first.status%></span> 
+	                	<span class="from">&lsquo;06</span>
+	                	<span class="to">&lsquo;07</span>
+	                </li>
+	                <li class=<%= @school.probations.where("year_from=2007").first.status%>>
+	                	<span class="status"><%= @school.probations.where("year_from=2007").first.status%></span> 
+	                	<span class="from">&lsquo;07</span>
+	                	<span class="to">&lsquo;08</span>
+	                </li>
+	                <li class=<%= @school.probations.where("year_from=2008").first.status%>>
+	                	<span class="status"><%= @school.probations.where("year_from=2008").first.status%></span> 
+	                	<span class="from">&lsquo;08</span>
+	                	<span class="to">&lsquo;09</span>
+	                </li>
+	                <li class=<%= @school.probations.where("year_from=2009").first.status%>>
+	                	<span class="status"><%= @school.probations.where("year_from=2009").first.status%></span> 
+	                	<span class="from">&lsquo;09</span>
+	                	<span class="to">&lsquo;10</span>
+	                </li>
+	                <li class=<%= @school.probations.where("year_from=2010").first.status%>>
+	                	<span class="status"><%= @school.probations.where("year_from=2010").first.status%></span> 
+	                	<span class="from">&lsquo;10</span>
+	                	<span class="to">&lsquo;11</span>
+	                </li>
+	                <li class=<%= @school.probations.where("year_from=2011").first.status%>>
+	                	<span class="status"><%= @school.probations.where("year_from=2011").first.status%></span> 
+	                	<span class="from">&lsquo;11</span>
+	                	<span class="to">&lsquo;12</span>
+	                </li>
+	                <li class=<%= @school.probations.where("year_from=2012").first.status%>>
+	                	<span class="status"><%= @school.probations.where("year_from=2012").first.status%></span> 
+	                	<span class="from">&lsquo;12</span>
+	                	<span class="to">&lsquo;13</span>
+	                </li>
+	           	</ol>
+                
                 <div id="chart-enrollment"></div>
+                
                 <p class="mute">Source: <a href="http://cps.edu/SchoolData/Pages/SchoolData.aspx">Chicago Public Schools Performance Data</a></p>
             </div>
             <div class="dataset">
