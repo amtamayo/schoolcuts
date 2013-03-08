@@ -42,6 +42,15 @@ ActiveRecord::Schema.define(:version => 20130307200241) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "mobilities", :force => true do |t|
+    t.integer  "school_id"
+    t.integer  "year_from"
+    t.integer  "year_to"
+    t.float    "rate"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "probations", :force => true do |t|
     t.integer  "school_id"
     t.integer  "year_from"

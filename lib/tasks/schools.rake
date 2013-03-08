@@ -44,6 +44,9 @@ namespace :cps do
 	
 	desc "import race demographics"
 	task :import_race => :environment do
+		
+		Race.delete_all()
+	
 		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
 
 		list = CSV.read(inputfile, :headers => true )
@@ -66,6 +69,36 @@ namespace :cps do
 		
 	end
 	
+	desc "import mobility rates"
+	task :import_mobility_rates => :environment do
+		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
+		
+		Mobility.delete_all()
+		
+		list = CSV.read(inputfile, :headers => true)
+		list.each { |row|
+			school = School.find_by_cps_id(row[0].to_i)
+			if(!school.nil?)
+				puts "Importing mobility rates for #{row[1].to_s} #{row[65].to_s}"
+				Mobility.create(:school_id=>school.id, :year_from=>1999, :year_to=>2000, :rate=>row[75].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2000, :year_to=>2001, :rate=>row[76].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2001, :year_to=>2002, :rate=>row[77].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2002, :year_to=>2003, :rate=>row[78].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2003, :year_to=>2004, :rate=>row[79].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2004, :year_to=>2005, :rate=>row[80].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2005, :year_to=>2006, :rate=>row[81].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2006, :year_to=>2007, :rate=>row[82].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2007, :year_to=>2008, :rate=>row[83].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2008, :year_to=>2009, :rate=>row[84].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2009, :year_to=>2010, :rate=>row[85].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2010, :year_to=>2011, :rate=>row[86].to_f)
+				Mobility.create(:school_id=>school.id, :year_from=>2011, :year_to=>2012, :rate=>row[87].to_f)
+			else
+				puts "School #{row[1].to_s} not found"
+			end
+		}
+	end
+
 	desc "import isat scores"
 	task :import_isat_score => :environment do
 		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
@@ -228,6 +261,7 @@ namespace :cps do
     	Rake::Task['cps:import_enrollment'].invoke
     	Rake::Task['cps:import_essential'].invoke
     	Rake::Task['cps:import_probation'].invoke
+    	Rake::Task['cps:import_mobility_rates'].invoke
     end
 end
 
