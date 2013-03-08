@@ -22,19 +22,21 @@ $(function () {
 	            }
             },
             series: [{
-                name: '20th Day Enrollment',
-                data: <%= raw @school.enrollments.map{|e| if(e.count.nil?) then '' else e.count.to_i end} %>
+                name: 'Number of students enrolled',
+                data: <%= raw @school.enrollments.map{|e| if(e.count.nil?) then '' else e.count.to_i end} %>,
+                pointStart: Date.UTC(<%= raw @school.enrollments.first.year_to.to_i %>, 1, 1),
+                pointInterval: 365 * 24 * 3600 * 1000 //one year
             }],
             subtitle: { text: ''}, 
             title: { text: '' },
             tooltip: {
                 formatter: function() {
                         return '<b>'+ this.series.name +'</b><br/>'+
-                        this.x +': '+ this.y;
+                        Highcharts.dateFormat('%Y', this.x) +': '+ this.y;
                 }
             },
             xAxis: {
-                categories: <%= raw @school.enrollments.map{|e| e.year_to.to_s} %>,
+            	type: "datetime",
                 gridLineColor: "#dfdfdf",
                 gridLineWidth: 1,
                 tickLength: 0
@@ -75,13 +77,19 @@ $(function () {
             },
             series: [{
                 name: 'Reading',
-                data: <%= raw @school.isat_scores.where("subject = 'Reading'").map{|s| if(s.percent.nil?) then '' else s.percent end} %>
+                data: <%= raw @school.isat_scores.where("subject = 'Reading'").map{|s| if(s.percent.nil?) then '' else s.percent end} %>,
+                pointStart: Date.UTC(<%= raw @school.isat_scores.first.year_to.to_i %>, 1, 1),
+                pointInterval: 365 * 24 * 3600 * 1000 //one year
             }, {
              name: 'Math',
-                data: <%= raw @school.isat_scores.where("subject = 'Math'").map{|s| if(s.percent.nil?) then '' else s.percent end} %>
+                data: <%= raw @school.isat_scores.where("subject = 'Math'").map{|s| if(s.percent.nil?) then '' else s.percent end} %>,
+                pointStart: Date.UTC(<%= raw @school.isat_scores.first.year_to.to_i %>, 1, 1),
+                pointInterval: 365 * 24 * 3600 * 1000 //one year
             }, {
              name: 'Science',
-                data: <%= raw @school.isat_scores.where("subject = 'Science'").map{|s| if(s.percent.nil?) then '' else s.percent end} %>
+                data: <%= raw @school.isat_scores.where("subject = 'Science'").map{|s| if(s.percent.nil?) then '' else s.percent end} %>,
+                pointStart: Date.UTC(<%= raw @school.isat_scores.first.year_to.to_i %>, 1, 1),
+                pointInterval: 365 * 24 * 3600 * 1000 //one year
 
             }],
             subtitle: { text: '' }, 
@@ -89,7 +97,7 @@ $(function () {
             tooltip: {
                 borderColor: "#ccc",
                 formatter: function() {
-                	var s = "<strong>" + this.x + "</strong>";
+                	var s = "<strong>" + Highcharts.dateFormat('%Y', this.x) + "</strong>";
                 	
                 	$.each(this.points, function(i, point){
                 		if (point.y > 0)
@@ -101,7 +109,7 @@ $(function () {
                 shared: true
             },
             xAxis: {
-                categories: <%= raw @school.isat_scores.map{|i| i.year_to}.inspect %>,
+            	type: "datetime",
                 gridLineColor: "#dfdfdf",
                 gridLineWidth: 1,
                 tickLength: 0
@@ -132,8 +140,10 @@ $(function () {
             },
             credits: { enabled:false },
             series: [{
-                name: '',
-                data: <%= raw @school.mobilities.map{|mobility| if(mobility.rate.nil?) then '' else mobility.rate end}.inspect %>
+                name: 'Mobility rate',
+                data: <%= raw @school.mobilities.map{|mobility| if(mobility.rate.nil?) then '' else mobility.rate end}.inspect %>, 
+                pointStart: Date.UTC(<%= raw @school.mobilities.first.year_to.to_i %>, 1, 1),
+                pointInterval: 365 * 24 * 3600 * 1000 //one year
             }],
             legend: { enabled:false },
             plotOptions: {
@@ -151,11 +161,11 @@ $(function () {
             tooltip: {
                 formatter: function() {
                         return '<b>'+ this.series.name +'</b><br/>'+
-                        this.x +': '+ this.y;
+                        Highcharts.dateFormat('%Y', this.x) +': '+ this.y;
                 }
             },
             xAxis: {
-                categories: <%= raw @school.mobilities.map{ |mobility| mobility.year_to.to_s} %>,
+            	type: "datetime",
                 gridLineColor: "#dfdfdf",
                 gridLineWidth: 1,
                 tickLength: 0
