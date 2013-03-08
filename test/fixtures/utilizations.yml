@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  school_id: 1
+  homerooms: 1.5
+  other_rooms: 1.5
+  year_from: 1
+  year_to: 1
+
+two:
+  school_id: 1
+  homerooms: 1.5
+  other_rooms: 1.5
+  year_from: 1
+  year_to: 1

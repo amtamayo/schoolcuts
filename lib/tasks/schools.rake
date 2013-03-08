@@ -42,33 +42,6 @@ namespace :cps do
 		}
 	end
 	
-	desc "import race demographics"
-	task :import_race => :environment do
-		
-		Race.delete_all()
-	
-		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
-
-		list = CSV.read(inputfile, :headers => true )
-		list.each { |row|
-			school = School.find_by_cps_id(row[0].to_i)
-			if (!school.nil?)
-				puts "Importing race demographic for #{row[1].to_s}"
-				Race.create(:school_id=>school.id, :ethnicity=>'Asian', :percent=>row[12].to_f)
-				Race.create(:school_id=>school.id, :ethnicity=>'Black', :percent=>row[13].to_f)
-				Race.create(:school_id=>school.id, :ethnicity=>'Hispanic', :percent=>row[14].to_f)
-				Race.create(:school_id=>school.id, :ethnicity=>'Multi-racial', :percent=>row[15].to_f)
-				Race.create(:school_id=>school.id, :ethnicity=>'Native American', :percent=>row[16].to_f)
-				Race.create(:school_id=>school.id, :ethnicity=>'Not Available', :percent=>row[17].to_f)
-				Race.create(:school_id=>school.id, :ethnicity=>'Hawaiian Pacific', :percent=>row[18].to_f)
-				Race.create(:school_id=>school.id, :ethnicity=>'White', :percent=>row[19].to_f)
-			else
-				puts "School #{row[1].to_s} not found"
-			end
-		}
-		
-	end
-	
 	desc "import mobility rates"
 	task :import_mobility_rates => :environment do
 		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
@@ -93,43 +66,6 @@ namespace :cps do
 				Mobility.create(:school_id=>school.id, :year_from=>2009, :year_to=>2010, :rate=>row[85].to_f)
 				Mobility.create(:school_id=>school.id, :year_from=>2010, :year_to=>2011, :rate=>row[86].to_f)
 				Mobility.create(:school_id=>school.id, :year_from=>2011, :year_to=>2012, :rate=>row[87].to_f)
-			else
-				puts "School #{row[1].to_s} not found"
-			end
-		}
-	end
-
-	desc "import isat scores"
-	task :import_isat_score => :environment do
-		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
-		
-		IsatScore.delete_all()
-
-		list = CSV.read(inputfile, :headers => true )
-		list.each { |row|
-			school = School.find_by_cps_id(row[0].to_i)
-			if (!school.nil?)
-				puts "Importing ISAT scores for #{row[1].to_s}"
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2006, :year_to=>2007, :percent=>row[89].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2007, :year_to=>2008, :percent=>row[90].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2008, :year_to=>2009, :percent=>row[91].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2009, :year_to=>2010, :percent=>row[92].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2010, :year_to=>2011, :percent=>row[93].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2011, :year_to=>2012, :percent=>row[94].to_f)
-				
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2006, :year_to=>2007, :percent=>row[101].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2007, :year_to=>2008, :percent=>row[102].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2008, :year_to=>2009, :percent=>row[103].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2009, :year_to=>2010, :percent=>row[104].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2010, :year_to=>2011, :percent=>row[105].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2011, :year_to=>2012, :percent=>row[106].to_f)
-		
-				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2006, :year_to=>2007, :percent=>nil)
-				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2007, :year_to=>2008, :percent=>row[113].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2008, :year_to=>2009, :percent=>nil)
-				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2009, :year_to=>2010, :percent=>nil)
-				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2010, :year_to=>2011, :percent=>row[114].to_f)				
-				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2011, :year_to=>2012, :percent=>nil)
 			else
 				puts "School #{row[1].to_s} not found"
 			end
@@ -194,6 +130,43 @@ namespace :cps do
         }
     end
     
+    desc "import isat scores"
+	task :import_isat_score => :environment do
+		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
+		
+		IsatScore.delete_all()
+
+		list = CSV.read(inputfile, :headers => true )
+		list.each { |row|
+			school = School.find_by_cps_id(row[0].to_i)
+			if (!school.nil?)
+				puts "Importing ISAT scores for #{row[1].to_s}"
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2006, :year_to=>2007, :percent=>row[89].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2007, :year_to=>2008, :percent=>row[90].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2008, :year_to=>2009, :percent=>row[91].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2009, :year_to=>2010, :percent=>row[92].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2010, :year_to=>2011, :percent=>row[93].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2011, :year_to=>2012, :percent=>row[94].to_f)
+				
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2006, :year_to=>2007, :percent=>row[101].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2007, :year_to=>2008, :percent=>row[102].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2008, :year_to=>2009, :percent=>row[103].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2009, :year_to=>2010, :percent=>row[104].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2010, :year_to=>2011, :percent=>row[105].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2011, :year_to=>2012, :percent=>row[106].to_f)
+		
+				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2006, :year_to=>2007, :percent=>nil)
+				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2007, :year_to=>2008, :percent=>row[113].to_f)
+				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2008, :year_to=>2009, :percent=>nil)
+				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2009, :year_to=>2010, :percent=>nil)
+				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2010, :year_to=>2011, :percent=>row[114].to_f)				
+				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2011, :year_to=>2012, :percent=>nil)
+			else
+				puts "School #{row[1].to_s} not found"
+			end
+		}
+	end
+    
     desc "import probation"
     task :import_probation => :environment do
         inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
@@ -227,6 +200,51 @@ namespace :cps do
             end
         }
     end
+    
+    desc "import race demographics"
+	task :import_race => :environment do
+		
+		Race.delete_all()
+	
+		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
+
+		list = CSV.read(inputfile, :headers => true )
+		list.each { |row|
+			school = School.find_by_cps_id(row[0].to_i)
+			if (!school.nil?)
+				puts "Importing race demographic for #{row[1].to_s}"
+				Race.create(:school_id=>school.id, :ethnicity=>'Asian', :percent=>row[12].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Black', :percent=>row[13].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Hispanic', :percent=>row[14].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Multi-racial', :percent=>row[15].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Native American', :percent=>row[16].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Not Available', :percent=>row[17].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'Hawaiian Pacific', :percent=>row[18].to_f)
+				Race.create(:school_id=>school.id, :ethnicity=>'White', :percent=>row[19].to_f)
+			else
+				puts "School #{row[1].to_s} not found"
+			end
+		}
+		
+	end
+	
+	desc "import utilization"
+	task :import_utilization => :environment do
+		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
+		Utilization.delete_all()
+		
+		list = CSV.read(inputfile, :headers => true)
+		list.each { |row|
+			school = School.find_by_cps_id(row[0].to_i)
+			if (!school.nil?)
+				puts "Importing utilization for #{row[1].to_s}"
+				Utilization.create(:school_id=>school.id, :homerooms=>row[47].to_f, :other_rooms=>row[48].to_f, :year_from=>2012, :year_to=>2013)
+			else
+				puts "School #{row[1].to_s} not found"
+			end
+		}
+	end
+    
 
 	desc "Show column names"
 		task :list_import_column_names => :environment do
@@ -256,12 +274,13 @@ namespace :cps do
     	inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
     	
     	Rake::Task['cps:import_schools'].invoke
-    	Rake::Task['cps:import_race'].invoke
-    	Rake::Task['cps:import_isat_score'].invoke
     	Rake::Task['cps:import_enrollment'].invoke
     	Rake::Task['cps:import_essential'].invoke
-    	Rake::Task['cps:import_probation'].invoke
+    	Rake::Task['cps:import_isat_score'].invoke
     	Rake::Task['cps:import_mobility_rates'].invoke
+    	Rake::Task['cps:import_probation'].invoke
+    	Rake::Task['cps:import_race'].invoke
+    	Rake::Task['cps:import_utilization'].invoke
     end
 end
 

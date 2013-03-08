@@ -1,50 +1,16 @@
 <!-- Javascript -->
 <script>
 $(function () {
-	var enrollment_chart, race_chart, isat_chart, mobility_chart;
+	var enrollment_chart, isat_chart, mobility_chart, race_chart;
     $(document).ready(function() {
-    	//RACE CHART
-    	race_chart = new Highcharts.Chart({
-	            chart: {
-	            	renderTo: 'race-chart',
-	                type: 'bar'
-	            },
-	            credits: {enabled: false},
-	            legend: { enabled: false },
-	            plotOptions: {
-	                bar: {
-	                    borderWidth: 0,
-	                    dataLabels: {
-	                        enabled: true
-	                    },
-	                    groupPadding: 0,
-	                    shadow: false
-	                }
-	            },
-	            series: [{
-	                data: <%= raw @school.races.map{ |r| r.percent} %>
-	            }],
-	            title: { text: '' },
-	            tooltip: { enabled: false },
-	            xAxis: {
-	                categories: <%= raw @school.races.map{ |r| r.ethnicity }.inspect %>,
-	                tickLength: 0
-	            },
-	            yAxis: {
-	            	gridLineWidth: 0,
-	                labels: { enabled: false },
-	                title: { text: '' }
-	            }
-	    });
-    
     	//ENROLLMENT CHART
         enrollment_chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'chart-enrollment',
                 type: 'line'
             },
-            credits: {enabled: false},
-            legend: {enabled:false},
+            credits: { enabled: false },
+            legend: { enabled:false },
             plotOptions: {
 	            line: {
 	            	marker: {
@@ -162,41 +128,87 @@ $(function () {
         mobility_chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'chart-mobility',
-                type: 'line',
-                
-                marginBottom: 25
+                type: 'line'
             },
-            title: {
-                text: '',
-                x: -20 //center
+            credits: { enabled:false },
+            series: [{
+                name: '',
+                data: <%= raw @school.mobilities.map{|mobility| if(mobility.rate.nil?) then '' else mobility.rate end}.inspect %>
+            }],
+            legend: { enabled:false },
+            plotOptions: {
+	            line: {
+	            	marker: {
+		            	lineColor: "#fff",
+		            	lineWidth: 1.5,
+		            	radius: 5
+	            	},
+		            shadow: false
+	            }
             },
-            subtitle: {
-                text: '',
-           
-            },
-            xAxis: {
-                categories: <%= raw @school.mobilities.map{ |mobility| mobility.year_to.to_s} %>
-            },
-            yAxis: {
-                title: {
-                    text: 'Rate'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1
-                }]
-            },
+            subtitle: { text: ''},
+            title: { text: ''},
             tooltip: {
                 formatter: function() {
                         return '<b>'+ this.series.name +'</b><br/>'+
                         this.x +': '+ this.y;
                 }
             },
-            series: [{
-                name: '',
-                data: <%= raw @school.mobilities.map{|mobility| mobility.rate}.inspect %>
-            }]
+            xAxis: {
+                categories: <%= raw @school.mobilities.map{ |mobility| mobility.year_to.to_s} %>,
+                gridLineColor: "#dfdfdf",
+                gridLineWidth: 1,
+                tickLength: 0
+            },
+            yAxis: {
+            	gridLineColor: "#dfdfdf",
+            	min: 0,
+            	labels: {
+	            	formatter: function(){
+		            	return this.value;
+	            	}
+            	},
+            	lineWidth: 1,
+            	tickLength: 0,
+                title: {
+                    text: 'Mobility rate'
+                }
+            }
         });
+        
+        //RACE CHART
+    	race_chart = new Highcharts.Chart({
+	            chart: {
+	            	renderTo: 'race-chart',
+	                type: 'bar'
+	            },
+	            credits: {enabled: false},
+	            legend: { enabled: false },
+	            plotOptions: {
+	                bar: {
+	                    borderWidth: 0,
+	                    dataLabels: {
+	                        enabled: true
+	                    },
+	                    groupPadding: 0,
+	                    shadow: false
+	                }
+	            },
+	            series: [{
+	                data: <%= raw @school.races.map{ |r| r.percent} %>
+	            }],
+	            title: { text: '' },
+	            tooltip: { enabled: false },
+	            xAxis: {
+	                categories: <%= raw @school.races.map{ |r| r.ethnicity }.inspect %>,
+	                tickLength: 0
+	            },
+	            yAxis: {
+	            	gridLineWidth: 0,
+	                labels: { enabled: false },
+	                title: { text: '' }
+	            }
+	    });
 
     });
     
@@ -247,8 +259,7 @@ $(function () {
 	                	<li class=<%= if(@school.level=="Level 2") then @school.level.downcase.tr(' ','') end %>><strong>Level</strong><span>2</span></li>
 	                	<li class=<%= if(@school.level=="Level 3") then @school.level.downcase.tr(' ','') end %>><strong>Level</strong><span>3</span></li>
 	                </ol>
-	                <!--<p><%= @school.level %></p>-->
-	                <p class="mute">Lower is better</p>
+	                <p class="mute">Level 1 is best</p>
                 </div>
                 
                 <p class="mute">Source: <a href="http://www.cps.edu/Schools/Pages/school.aspx?id=<%= @school.cps_id %>">Chicago Public Schools School Profile</a></p>
@@ -256,6 +267,18 @@ $(function () {
             <div class="dataset">
                 <h4>CPS Utilization rate</h4>
                 <p>Need explanation. Atur, con nonsent offic tem fugita volestibus mo moluptio volore ut elloressi eium ius et in eatur se volup tatem exeratur qui derepud icatur More...</p>
+                
+                <p><%= @school.utilizations.first.homerooms.to_f %> Homerooms</p>
+                <p><%= @school.utilizations.first.other_rooms.to_f %> Other classrooms</p>
+                
+                <p>Using CPS's standard of 30 students per homeroom, <%= @school.short_name %> is:
+                	<p>Between <%= (@school.utilizations.first.homerooms * 24).to_i %> and <%= (@school.utilizations.first.homerooms * 36).to_i %> students = Efficiently utilized</p>
+                	<p>Less than <%= (@school.utilizations.first.homerooms * 24).to_i %> students = Underutilized</p>
+                	<p>More than <%= (@school.utilizations.first.homerooms * 36).to_i %> students = Overcrowded  </p>      
+                </p>     
+                	
+                	<br /> <%= @school.enrollments.where("year_from=2012").first.count%> students are enrolled at <%= @school.short_name %>. Therefore, by CPS's standards, <%= @school.short_name %> is Underutilized. </p>
+                
                 <p class="mute">Source: <a href="http://cps.edu/About_CPS/Policies_and_guidelines/Pages/qualityschools.aspx">CPS Space Utilization and Enrollment Data for School Year 2012-2013</a></p>
             </div>
         </div>
