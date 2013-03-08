@@ -38,6 +38,7 @@ namespace :cps do
 				school.short_name = row[1].to_s
 				school.street_address = row[4].to_s
 				school.zip = row[5].to_i
+				school.save
 			end
 		}
 	end
