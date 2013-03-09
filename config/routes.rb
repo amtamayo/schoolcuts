@@ -1,7 +1,10 @@
 SchoolClosing::Application.routes.draw do
+  get "about/index"
+
   resources :schools
 
   root :to => "home#index"
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -469,14 +469,15 @@ $(function () {
                 <p>Schools that score under a point threshold for Performance Policy calculations are placed on academic probation, which then trigger various interventions from the District to try and improve performance. More...</p>
                 
                 <ol class="probation">
-                  <% @school.probations.each{| p | %>
-	              			<li class=<%= p.status%>>
+	                <% @school.probations.each{|p| if (p.status.to_s == '') then '' else %>
+              			<li class=<%= p.status%>>
 		            	 	<span class="status"><%= p.status%></span>
-		            	 	<span class="from"><%= p.year_from.to_s %></span>
-		            	 	<span class="to"><%= p.year_to.to_s %></span>
-	            	 	</li>
-	            	<% } %>                
+		            	 	<span class="from">&lsquo;<%= p.year_from.to_s[-2,2] %></span>
+		            	 	<span class="to">&lsquo;<%= p.year_to.to_s[-2,2] %></span>
+		            	</li>
+		            <% end } %>                
 	           	</ol>
+	           	<div class="clear"></div>
                 
                 <p>Mobility rate trend</p>
                 <p>Mobility rates measure the percentage of students moving into or out of a school at times other than the beginning or end of a school year.  Some of these students might move to other schools within the district, while others may be moving in or out of the District. More...</p>
