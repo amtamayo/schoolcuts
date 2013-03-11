@@ -8,4 +8,24 @@ class School < ActiveRecord::Base
   has_many :probations
   has_many :races
   has_many :utilizations
+  has_many :demographics
+  
+  def scores_for(subject)
+  	self.isat_scores.select{|s| s.subject.downcase == subject.downcase }
+  end
+  
+  def reading
+  	@scores = scores_for("reading")
+  	@scores
+  end
+  
+  def science
+  	@scores = scores_for("science")
+  	@scores
+  end
+  
+  def math
+  	@scores = scores_for("math")
+  	@scores
+  end
 end

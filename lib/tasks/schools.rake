@@ -246,6 +246,24 @@ namespace :cps do
 		}
 	end
     
+    desc "Import Demographics (Language, SPED, Low Income)"
+	    task :import_demographics => :environment do
+
+	    inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
+
+	    Demographic.delete_all()
+
+	    list = CSV.read(inputfile, :headers => true)
+	    list.each {|row|
+		    puts row[0].to_s + row[21].to_s
+		    school = School.find_by_cps_id(row[0])
+		    if (!school.nil?)
+			    Demographic.create(:school_id => school.id, :year_from => 2012, :year_to => 2013, :category => "Bilingual", :percent => row[21].to_f)
+			    Demographic.create(:school_id => school.id, :year_from => 2012, :year_to => 2013, :category => "SPED", :percent => row[25].to_f)
+			    Demographic.create(:school_id => school.id, :year_from => 2012, :year_to => 2013, :category => "Low Income", :percent => row[29].to_f)
+		    end	
+	    }
+    end
 
 	desc "Show column names"
 		task :list_import_column_names => :environment do
