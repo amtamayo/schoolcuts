@@ -2,9 +2,11 @@
 <div id="content">
     <div id="intro">
         <h1>43,360 students await school closings decision</h1>
-        <p>In limiting the examination of potential school closings to a standard utilization formula and a high-level performance metric, CPS risks making decisions that could damage the long-term educational outcomes of students from specific neighborhoods, the stability of neighborhoods, and the trust/engagement of parents across the District. We’ve assembled this data hoping to provide a clearer pictures of these schools, and offer some insight into choices parents will have to make if/when their neighborhood school is closed.</p>
+        <p>The Chicago Public Schools (CPS) has marked <strong>129 schools</strong> for possible closure based on utilization and performance. However, a school is more than just two numbers and its closing affects long-term student educational outcomes, the stability of a neighborhood, and parental trust in the school system.
+The detailed data presented will help parents with children in schools on the closing list learn about current schools and the schools to which they could be sent. </p>
         
-        <div class="c2l">
+        <!--
+<div class="c2l">
             <p>
                 <strong>43,630 students</strong>
                 <br />The total number of students currently enrolled at the 129 elementary schools identified on the potential closing schools list. In actuality, the number of those affected will be much higher because of the effects of school closings on receiving schools and younger siblings not yet enrolled.
@@ -16,13 +18,14 @@
                 <br />The total number of students with an Individualized Education Plan. The IEP designation includes a diverse set of developmental, physical, and emotional needs requiring additional and specialized support, resources, and physical spaces for accommodation. 
             </p>
         </div>
+-->
         
         <div class="clear"></div>
     </div>
     
     <div class="c2l">
-        <h2><strong><%= @schools.size.to_s %> schools</strong> are being considered</h2>
-        <p>Find your school to see what options will be available if it's closed and compare how CPS evaluates it to what else could be considered.</p>
+        <h2><%= @schools.size.to_s %> schools are screened for closure</h2>
+        <p>Select your child’s school to learn more about it and the schools to which she or he may be sent.</p>
         
         <div id="schools">
             <div class="c3l">
@@ -56,38 +59,38 @@
     </div>
     
     <div class="c2r">
-        <h2>A clearer picture with more data</h2>
+        <h2>A detailed look at schools on the list</h2>
         
-        <p>In addition to performance levels, and utilization rates, CPS could use the following datasets to gain a much clearer picture about each school.</p>
+        <p>The following data helps better understand each school. </p>
         
         <dl class="examples">
             <dt><img alt="" src="http://dummyimage.com/138" /> ISAT score trends by cohort</dt>
             <dd>
-                <p>The ISAT cohort trend focuses on a single class of students, and follows their progress in Math, Reading and Science from 3rd grade through 8th grade.</p>
+                <p>Math, Reading, and Science scores are shown for one group of students tracked through grades 3–8.</p>
                 <p class="mute">Left: <a href="#">Ira F Aldridge Elementary School</a></p>
             </dd>
             
             <dt><img alt="" src="http://dummyimage.com/138" /> 5Essentials trends</dt>
             <dd>
-                <p>The University of Chicago identifies 5 Essential elements common to successful schools. Schools that have better scores for the majority of these elements are thought to be better set up for success.</p>
+                <p>The University of Chicago characterises successful schools as having five basic elements involving instruction, environment, families, leaders, and teachers.</p>
                 <p class="mute">Left: <a href="#">Ira F Aldridge Elementary School</a></p>
             </dd>
             
             <dt><img alt="" src="http://dummyimage.com/138" /> Probation status trends</dt>
             <dd>
-                <p>Schools that score under a point threshold for Performance Policy calculations are placed on academic probation, which then trigger various interventions from the District to try and improve performance.</p>
+                <p>Schools scoring under a specified level are placed on academic probation which triggers administrative interventions aimed at improving performance.</p>
                 <p class="mute">Left: <a href="#">Ira F Aldridge Elementary School</a></p>
             </dd>
             
             <dt><img alt="" src="http://dummyimage.com/138" /> Mobility rate trends</dt>
             <dd>
-                <p>Mobility rates measure the percentage of students moving into or out of a school at times other than the beginning or end of a school year.  Some of these students might move to other schools within the district, while others may be moving in or out of the District.</p>
+                <p>This is the percentage of students who move into, or out of, a school at times other than the beginning or end of a school year. These students may have difficulty keeping up academically.</p>
                 <p class="mute">Left: <a href="#">Ira F Aldridge Elementary School</a></p>
             </dd>
             
             <dt><img alt="" src="http://dummyimage.com/138" /> Enrollment trends</dt>
             <dd>
-                <p>Enrollment trends of all students and specific sub-groups show the specific needs of and constraints faced by school communities in terms of space needed to accommodate students, etc. Enrollment data is a reflection of the student population on the 20th day of school each year.</p>
+                <p>A school’s enrollment trend is calculated based on student populations on the 20th day of each school year. This helps estimate future needs for space, personnel, equipment, etc.</p>
                 <p class="mute">Left: <a href="#">Ira F Aldridge Elementary School</a></p>
             </dd>
         </dl>

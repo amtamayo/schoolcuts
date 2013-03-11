@@ -532,9 +532,9 @@ $(function () {
                 <p>Schools that score under a point threshold for Performance Policy calculations are placed on academic probation, which then trigger various interventions from the District to try and improve performance. More...</p>
                 
                 <ol class="probation">
-	                <% @school.probations.each{|p| %>
+	                <% @school.probations.each{|p|%>
               			<li class=<%= p.status%>>
-		            	 	<span class="status"><%= p.status%></span>
+		            	 	<span class="status"><%= if (p.status=="" || p.status.nil?) then "N/A" else p.status end %></span>
 		            	 	<span class="from">&lsquo;<%= p.year_from.to_s[-2,2] %></span>
 		            	 	<span class="to">&lsquo;<%= p.year_to.to_s[-2,2] %></span>
 		            	</li>
