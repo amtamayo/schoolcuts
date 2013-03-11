@@ -77,17 +77,17 @@ $(function () {
             },
             series: [{
                 name: 'Reading',
-                data: <%= raw @school.reading.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil?) then '' else s.percent end} %>,
+                data: <%= raw @school.reading.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil? || s.percent <= 0) then '' else s.percent end} %>,
                 pointStart: Date.UTC(<%= raw @school.reading.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
             }, {
              name: 'Math',
-                data: <%= raw @school.math.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil?) then '' else s.percent end} %>,
+                data: <%= raw @school.math.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil? || s.percent <= 0) then '' else s.percent end} %>,
                 pointStart: Date.UTC(<%= raw @school.math.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
             }, {
              name: 'Science',
-                data: <%= raw @school.science.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil?) then '' else s.percent end} %>,
+                data: <%= raw @school.science.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil? || s.percent <= 0) then '' else s.percent end} %>,
                 pointStart: Date.UTC(<%= raw @school.science.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
 

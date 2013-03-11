@@ -300,6 +300,7 @@ namespace :cps do
     	Rake::Task['cps:import_probation'].invoke
     	Rake::Task['cps:import_race'].invoke
     	Rake::Task['cps:import_utilization'].invoke
+    	Rake::Task['cps:import_demographics'].invoke
     end
 end
 
