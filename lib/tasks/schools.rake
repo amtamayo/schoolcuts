@@ -185,7 +185,7 @@ namespace :cps do
         	    Probation.create(:school_id=>school.id, :year_from=>1999, :year_to=>2000, :status=>row[71].to_s)
         	    Probation.create(:school_id=>school.id, :year_from=>2000, :year_to=>2001, :status=>row[70].to_s)
         	    Probation.create(:school_id=>school.id, :year_from=>2001, :year_to=>2002, :status=>row[69].to_s)
-        	    Probation.create(:school_id=>school.id, :year_from=>2002, :year_to=>2002, :status=>row[68].to_s)
+        	    Probation.create(:school_id=>school.id, :year_from=>2002, :year_to=>2003, :status=>row[68].to_s)
         	    Probation.create(:school_id=>school.id, :year_from=>2003, :year_to=>2004, :status=>row[67].to_s)
         	    Probation.create(:school_id=>school.id, :year_from=>2004, :year_to=>2005, :status=>row[66].to_s)
         	    Probation.create(:school_id=>school.id, :year_from=>2005, :year_to=>2006, :status=>row[65].to_s)
