@@ -198,7 +198,10 @@ $(function () {
 	                bar: {
 	                    borderWidth: 0,
 	                    dataLabels: {
-	                        enabled: true
+	                        enabled: true,
+	                        formatter: function(){
+		                        return Highcharts.numberFormat(this.y, 0) + "%";
+	                        }
 	                    },
 	                    groupPadding: 0,
 	                    shadow: false
@@ -232,7 +235,10 @@ $(function () {
 	                bar: {
 	                    borderWidth: 0,
 	                    dataLabels: {
-	                        enabled: true
+	                        enabled: true,
+	                        formatter: function(){
+		                        return Highcharts.numberFormat(this.y, 0) + "%";
+	                        }
 	                    },
 	                    groupPadding: 0,
 	                    shadow: false
@@ -280,7 +286,8 @@ $(function () {
           featureType: 'all',
           elementType: 'all',
           stylers: [
-            { saturation: -88 }
+            { saturation: -100 },
+            { "gamma": 1.75 }
           ]
         }
       ];
@@ -300,9 +307,9 @@ $(function () {
       var circleOptions = {
         strokeColor: "#4b58a6",
         strokeOpacity: 0.5,
-        strokeWeight: 1,
+        strokeWeight: 4,
         fillColor: "#4b58a6",
-        fillOpacity: 0.1,
+        fillOpacity: 0,
         map: map,
         center: new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>),
         clickable: false,
@@ -312,9 +319,9 @@ $(function () {
       var onefiveOptions = {
         strokeColor: "#a64b58",
         strokeOpacity: 0.5,
-        strokeWeight: 1,
+        strokeWeight: 4,
         fillColor: "#a64b58",
-        fillOpacity: 0.1,
+        fillOpacity: 0,
         map: map,
         center: new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>),
         clickable: false,
@@ -361,6 +368,13 @@ $(function () {
         <p>If CPS closes <%= @school.short_name %>, students may be assigned to the schools below. <a href="#">More&hellip;</a></p>
         
         <div id="map"></div>
+        <ul class="legend">
+        	<li><strong>&mdash;</strong> 1 mile</li>
+        	<li><strong>&mdash;</strong> 1.5 miles</li>
+        	<li><strong style="color: #9e241d;">&bull;</strong> Performing worse</li>
+        	<li><strong style="color: #ebcc71;">&bull;</strong> Performing same as <%= @school.short_name %></li>
+        	<li><strong style="color: #77a161;">&bull;</strong> Performing better</li>
+        </ul>
     </div>
     
     <div id="profile-secondary">
@@ -370,6 +384,8 @@ $(function () {
         
         <h3>Race/ethnicity</h3>
         <div id="race-chart"></div>
+        
+        <h3>Statistics</h3>
         <div id="demographic-chart"></div>
         <p><a href="http://www.cps.edu/Schools/Pages/school.aspx?id=<%= @school.cps_id %>">View more demographics at CPS.edu</a> &raquo;</p>
     </div>
@@ -386,16 +402,26 @@ $(function () {
                 <h4>CPS Utilization rate</h4>
                 <p>This measure compares the numbers of students attending a school to the amount of students that CPS believes that school can accommodate, based on the number of eligible homerooms and an average of contractually-maximum homeroom limits. More...</p>
                 
-                <p><%= @school.utilizations.first.homerooms.to_f %> Homerooms</p>
-                <p><%= @school.utilizations.first.other_rooms.to_f %> Other classrooms</p>
                 
-                <p>Using CPS's standard of 30 students per homeroom, <%= @school.short_name %> is:
-                	<p>Between <%= (@school.utilizations.first.homerooms * 24).to_i %> and <%= (@school.utilizations.first.homerooms * 36).to_i %> students = Efficiently utilized</p>
-                	<p>Less than <%= (@school.utilizations.first.homerooms * 24).to_i %> students = Underutilized</p>
-                	<p>More than <%= (@school.utilizations.first.homerooms * 36).to_i %> students = Overcrowded  </p>      
-                </p>     
+                <div id="utilization">
+                	<% homerooms = @school.utilizations.first.homerooms.to_f %>
+                	<% enrollment = @school.enrollments.where("year_from=2012").first.count %>
+                	<% students_per_homeroom = enrollment / (homerooms.nonzero? || 1).to_i %>
+                	<h5><%= students_per_homeroom %> students per homeroom</h5>
+                	<p>Underutilized</p>
                 	
-                	<br /> <%= @school.enrollments.where("year_from=2012").first.count%> students are enrolled at <%= @school.short_name %>. Therefore, by CPS's standards, <%= @school.short_name %> is Underutilized. </p>
+                	<div class="homeroom">
+                		<div class="ideal">
+                			<div class="enrollment">
+                				<% for i in 0..(students_per_homeroom-1) %>
+                					<i class="icon-user"></i>
+                				<% end %>
+                			</div>
+                		</div>
+            		</div>
+                	
+                	<div class="legend"><img alt="" src="/images/utilization.png" /></div>
+                </div>
                 
                 <p class="mute">Source: <a href="http://cps.edu/About_CPS/Policies_and_guidelines/Pages/qualityschools.aspx">CPS Space Utilization and Enrollment Data for School Year 2012-2013</a></p>
             </div>
@@ -486,7 +512,14 @@ $(function () {
 						</div>
 		                <!-- /2012 Essentials -->
 					</div>
-					<p> Need legend. </p>
+					<ul class="legend">
+			        	<li><strong style="background-color: #488714;"></strong> Very strong</li>
+			        	<li><strong style="background-color: #77a161;"></strong> Strong</li>
+			        	<li><strong style="background-color: #ebcc71;"></strong> Neutral</li>
+			        	<li><strong style="background-color: #cf7e53;"></strong> Weak</li>
+			        	<li><strong style="background-color: #9e241d;"></strong> Very weak</li>
+			        	<li><strong style="background-color: #ddd;"></strong> No data</li>
+			        </ul>
                 </div>
                 
                 <p class="clear mute">Source: <a href="https://cps.5-essentials.org/2012/s/<%= @school.cps_id.to_s %>">5Essentials</a></p>
@@ -499,13 +532,13 @@ $(function () {
                 <p>Schools that score under a point threshold for Performance Policy calculations are placed on academic probation, which then trigger various interventions from the District to try and improve performance. More...</p>
                 
                 <ol class="probation">
-	                <% @school.probations.each{|p| if (p.status.to_s == '') then '' else %>
+	                <% @school.probations.each{|p| %>
               			<li class=<%= p.status%>>
 		            	 	<span class="status"><%= p.status%></span>
 		            	 	<span class="from">&lsquo;<%= p.year_from.to_s[-2,2] %></span>
 		            	 	<span class="to">&lsquo;<%= p.year_to.to_s[-2,2] %></span>
 		            	</li>
-		            <% end } %>                
+		            <% } %>                
 	           	</ol>
 	           	<div class="clear"></div>
                 

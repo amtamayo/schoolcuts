@@ -15,7 +15,7 @@
 /* Fonts
 ======================================================================*/
 body { font-family: Lora, Georgia, "Times New Roman", Times, serif; }
-.essentials .title, .levels, .mute, .probation { font-family: "Open Sans", Arial, sans-serif; }
+.essentials .title, .legend, .levels, .mute, .probation { font-family: "Open Sans", Arial, sans-serif; }
 
 
 /* Basics
@@ -64,6 +64,7 @@ ul { list-style: disc; margin-left: 2em; }
 }
 
 /* Charts */
+#demographic-chart { height: 100px; }
 #race-chart { height: 275px; }
 
 	/* 5Essentials */
@@ -90,10 +91,13 @@ ul { list-style: disc; margin-left: 2em; }
 		.essentials .neutral { background: #ebcc71; }
 		.essentials .weak { background: #cf7e53; }
 		.essentials .very-weak { background: #9e241d; color: #fff; }
+		
+		/* Legend */
+		.essentials-charts .legend strong { display: inline-block; height: 10px; width: 10px; }
 	
 	/* Levels */
 	.levels li { background: #ccc; color: #fff; float: left; margin: 0 3px 5px 0; padding: 7px 10px; }
-	.levels li.level1 { background: #48871; }
+	.levels li.level1 { background: #488714; }
 	.levels li.level2 { background: #ebcc71; }
 	.levels li.level3 { background: #9e241d; }
 	.levels .mute { clear: both; text-align: center; }
@@ -103,12 +107,19 @@ ul { list-style: disc; margin-left: 2em; }
 	
 	/* Probation */
 	.probation { font-size: 11px; list-style: none; margin-left: 0; text-align: center; }
-	.probation li { float: left; margin-bottom: 20px; width: 5.7%; }
+	.probation li { color: #666; float: left; margin-bottom: 20px; width: 5.7%; }
 	.probation li.no { color: #77a161; }
 	.probation li.yes { color: #9e241d; }
 	.probation span { display: block; }
 	.probation .status { font-size: 12px; font-weight: bold; text-transform: uppercase; }
-		
+	
+	/* Utilization */
+	.homeroom { margin: 0 auto 20px; width: 100px; }
+	.homeroom .enrollment { color: #9e241d; font-size: 19px; line-height: 1.2; position: absolute; left: 5px; text-align: left; top: 5px; }
+	.homeroom .enrollment i { margin-right: 3px; }
+	.homeroom .ideal { border: 1px solid #ccc; height: 120px; padding: 10px; position: relative; }
+	#utilization { text-align: center; }
+	#utilization p { color: #9e241d; font-style: italic; font-weight: bold; margin: 0; text-transform: uppercase; }
 
 /* Compare */
 #compare h2, #compare h3 { text-align: center; }
@@ -128,7 +139,9 @@ ul { list-style: disc; margin-left: 2em; }
 
 /* Header */
 #header { border-bottom: 1px solid #ddd; margin-bottom: 30px; padding: 30px 0; }
-#logo { float: left; font-size: 40px; }
+#logo { float: left; font-size: 30px; font-style: italic; }
+#logo a { color: #333; }
+#logo a:hover { text-decoration: none; }
 #sharing { float: right; }
 
 /* Intro */
@@ -136,8 +149,13 @@ ul { list-style: disc; margin-left: 2em; }
 #intro [class *= "c3"] { text-align: center; }
 #intro p:last-child { margin-bottom: 0; }
 
+/* Legends */
+.legend { clear: both; font-size: 12px; list-style: none; margin-left: 0; text-align: center; }
+.legend strong { font-size: 24px; }
+.legend li { display: inline; margin-right: 1em; }
+
 /* Map */
-#map { border: 1px solid #ddd; height: 340px; }
+#map { border: 1px solid #ddd; margin-bottom: 20px; height: 450px; }
 
 /* Muted text */
 .mute { color: #555; font-size: 13px; }
