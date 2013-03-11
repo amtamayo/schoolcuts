@@ -23,7 +23,7 @@ $(function () {
             },
             series: [{
                 name: 'Number of students enrolled',
-                data: <%= raw @school.enrollments.map{|e| if(e.count.nil?) then '' else e.count.to_i end} %>,
+                data: <%= raw @school.enrollments.sort_by{|e| e.year_from }.collect{|e| if(e.count.nil?) then '' else e.count.to_i end} %>,
                 pointStart: Date.UTC(<%= raw @school.enrollments.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
             }],
@@ -77,18 +77,18 @@ $(function () {
             },
             series: [{
                 name: 'Reading',
-                data: <%= raw @school.isat_scores.where("subject = 'Reading'").map{|s| if(s.percent.nil?) then '' else s.percent end} %>,
-                pointStart: Date.UTC(<%= raw @school.isat_scores.first.year_to.to_i %>, 1, 1),
+                data: <%= raw @school.reading.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil? || s.percent <= 0) then '' else s.percent end} %>,
+                pointStart: Date.UTC(<%= raw @school.reading.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
             }, {
              name: 'Math',
-                data: <%= raw @school.isat_scores.where("subject = 'Math'").map{|s| if(s.percent.nil?) then '' else s.percent end} %>,
-                pointStart: Date.UTC(<%= raw @school.isat_scores.first.year_to.to_i %>, 1, 1),
+                data: <%= raw @school.math.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil? || s.percent <= 0) then '' else s.percent end} %>,
+                pointStart: Date.UTC(<%= raw @school.math.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
             }, {
              name: 'Science',
-                data: <%= raw @school.isat_scores.where("subject = 'Science'").map{|s| if(s.percent.nil?) then '' else s.percent end} %>,
-                pointStart: Date.UTC(<%= raw @school.isat_scores.first.year_to.to_i %>, 1, 1),
+                data: <%= raw @school.science.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil? || s.percent <= 0) then '' else s.percent end} %>,
+                pointStart: Date.UTC(<%= raw @school.science.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
 
             }],
@@ -141,7 +141,7 @@ $(function () {
             credits: { enabled:false },
             series: [{
                 name: 'Mobility rate',
-                data: <%= raw @school.mobilities.map{|mobility| if(mobility.rate.nil?) then '' else mobility.rate end}.inspect %>, 
+                data: <%= raw @school.mobilities.sort_by{|m| m.year_from }.map{ |m| if m.rate.nil? then '' else m.rate end }.inspect %>, 
                 pointStart: Date.UTC(<%= raw @school.mobilities.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
             }],
@@ -219,6 +219,42 @@ $(function () {
 	                title: { text: '' }
 	            }
 	    });
+	    
+	    //Demographics
+	    dem_chart = new Highcharts.Chart({
+	            chart: {
+	            	renderTo: 'demographic-chart',
+	                type: 'bar'
+	            },
+	            credits: {enabled: false},
+	            legend: { enabled: false },
+	            plotOptions: {
+	                bar: {
+	                    borderWidth: 0,
+	                    dataLabels: {
+	                        enabled: true
+	                    },
+	                    groupPadding: 0,
+	                    shadow: false
+	                }
+	            },
+	            series: [{
+	                data: <%= raw @school.demographics.where('year_from = 2012').map{ |item| item.percent } %>
+	            }],
+	            title: { text: '' },
+	            tooltip: { enabled: false },
+	            xAxis: {
+	                categories: <%= raw @school.demographics.sort_by{|d| d.year_from}.map{ | item | item.category }.uniq %>,
+	                tickLength: 0
+	            },
+	            yAxis: {
+	            	gridLineWidth: 0,
+	                labels: { enabled: false },
+	                title: { text: '' }
+	            }
+	    });
+
+	    
 
     });
     
@@ -254,12 +290,6 @@ $(function () {
       });
       map.mapTypes.set('map-style', styledMapType);
       map.setMapTypeId('map-style');
-      var contentString = '<%= @school.short_name %>';
-
-        var infowindow = new google.maps.InfoWindow({
-            content: contentString,
-            maxWidth: 100
-        });
 
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>),
@@ -292,18 +322,17 @@ $(function () {
         radius: 2415
       };
 
-
       onefiveRadiusCircle = new google.maps.Circle(onefiveOptions);
       searchRadiusCircle = new google.maps.Circle(circleOptions);
       var LocationColumn = "Latitude"
       var fusionCPSID = "School ID"
 
-      var whereClause = "'School ID'" + " not equal to '<%= @school.cps_id %>' AND " + "ST_INTERSECTS(" + "'col6'" + ", CIRCLE(LATLNG" + new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>) + "," + 2415 + "))";
+      var whereClause = "ST_INTERSECTS(" + "Latitude" + ", CIRCLE(LATLNG" + new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>) + "," + 2415 + "))";
 
       layerl0 = new google.maps.FusionTablesLayer({
         query: {
           select: LocationColumn,
-          from: '1OS3KLNS2j0F7X1KC9buWjn6fybfr8mBvWHtcAB0',
+          from: '1z1-EA7NoUQwox20w4VpjfMd_oGJ15h_JWVzQ8OA',
           where: whereClause
         },
         map: map,
@@ -341,6 +370,7 @@ $(function () {
         
         <h3>Race/ethnicity</h3>
         <div id="race-chart"></div>
+        <div id="demographic-chart"></div>
         <p><a href="http://www.cps.edu/Schools/Pages/school.aspx?id=<%= @school.cps_id %>">View more demographics at CPS.edu</a> &raquo;</p>
     </div>
     
