@@ -85,17 +85,32 @@ $(function () {
                 data: <%= raw @school.reading.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil? || s.percent <= 0) then '' else s.percent end} %>,
                 pointStart: Date.UTC(<%= raw @school.reading.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
-            }, {
+            },{
+                name: 'Reading: CPS Average',
+                data: [53,58,58,70,73,83],
+                pointStart: Date.UTC(2007, 1, 1),
+                pointInterval: 365 * 24 * 3600 * 1000 //one year
+            },{
              name: 'Math',
                 data: <%= raw @school.math.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil? || s.percent <= 0) then '' else s.percent end} %>,
                 pointStart: Date.UTC(<%= raw @school.math.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
-            }, {
+            },{
+             name: 'Math: CPS Average',
+                data: [69,71,69,74,78,81],
+                pointStart: Date.UTC(2007, 1, 1),
+                pointInterval: 365 * 24 * 3600 * 1000 //one year
+            },{
              name: 'Science',
                 data: <%= raw @school.science.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil? || s.percent <= 0) then '' else s.percent end} %>,
                 pointStart: Date.UTC(<%= raw @school.science.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
 
+            },{
+             name: 'Science: CPS Average',
+                data: ['',56,'','',73,''],
+                pointStart: Date.UTC(2007, 1, 1),
+                pointInterval: 365 * 24 * 3600 * 1000 //one year
             }],
             subtitle: { text: '' }, 
             title: { text: '' },
@@ -379,7 +394,6 @@ $(function () {
     
     <div id="profile-primary">
         <h2>Closest schools if this school is closed</h2>
-        <p>If CPS closes <%= @school.short_name %>, students may be assigned to the schools below. <a href="#">More&hellip;</a></p>
         
         <div id="map"></div>
         <ul class="legend">
@@ -392,15 +406,15 @@ $(function () {
     </div>
     
     <div id="profile-secondary">
-    	<p><a class="action" href="#comparison">Jump to evaluation data</a></p>
+    	<p><a class="action" href="#compare">Jump to evaluation data</a></p>
         
         <h2>Demographics</h2>
         
-        <h3>Race/ethnicity</h3>
-        <div id="race-chart"></div>
-        
         <h3>Statistics</h3>
         <div id="demographic-chart"></div>
+        
+        <h3>Race/ethnicity</h3>
+        <div id="race-chart"></div>
         <p><a href="http://www.cps.edu/Schools/Pages/school.aspx?id=<%= @school.cps_id %>">View more demographics at CPS.edu</a> &raquo;</p>
     </div>
     
@@ -414,9 +428,8 @@ $(function () {
             
             <div class="dataset">
                 <h4>CPS Utilization rate</h4>
-                <p>This measure compares the numbers of students attending a school to the amount of students that CPS believes that school can accommodate, based on the number of eligible homerooms and an average of contractually-maximum homeroom limits. More...</p>
-                
-                
+                <p></p>
+                                
                 <div id="utilization">
                 	<% homerooms = @school.utilizations.first.homerooms.to_f %>
                 	<% enrollment = @school.enrollments.where("year_from=2012").first.count %>
@@ -442,7 +455,7 @@ $(function () {
             
             <div class="dataset">
                 <h4>CPS Performance level</h4>
-                <p>The Performance Level is the CPS indicator of school quality based on a formula that considers ISAT test scores and attendance rates. Level 1 is indicates a school that has the highest scores on this metric, and Level 3 is the lowest. More...</p>
+                <p>The Performance Level is the CPS indicator of school quality based on a formula that uses ISAT test scores and attendance rates. Level 1 is indicates a school that has the highest scores on this metric, and Level 3 is the lowest.</p>
                 
                 <div class="levels">
 	                <ol>
@@ -461,7 +474,7 @@ $(function () {
                        
             <div class="dataset">
                 <h4>Does student performance improve over time?</h4>
-                <p>The ISAT cohort trend focuses on a single class of students, and follows their progress in Math, Reading and Science from 3rd grade through 8th grade. Cohort trends can reveal if students begin at a testing disadvantage and improve over time, whereas composite score trends are negatively skewed by lower initial scores.</p>
+                <p>The percent of students meeting or exceeding state standards on standardized tests is tracked for one group, or cohort, of students from 3rd through 8th grade. Tracking a cohort shows how a specific set of students performed over time.</p>
                 
                 <div id="chart-isat"></div>
                 
@@ -469,7 +482,7 @@ $(function () {
             </div>
             <div class="dataset">
                 <h4>Is this school organized for improvement?</h4>
-                <p>The University of Chicago identifies 5 Essential elements common to successful schools. Schools that have better scores for the majority of these elements are thought to be better set up for success. More...</p>
+                <p>The University of Chicago has identified five basic elements of a successful school and rates each school based on the results of yearly parent, student, and teacher surveys.</p>
                 
                 <div class="essentials-charts">
                 	<div class="c2l">
@@ -540,10 +553,10 @@ $(function () {
             </div>
             <div class="dataset">
                 <h4>How stable has the school been?</h4>
-                <p>Need explanation.</p>
+                <p>It is more difficult to get a clear picture of a school if it is changing. The trends in probation status, mobility rate and enrollment described below help show how stable a school has been.</p>
                 
                 <p>Probation status trend</p>
-                <p>Schools that score under a point threshold for Performance Policy calculations are placed on academic probation, which then trigger various interventions from the District to try and improve performance. More...</p>
+                <p>Each year CPS evaluates schools to determine if they should be placed on probation and targeted for improvement measures. Schools on probation tend to have more leadership changes.</p>
                 
                 <ol class="probation">
 	                <% @school.probations.each{|p|%>
@@ -557,10 +570,11 @@ $(function () {
 	           	<div class="clear"></div>
                 
                 <p>Mobility rate trend</p>
-                <p>Mobility rates measure the percentage of students moving into or out of a school at times other than the beginning or end of a school year.  Some of these students might move to other schools within the district, while others may be moving in or out of the District. More...</p>
+                <p>Mobility rate measures how many students transfer into, or out of, the school at times other than the beginning or end of a school year. When a school has a high mobility rate, it is more difficult to show school-wide progress.</p>
                 <div id="chart-mobility"></div>
 
-                <p>Enrollment trend explanation. More...</p>
+                <p>Enrollment trend</p>
+                <p>The number of students attending the school, taken on the 20th day of each school year. [explain why the last three years were highlighted]</p>
                 <div id="chart-enrollment"></div>
                 
                 <p class="mute">Source: <a href="http://cps.edu/SchoolData/Pages/SchoolData.aspx">Chicago Public Schools Performance Data</a></p>
