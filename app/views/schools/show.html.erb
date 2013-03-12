@@ -440,17 +440,17 @@ $(function () {
                 <p></p>
                                 
                 <div id="utilization">
-                	<% homerooms = @school.utilizations.first.homerooms.to_f %>
-                	<% enrollment = @school.enrollments.where("year_from=2012").first.count %>
-                	<% students_per_homeroom = enrollment / (homerooms.nonzero? || 1).to_i %>
-                	<h5><%= students_per_homeroom %> students per homeroom</h5>
+                	
+                	<h5><%= @school.students_per_homeroom(2012) %> students per homeroom</h5>
                 	<p>Underutilized</p>
                 	
                 	<div class="homeroom">
                 		<div class="ideal">
                 			<div class="enrollment">
-                				<% for i in 0..(students_per_homeroom-1) %>
+                				<% if !(@school.students_per_homeroom(2012).nil?) %>
+                				<% for i in 0..(@school.students_per_homeroom(2012)-1) %>
                 					<i class="icon-user"></i>
+                				<% end %>
                 				<% end %>
                 			</div>
                 		</div>
@@ -487,7 +487,7 @@ $(function () {
                 
                 <div id="chart-isat"></div>
                 
-                <p class="mute">Source: <a href="#">IIRC Source</a></p>
+                <p class="mute">Source: <a href=<%= @school.isat_url %>>IIRC Source</a></p>
             </div>
             <div class="dataset">
                 <h4>Is this school organized for improvement?</h4>

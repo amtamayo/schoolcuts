@@ -23,7 +23,8 @@ namespace :cps do
 					:school_type => row[9].to_s,
 					:short_name => row[1].to_s,
 					:street_address => row[4].to_s,
-					:zip => row[5].to_i
+					:zip => row[5].to_i,
+					:isat_url =>row[88].to_s
 				)
 			else
 				school.access_type = row[10].to_s
@@ -34,10 +35,11 @@ namespace :cps do
 				school.level = row[11].to_s
 				school.longitude = row[8].to_f
 				school.phone = row[3].to_s
-				school.school_type = row[8].to_s
+				school.school_type = row[9].to_s
 				school.short_name = row[1].to_s
 				school.street_address = row[4].to_s
 				school.zip = row[5].to_i
+				school.isat_url = row[88].to_s
 				school.save
 			end
 		}
@@ -50,23 +52,20 @@ namespace :cps do
 		Mobility.delete_all()
 		
 		list = CSV.read(inputfile, :headers => true)
+		
 		list.each { |row|
 			school = School.find_by_cps_id(row[0].to_i)
+			year_from = 1999
 			if(!school.nil?)
-				puts "Importing mobility rates for #{row[1].to_s} #{row[65].to_s}"
-				Mobility.create(:school_id=>school.id, :year_from=>1999, :year_to=>2000, :rate=>row[75].to_f)
-				Mobility.create(:school_id=>school.id, :year_from=>2000, :year_to=>2001, :rate=>row[76].to_f)
-				Mobility.create(:school_id=>school.id, :year_from=>2001, :year_to=>2002, :rate=>row[77].to_f)
-				Mobility.create(:school_id=>school.id, :year_from=>2002, :year_to=>2003, :rate=>row[78].to_f)
-				Mobility.create(:school_id=>school.id, :year_from=>2003, :year_to=>2004, :rate=>row[79].to_f)
-				Mobility.create(:school_id=>school.id, :year_from=>2004, :year_to=>2005, :rate=>row[80].to_f)
-				Mobility.create(:school_id=>school.id, :year_from=>2005, :year_to=>2006, :rate=>row[81].to_f)
-				Mobility.create(:school_id=>school.id, :year_from=>2006, :year_to=>2007, :rate=>row[82].to_f)
-				Mobility.create(:school_id=>school.id, :year_from=>2007, :year_to=>2008, :rate=>row[83].to_f)
-				Mobility.create(:school_id=>school.id, :year_from=>2008, :year_to=>2009, :rate=>row[84].to_f)
-				Mobility.create(:school_id=>school.id, :year_from=>2009, :year_to=>2010, :rate=>row[85].to_f)
-				Mobility.create(:school_id=>school.id, :year_from=>2010, :year_to=>2011, :rate=>row[86].to_f)
-				Mobility.create(:school_id=>school.id, :year_from=>2011, :year_to=>2012, :rate=>row[87].to_f)
+				(75..86).map{|i| 
+					rate=nil				 
+					if !(row[i]=="" || row[i].nil?) 
+						rate=row[i].to_f 
+					end
+					puts "Importing mobility rates for #{i.to_s}: #{row[1].to_s} => #{rate.to_s}"
+					Mobility.create(:school_id=>school.id, :year_from=>year_from, :year_to=>year_from+1, :rate=>rate)
+					year_from = year_from + 1
+				}
 			else
 				puts "School #{row[1].to_s} not found"
 			end
@@ -83,21 +82,16 @@ namespace :cps do
         list.each { |row|
         	school = School.find_by_cps_id(row[0].to_i)
         	if (!school.nil?)
-        	    puts "Enrollment for #{row[0].to_s} #{row[1].to_s}"
-        	    Enrollment.create(:school_id=>school.id, :year_from=>1999, :year_to=>2000, :count=>row[32].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2000, :year_to=>2001, :count=>row[33].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2001, :year_to=>2002, :count=>row[34].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2002, :year_to=>2003, :count=>row[35].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2003, :year_to=>2004, :count=>row[36].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2004, :year_to=>2005, :count=>row[37].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2005, :year_to=>2006, :count=>row[38].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2006, :year_to=>2007, :count=>row[39].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2007, :year_to=>2008, :count=>row[40].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2008, :year_to=>2009, :count=>row[41].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2009, :year_to=>2010, :count=>row[42].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2010, :year_to=>2011, :count=>row[43].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2011, :year_to=>2012, :count=>row[44].to_i)
-        	    Enrollment.create(:school_id=>school.id, :year_from=>2012, :year_to=>2013, :count=>row[45].to_i)
+	        	year_from=1999
+        		(32..45).map{ |i|
+        			count=nil
+        			if !(row[i].nil? || row[0]=="")
+        				count=row[i].to_i
+        			end
+					puts "Importing enrollment for #{year_from.to_s}: #{row[1].to_s} => #{count}"
+        			Enrollment.create(:school_id=>school.id, :year_from=>year_from, :year_to=>year_from+1, :count=>count)
+        			year_from = year_from + 1
+        		}
         	else
         	 	puts "School #{row[1].to_s} not found"
             end
@@ -141,26 +135,47 @@ namespace :cps do
 		list.each { |row|
 			school = School.find_by_cps_id(row[0].to_i)
 			if (!school.nil?)
-				puts "Importing ISAT scores for #{row[1].to_s}"
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2006, :year_to=>2007, :percent=>row[89].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2007, :year_to=>2008, :percent=>row[90].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2008, :year_to=>2009, :percent=>row[91].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2009, :year_to=>2010, :percent=>row[92].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2010, :year_to=>2011, :percent=>row[93].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>2011, :year_to=>2012, :percent=>row[94].to_f)
+				year_from=2006
+				puts "Reading"
+				(89..94).map{ |i|
+					count=nil
+					puts "Importing ISAT scores for #{row[i]}"
+					if !(row[i].nil?)
+						count=row[i].to_f
+					end
+					IsatScore.create(:school_id=>school.id, :subject=>'Reading', :year_from=>year_from, :year_to=>year_from+1, :percent=>count)
+					year_from = year_from + 1
+				}
+
+				year_from=2006
+				puts "Math"
+				(101..106).map{ |i|
+					count=nil
+					puts "Importing ISAT scores for #{row[i]}"
+					if !(row[i].nil?)
+						count=row[i].to_f
+					end
+					IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>year_from, :year_to=>year_from+1, :percent=>count)
+					year_from = year_from + 1
+				}
+				year_from=2006
+				puts "Science"
 				
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2006, :year_to=>2007, :percent=>row[101].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2007, :year_to=>2008, :percent=>row[102].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2008, :year_to=>2009, :percent=>row[103].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2009, :year_to=>2010, :percent=>row[104].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2010, :year_to=>2011, :percent=>row[105].to_f)
-				IsatScore.create(:school_id=>school.id, :subject=>'Math', :year_from=>2011, :year_to=>2012, :percent=>row[106].to_f)
-		
 				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2006, :year_to=>2007, :percent=>nil)
-				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2007, :year_to=>2008, :percent=>row[113].to_f)
+				count=nil
+				if !(row[113].nil?)
+					count=row[113].to_f
+				end
+				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2007, :year_to=>2008, :percent=>count)
+				
 				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2008, :year_to=>2009, :percent=>nil)
 				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2009, :year_to=>2010, :percent=>nil)
-				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2010, :year_to=>2011, :percent=>row[114].to_f)				
+				
+				count=nil
+				if !(row[114].nil?)
+					count=row[114].to_f
+				end
+				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2010, :year_to=>2011, :percent=>count)				
 				IsatScore.create(:school_id=>school.id, :subject=>'Science', :year_from=>2011, :year_to=>2012, :percent=>nil)
 			else
 				puts "School #{row[1].to_s} not found"

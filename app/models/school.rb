@@ -28,4 +28,22 @@ class School < ActiveRecord::Base
   	@scores = scores_for("math")
   	@scores
   end
+  
+  def students_per_homeroom(year)
+  
+  	@result=nil
+  	if (self.school_type.include? "Special Ed")
+		@result=nil 
+	else
+	  	@homerooms = self.utilizations.select{ |u| u.year_from==year}.first.homerooms
+	  	@enrollment = self.enrollments.select{ |e| e.year_from==year}.first.count
+	  	
+	  	if (@homerooms.nil? || @homerooms==0)
+	  		@result = nil
+	  	else
+	  		@result = (@enrollment / @homerooms).to_i
+	  	end
+  	end
+  	@result
+  end
 end
