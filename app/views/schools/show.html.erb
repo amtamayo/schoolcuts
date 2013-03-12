@@ -279,7 +279,9 @@ $(function () {
       map = new google.maps.Map(document.getElementById('map'), {
         center: new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>),
         zoom: 13,
-        scrollwheel: false
+        scrollwheel: false,
+        minZoom: 12,
+        maxZoom: 16
       });
       var style = [
         {
@@ -344,7 +346,7 @@ $(function () {
         },
         map: map,
         styleId: 4,
-        templateId: 2,
+        templateId: 2
       });
       
     }
