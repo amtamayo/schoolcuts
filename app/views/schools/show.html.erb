@@ -36,10 +36,15 @@ $(function () {
                 }
             },
             xAxis: {
-            	type: "datetime",
-                gridLineColor: "#dfdfdf",
+            	gridLineColor: "#dfdfdf",
                 gridLineWidth: 1,
-                tickLength: 0
+            	plotBands: [{ // mark the weekend
+	                color: '#FCFFC5',
+	                from: Date.UTC(2010, 0, 0),
+	                to: Date.UTC(2013, 0, 0)
+                }],                
+                tickLength: 0,
+                type: "datetime"
             },
             yAxis: {
             	gridLineColor: "#dfdfdf",
@@ -109,10 +114,10 @@ $(function () {
                 shared: true
             },
             xAxis: {
-            	type: "datetime",
-                gridLineColor: "#dfdfdf",
+            	gridLineColor: "#dfdfdf",
                 gridLineWidth: 1,
-                tickLength: 0
+                tickLength: 0,
+            	type: "datetime"
             },
             yAxis: {
             	gridLineColor: "#dfdfdf",
@@ -139,12 +144,19 @@ $(function () {
                 type: 'line'
             },
             credits: { enabled:false },
-            series: [{
+            series: [
+            {
                 name: 'Mobility rate',
                 data: <%= raw @school.mobilities.sort_by{|m| m.year_from }.map{ |m| if m.rate.nil? then '' else m.rate end }.inspect %>, 
                 pointStart: Date.UTC(<%= raw @school.mobilities.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
-            }],
+            }, {
+             name: 'CPS average',
+                data: [26.6, 25.2, 24.8, 24.5, 24.4, 24.0, 26.8, 22.4, 23.3, 18.8, 18.7, 17.9, 18.3],
+                pointStart: Date.UTC(2000, 1, 1),
+                pointInterval: 365 * 24 * 3600 * 1000 //one year
+            }
+            ],
             legend: { enabled:false },
             plotOptions: {
 	            line: {
