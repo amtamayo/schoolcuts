@@ -327,11 +327,11 @@ $(function () {
       map.mapTypes.set('map-style', styledMapType);
       map.setMapTypeId('map-style');
 
-        var marker = new google.maps.Marker({
-            position: new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>),
-            map: map,
-            title: '<%= @school.short_name %>'
-        });
+        //var marker = new google.maps.Marker({
+        //    position: new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>),
+        //    map: map,
+        //    title: '<%= @school.short_name %>'
+        //});
          
       var circleOptions = {
         strokeColor: "#4b58a6",
@@ -357,11 +357,12 @@ $(function () {
         zIndex: -1,
         radius: 2415
       };
-
+      
+      var thisCPSid = <%= @school.cps_id %>
       onefiveRadiusCircle = new google.maps.Circle(onefiveOptions);
       searchRadiusCircle = new google.maps.Circle(circleOptions);
       var LocationColumn = "Latitude"
-      var fusionCPSID = "School ID"
+
 
       var whereClause = "ST_INTERSECTS(" + "Latitude" + ", CIRCLE(LATLNG" + new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>) + "," + 2415 + "))";
 
@@ -373,7 +374,13 @@ $(function () {
         },
         map: map,
         styleId: 4,
-        templateId: 2
+        templateId: 2,
+        styles: [{
+            where: "'School ID' = " + thisCPSid,
+            markerOptions: {
+                iconName: "large_blue"
+            }
+        }]
       });
       
     }
@@ -399,9 +406,11 @@ $(function () {
         <ul class="legend">
         	<li><strong style="color: #4b58a6;">&mdash;</strong> 1 mile</li>
         	<li><strong style="color: #a64b58;">&mdash;</strong> 1.5 miles</li>
-        	<li><strong style="color: #9e241d;">&bull;</strong> Selective Enrollment</li>
-        	<li><strong style="color: #ebcc71;">&bull;</strong> Lottery/Application</li>
-        	<li><strong style="color: #77a161;">&bull;</strong> Neighborhood</li>
+            <li><strong style="color: #77a161;">&bull;</strong> Neighborhood Elementary</li>
+            <li><strong style="color: #ebcc71;">&bull;</strong> Lottery/Application Elementary</li>
+        	<li><strong style="color: #9e241d;">&bull;</strong> Selective Enrollment Elementary</li>
+        	
+        	
         </ul>
     </div>
     
