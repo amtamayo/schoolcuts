@@ -118,10 +118,10 @@ ul { list-style: disc; margin-left: 2em; }
 	.probation .status { font-size: 12px; font-weight: bold; text-transform: uppercase; }
 	
 	/* Utilization */
-	.homeroom { margin: 0 auto 20px; width: 100px; }
+	.homeroom { margin: 0 auto 20px; width: 120px; }
 	.homeroom .enrollment { color: #9e241d; font-size: 19px; line-height: 1.2; position: absolute; left: 5px; text-align: left; top: 5px; }
 	.homeroom .enrollment i { margin-right: 3px; }
-	.homeroom .ideal { border: 1px solid #ccc; height: 120px; padding: 10px; position: relative; }
+	.homeroom .ideal { border: 1px solid #ccc; height: 80px; padding: 10px; position: relative; }
 	#utilization { text-align: center; }
 	#utilization p { color: #9e241d; font-style: italic; font-weight: bold; margin: 0; text-transform: uppercase; }
 

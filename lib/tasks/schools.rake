@@ -254,7 +254,7 @@ namespace :cps do
 			school = School.find_by_cps_id(row[0].to_i)
 			if (!school.nil?)
 				puts "Importing utilization for #{row[1].to_s}"
-				Utilization.create(:school_id=>school.id, :homerooms=>row[47].to_f, :other_rooms=>row[48].to_f, :year_from=>2012, :year_to=>2013)
+				Utilization.create(:school_id=>school.id, :homerooms=>row[47].to_f, :ideal_capacity=>row[49].to_i, :other_rooms=>row[48].to_f, :year_from=>2012, :year_to=>2013)
 			else
 				puts "School #{row[1].to_s} not found"
 			end
