@@ -507,7 +507,7 @@ $(function () {
                 <p>The percent of students meeting or exceeding state standards on standardized tests is tracked for one group, or cohort, of students from 3rd through 8th grade. Tracking a cohort shows how a specific set of students performed over time.</p>
                 
                 <div id="chart-isat"></div>
-                <% if @school.isat_scores.reject{|s| s.percent.nil? }.count %>
+                <% if @school.isat_scores.reject{|s| s.percent.nil? }.count == 0%>
                 	<p>No data available </p>
                 <% end %>
                 
