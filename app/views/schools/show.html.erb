@@ -589,6 +589,7 @@ function query(){
                 <div id="chart-isat"></div>
                 <!--
 <% if @school.isat_scores.reject{|s| s.percent.nil? }.count %>
+                <% if @school.isat_scores.reject{|s| s.percent.nil? }.count == 0%>
                 	<p>No data available </p>
                 <% end %>
 -->
