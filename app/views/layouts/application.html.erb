@@ -2,8 +2,9 @@
 <html>
 <head>
     <!-- Title -->
-    <title>School cuts</title>
-
+    
+    <title><%= @school.nil? ? 'School cuts' : @school.short_name + "- School cuts" %></title>
+    
     <!-- Meta -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="apple-mobile-web-app-title" content="ODI" />
