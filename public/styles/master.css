@@ -23,7 +23,7 @@ body { font-family: Lora, Georgia, "Times New Roman", Times, serif; }
 ======================================================================*/
 a { color: #3b5cb2; text-decoration: none; }
 a:hover { text-decoration: underline; }
-body { font-size: 16px; line-height: 1.5; margin-bottom: 40px; }
+body { font-size: 16px; line-height: 1.5; }
 blockquote, dl, ol, p, table, ul { margin-bottom: 1em; }
 cite, em { font-style: italic; }
 h1 { font-size: 32px; line-height: 1.03; margin-bottom: 0.5em; }
@@ -40,8 +40,8 @@ ul { list-style: disc; margin-left: 2em; }
 /* Layout
 ======================================================================*/
 .clear { clear: both; }
-#content { padding-bottom: 40px; }
-#content, #footer, #header-content { margin: 0 auto; width: 980px; }
+.content { padding: 0 30px 40px; }
+.content, #footer-content, #header-content { margin: 0 auto; width: 980px; }
 .static { width: 66%; }
 
 /* Columns */
@@ -138,16 +138,16 @@ ul { list-style: disc; margin-left: 2em; }
 .examples dd, .examples dt { padding-left: 35.43%; }
 .examples dt { clear: both; font-weight: bold; padding-top: 20px; }
 .examples dt:first-child { padding-top: 0; }
-.examples img { float: left; margin: 6px 0 0 -168px; }
+.examples img { border: 1px solid #ddd; float: left; margin: 6px 0 0 -168px; }
 .examples p { margin-bottom: 0.5em; }
 
 /* Footer */
-#footer { border-top: 1px solid #ddd; padding-top: 30px; }
+#footer { background: #f0f0f0; border-top: 1px solid #ddd; padding: 30px; }
 #footer-primary { float: left; width: 65.68%; }
 #footer-secondary { float: right; width: 31.29%; }
 
 /* Header */
-#header { background: #3B653D; margin-bottom: 30px; padding: 30px 0 10px; }
+#header { background: #3B653D; border-bottom: 7px solid #f0f0f0; margin-bottom: 30px; padding: 30px 30px 10px; }
 #logo { float: left; font-size: 40px; }
 #logo a { color: #fff; }
 #logo a:hover { text-decoration: none; }
@@ -164,7 +164,7 @@ ul { list-style: disc; margin-left: 2em; }
 	background: -ms-linear-gradient(top, #ffffff 0%,#efefef 100%);
 	background: linear-gradient(to bottom, #ffffff 0%,#efefef 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#efefef',GradientType=0 );
-	border: 1px solid #dfdfdf;
+	border: 1px solid #ccc;
 	border-radius: 10px;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 	font-size: 19px;

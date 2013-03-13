@@ -2,8 +2,8 @@
 <html>
 <head>
     <!-- Title -->
-    
-    <title><%= @school.nil? ? 'School cuts' : @school.short_name + "- School cuts" %></title>
+    <title><%= @school.nil? ? 'School Cuts' : @school.short_name + " - School Cuts" %></title>
+    <link rel="Shortcut Icon" href="/images/favicon.ico" type="image/x-icon" />
     
     <!-- Meta -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -54,6 +54,9 @@
                 <a class="addthis_counter addthis_pill_style"></a>
             </div>
             <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5131303d07eaa9f3"></script>
+            <script type="text/javascript">
+            	var addthis_config = { ui_click: true };
+            </script>
             <!-- AddThis Button END -->
         </div>
         
@@ -66,7 +69,7 @@
 
 
 <!-- Disqus -->
-<div id="content">
+<div class="content">
 	<hr />
 	<div id="disqus_thread"></div>
 	<script type="text/javascript">
@@ -83,29 +86,31 @@
 	</script>
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</div>   
+</div>  
 <!-- /Disqus -->
 
 <!-- Footer -->
 <div id="footer">
-    <div id="footer-primary">
-        <h2>About this project</h2>
-        <p>The data on this site comes from Chicago Public Schools, the City of Chicago, and the Illinois State Board of Education. Our goal is to help families with school children, other Chicago residents, and policy makers access and understand data that will help make informed decisions about the future of public schools.</p>
-        <p><a href="/about/index">Learn more about the data &raquo;</a></p>
-    </div>
-    
-    <div id="footer-secondary">
-        <h2>Collaborators</h2>        
-        <p>
-            <a href="http://twitter.com/JMOChicago">Jeanne Marie Olson</a>, <a href="http://cpsapples2apples.wordpress.com">Apples 2 Apples</a>
-            <br /><a href="http://twitter.com/shua123">Josh Kalov</a>, <a href="http://cpsapples2apples.wordpress.com">Apples 2 Apples</a>
-            <br />Lincoln Chandler
-            <br /><a href="http://twitter.com/_amtamayo">Anna Marie-Tamayo</a>, <a href="http://opendatainstitute.org">Open Data Institute</a>
-            <br /><a href="http://twitter.com/elnazem">Elnaz Moshfeghian</a>, <a href="http://opendatainstitute.org">Open Data Institute</a>
-            <br /><a href="http://twitter.com/PaulBaker">Paul Baker</a>, <a href="http://opendatainstitute.org">Open Data Institute</a>
-            <br /><a href="http://twitter.com/rougeux">Nick Rougeux</a>, <a href="http://opendatainstitute.org">Open Data Institute</a>
-        </p>
-    </div>
+	<div id="footer-content">
+	    <div id="footer-primary">
+	        <h2>About this project</h2>
+	        <p>This website presents data from several sources, including the <a href="http://cps.edu">Chicago Public Schools</a>, the <a href="http://isbe.state.il.us">Illinois State Board of Education</a>, and the <a href="http://uei.uchicago.edu/">University of Chicago Urban Education Institute</a>. Our goal is to help families with school children, other Chicago residents, and policy makers access and understand data that will help make informed decisions about the future of public schools.</p>
+	        <p><a href="/about/index">Learn more about the data &raquo;</a></p>
+	    </div>
+	    
+	    <div id="footer-secondary">
+	        <h2>Collaborators</h2>        
+	        <p>
+	            <a href="http://twitter.com/JMOChicago">Jeanne Marie Olson</a>, <a href="http://cpsapples2apples.wordpress.com">Apples 2 Apples</a>
+	            <br /><a href="http://twitter.com/shua123">Josh Kalov</a>, <a href="http://cpsapples2apples.wordpress.com">Apples 2 Apples</a>
+	            <br /><a href="http://www.linkedin.com/in/ljchandler">Lincoln Chandler</a>
+	            <br /><a href="http://twitter.com/_amtamayo">Anna Marie-Tamayo</a>, <a href="http://opendatainstitute.org">Open Data Institute</a>
+	            <br /><a href="http://twitter.com/elnazem">Elnaz Moshfeghian</a>, <a href="http://opendatainstitute.org">Open Data Institute</a>
+	            <br /><a href="http://twitter.com/PaulBaker">Paul Baker</a>, <a href="http://opendatainstitute.org">Open Data Institute</a>
+	            <br /><a href="http://twitter.com/rougeux">Nick Rougeux</a>, <a href="http://opendatainstitute.org">Open Data Institute</a>
+	        </p>
+	    </div>
+	</div>
     
     <div class="clear"></div>
 </div>

@@ -478,7 +478,7 @@ function query(){
 <!-- End Javascript -->
 
 <!-- Content -->
-<div id="content">
+<div class="content">
     <div id="intro">
         <h1><%= link_to 'Home', root_url %> &raquo; <%= @school.short_name %></h1>
         <p>
@@ -515,12 +515,12 @@ function query(){
     <div id="profile-secondary">
     	<p><a class="action" href="#compare">Jump to evaluation data</a></p>
         
-        <h2>Demographics</h2>
+        <h3><%= @school.short_name %>'s Demographics</h3>
         
-        <h3>Statistics</h3>
+        <strong>Statistics</strong>
         <div id="demographic-chart"></div>
         
-        <h3>Race/ethnicity</h3>
+        <strong>Race/ethnicity</strong>
         <div id="race-chart"></div>
         <p><a href="http://www.cps.edu/Schools/Pages/school.aspx?id=<%= @school.cps_id %>">View more demographics at CPS.edu</a> &raquo;</p>
     </div>
@@ -584,18 +584,20 @@ function query(){
                        
             <div class="dataset">
                 <h4>Does student performance improve over time?</h4>
-                <p>The percent of students meeting or exceeding state standards on standardized tests is tracked for one group, or cohort, of students from 3rd through 8th grade. Tracking a cohort shows how a specific set of students performed over time.</p>
+                <p>The percent of students meeting or exceeding state standards on standardized tests is tracked for one group, or cohort, of students from grades 3&mdash;8. This shows how a specific set of students performed over time.</p>
                 
                 <div id="chart-isat"></div>
-                <% if @school.isat_scores.reject{|s| s.percent.nil? }.count %>
+                <!--
+<% if @school.isat_scores.reject{|s| s.percent.nil? }.count %>
                 	<p>No data available </p>
                 <% end %>
+-->
                 
                 <p class="mute">Source: <a href=<%= @school.isat_url %>>IIRC Source</a></p>
             </div>
             <div class="dataset">
                 <h4>Is this school organized for improvement?</h4>
-                <p>The University of Chicago has identified five basic elements of a successful school and rates each school based on the results of yearly parent, student, and teacher surveys.</p>
+                <p>The University of Chicago identifies five basic elements of a successful school and rates each school based on the results of yearly parent, student, and teacher surveys.</p>
                 
                 <div class="essentials-charts">
                 	<div class="c2l">
@@ -665,8 +667,8 @@ function query(){
                 <p class="clear mute">Source: <a href="https://cps.5-essentials.org/2012/s/<%= @school.cps_id.to_s %>">5Essentials</a></p>
             </div>
             <div class="dataset">
-                <h4>How stable has the school been?</h4>
-                <p>It is more difficult to get a clear picture of a school if it is changing. The trends in probation status, mobility rate and enrollment described below help show how stable a school has been.</p>
+                <h4>How stable is the school?</h4>
+                <p>The trends in probation status, mobility rate and enrollment, described below, help show how stable a school has been. It is more difficult to get a clear picture of a school if it is changing. </p>
                 
                 <h5>Probation status trend</h5>
                 <p>Each year CPS evaluates schools to determine if they should be placed on probation and targeted for improvement measures. Schools on probation tend to have more leadership changes.</p>
@@ -683,7 +685,7 @@ function query(){
 	           	<div class="clear"></div>
                 
                 <h5>Mobility rate trend</h5>
-                <p>Mobility rate measures how many students transfer into, or out of, the school at times other than the beginning or end of a school year. When a school has a high mobility rate, it is more difficult to show school-wide progress.</p>
+                <p>When a school has a high mobility rate, it is more difficult to tell whether a school is making progress.</p>
                 <div id="chart-mobility"></div>
 
                 <h5>Enrollment trend</h5>
