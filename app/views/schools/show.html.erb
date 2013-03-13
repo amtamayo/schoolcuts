@@ -24,7 +24,7 @@ $(function () {
             series: [{
             	color: "#3b5cb2",
                 name: 'Number of students enrolled',
-                data: <%= raw @school.enrollments.sort_by{|e| e.year_from }.collect{|e| if(e.count.nil?) then '' else e.count.to_i end} %>,
+                data: <%= raw @school.enrollments.sort_by{|e| e.year_from }.collect{|e| e.count}.to_json %>,
                 pointStart: Date.UTC(<%= raw @school.enrollments.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
             }],
@@ -95,7 +95,7 @@ $(function () {
             series: [{
                 color: "#1F88EA",
                 name: 'Reading',
-                data: <%= raw @school.reading.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil? || s.percent <= 0) then '' else s.percent end} %>,
+                data: <%= raw @school.reading.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
                 pointStart: Date.UTC(<%= raw @school.reading.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
             },/*
@@ -110,7 +110,7 @@ $(function () {
             {
              	name: 'Math',
                 color: "#9E241D",
-                data: <%= raw @school.math.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil? || s.percent <= 0) then '' else s.percent end} %>,
+                data: <%= raw @school.math.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
                 pointStart: Date.UTC(<%= raw @school.math.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
             },/*
@@ -125,7 +125,7 @@ $(function () {
             {
              	name: 'Science',
                 color: "#A9B80D",
-                data: <%= raw @school.science.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil? || s.percent <= 0) then '' else s.percent end} %>,
+                data: <%= raw @school.science.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
                 pointStart: Date.UTC(<%= raw @school.science.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
 
@@ -189,7 +189,7 @@ $(function () {
             {
             	color: "#3b5cb2",
                 name: 'Mobility rate',
-                data: <%= raw @school.mobilities.sort_by{|m| m.year_from }.map{ |m| if (m.rate.nil?) then "" else m.rate end }.inspect %>, 
+                data: <%= raw @school.mobilities.sort_by{|m| m.year_from }.map{|m| m.rate}.to_json %>, 
                 pointStart: Date.UTC(<%= raw @school.mobilities.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
             }, {
@@ -208,7 +208,6 @@ $(function () {
             },
             plotOptions: {
 	            line: {
-	            	connectNulls: true,
 	            	marker: {
 		            	lineColor: "#fff",
 		            	lineWidth: 1.5,
@@ -343,7 +342,7 @@ $(function () {
         center: new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>),
         zoom: 13,
         scrollwheel: false,
-        minZoom: 12,
+        minZoom: 13,
         maxZoom: 16
       });
       var style = [
@@ -588,6 +587,9 @@ function query(){
                 <p>The percent of students meeting or exceeding state standards on standardized tests is tracked for one group, or cohort, of students from 3rd through 8th grade. Tracking a cohort shows how a specific set of students performed over time.</p>
                 
                 <div id="chart-isat"></div>
+                <% if @school.isat_scores.reject{|s| s.percent.nil? }.count %>
+                	<p>No data available </p>
+                <% end %>
                 
                 <p class="mute">Source: <a href=<%= @school.isat_url %>>IIRC Source</a></p>
             </div>
@@ -687,7 +689,7 @@ function query(){
                 <h5>Enrollment trend</h5>
                 <p>The number of students attending the school, taken on the 20th day of each school year. CPS will consider only the past three years of enrollment trends in their school closings decisions.</p>
                 <div id="chart-enrollment"></div>
-                
+
                 <p class="mute">Source: <a href="http://cps.edu/SchoolData/Pages/SchoolData.aspx">Chicago Public Schools Performance Data</a></p>
             </div>
         </div>
