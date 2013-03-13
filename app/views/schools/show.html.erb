@@ -22,6 +22,7 @@ $(function () {
 	            }
             },
             series: [{
+            	color: "#3b5cb2",
                 name: 'Number of students enrolled',
                 data: <%= raw @school.enrollments.sort_by{|e| e.year_from }.collect{|e| if(e.count.nil?) then '' else e.count.to_i end} %>,
                 pointStart: Date.UTC(<%= raw @school.enrollments.first.year_to.to_i %>, 1, 1),
@@ -69,11 +70,17 @@ $(function () {
                 type: 'line'
             },
             credits: { enabled: false },
+            /* 
             legend: {
             	borderWidth: 0,
             	itemWidth: 200,
             	symbolWidth: 40
-            },
+            },*/	
+            legend : {
+	        	borderWidth: 0,
+	        	itemWidth: 130,
+	        	symbolWidth: 40
+            },		
             plotOptions: {
 	            line: {
 	            	marker: {
@@ -91,41 +98,46 @@ $(function () {
                 data: <%= raw @school.reading.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil? || s.percent <= 0) then '' else s.percent end} %>,
                 pointStart: Date.UTC(<%= raw @school.reading.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
-            },{
+            },/*
+	        {
                 color: "#1F88EA",
                 name: 'Reading: CPS Average',
                 dashStyle: "ShortDash",
                 data: [53,58,58,70,73,83],
                 pointStart: Date.UTC(2007, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
-            },{
-             name: 'Math',
+            },*/			
+            {
+             	name: 'Math',
                 color: "#9E241D",
                 data: <%= raw @school.math.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil? || s.percent <= 0) then '' else s.percent end} %>,
                 pointStart: Date.UTC(<%= raw @school.math.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
-            },{
+            },/*
+	        {
              name: 'Math: CPS Average',
                 color: "#9E241D",
                 dashStyle: "ShortDash",
                 data: [69,71,69,74,78,81],
                 pointStart: Date.UTC(2007, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
-            },{
-             name: 'Science',
+            },*/			
+            {
+             	name: 'Science',
                 color: "#A9B80D",
                 data: <%= raw @school.science.sort_by{|s| s.year_from}.map{|s| if(s.percent.nil? || s.percent <= 0) then '' else s.percent end} %>,
                 pointStart: Date.UTC(<%= raw @school.science.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
 
-            },{
-             name: 'Science: CPS Average',
+            }/* ,{
+             	name: 'Science: CPS Average',
                 color: "#A9B80D",
                 dashStyle: "ShortDash",
                 data: ['',56,'','',73,''],
                 pointStart: Date.UTC(2007, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
-            }],
+            }*/			
+            ],
             subtitle: { text: '' }, 
             title: { text: '' },
             tooltip: {
@@ -175,25 +187,33 @@ $(function () {
             credits: { enabled:false },
             series: [
             {
+            	color: "#3b5cb2",
                 name: 'Mobility rate',
-                data: <%= raw @school.mobilities.sort_by{|m| m.year_from }.map{ |m| if m.rate.nil? then '' else m.rate end }.inspect %>, 
+                data: <%= raw @school.mobilities.sort_by{|m| m.year_from }.map{ |m| if (m.rate.nil?) then "" else m.rate end }.inspect %>, 
                 pointStart: Date.UTC(<%= raw @school.mobilities.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
             }, {
-             name: 'CPS average',
+             	color: "#3b5cb2",
+             	name: 'CPS average mobility rate',
+             	dashStyle: "ShortDash",
                 data: [26.6, 25.2, 24.8, 24.5, 24.4, 24.0, 26.8, 22.4, 23.3, 18.8, 18.7, 17.9, 18.3],
                 pointStart: Date.UTC(2000, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
             }
             ],
-            legend: { enabled:false },
+            legend: { 
+	        	borderWidth: 0,
+	        	itemWidth: 130,
+	        	symbolWidth: 40
+            },
             plotOptions: {
 	            line: {
 	            	connectNulls: true,
 	            	marker: {
 		            	lineColor: "#fff",
 		            	lineWidth: 1.5,
-		            	radius: 5
+		            	radius: 5,
+		            	symbol: "circle"
 	            	},
 		            shadow: false
 	            }
@@ -317,6 +337,7 @@ $(function () {
   <script type="text/javascript">
     var map;
     var layerl0;
+    
     function initialize() {
       map = new google.maps.Map(document.getElementById('map'), {
         center: new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>),
@@ -378,8 +399,20 @@ $(function () {
       searchRadiusCircle = new google.maps.Circle(circleOptions);
       var LocationColumn = "Latitude"
 
-
       var whereClause = "ST_INTERSECTS(" + "Latitude" + ", CIRCLE(LATLNG" + new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>) + "," + 2415 + "))";
+	  /*
+function query(){
+		  var queryStr = [];
+		  queryStr.push("SELECT " + "'levelnum', 'Value Added Math Score'");
+		  queryStr.push(" FROM "+"1z1-EA7NoUQwox20w4VpjfMd_oGJ15h_JWVzQ8OA");     
+		  queryStr.push(" WHERE "+ whereClause);
+		  var sql = encodeURIComponent(queryStr.join(" "));
+		  console.log(sql);
+		  //$.ajax({url: "https://www.googleapis.com/fusiontables/v1/query?sql="+sql+"&callback="+callback+"&key=AIzaSyBZmv4Q6UbEd83q1GXlm6su2tMpwa18yrQ", dataType:"jsonp"});
+	  }
+	  query();
+    //console.log(isBetter(3, 70, 38, 0, 1));
+*/
 
       layerl0 = new google.maps.FusionTablesLayer({
         query: {
@@ -400,6 +433,48 @@ $(function () {
       
     }
     google.maps.event.addDomListener(window, 'load', initialize);
+    
+    /*
+    var thisLevel = <%= @school.level[-1,1].to_i %>;
+    var thisIsat = 76.2;
+    var thisPolicyPts = 36;
+    var thisValueMath = -0.3; 
+    var thisValueReading = 0.8;
+    
+    function isBetter(level){
+	    console.log(level);
+    }
+    
+    
+	    function isBetter(level, isat, policyPts, valueMath, valueReading){
+    	var countTrue = 0;
+    	
+    	
+    	if(thisLevel > level)
+    		return 1;
+    	
+    	if(thisIsat < isat) 
+    		countTrue++;	
+    	if(thisPolicyPts < policyPts)
+    		countTrue++;
+    	if(thisValueMath < valueMath)
+    		countTrue++;
+    	if(thisValueReading < valueReading)
+    		countTrue++;
+    		
+    	if(countTrue>=3) 
+    		return 1;
+    	else return 0;
+    }
+
+	function callback(json) {
+	  MapsLib.handleError(json);
+	  var data = json["rows"];
+	  var template = "";
+	
+	  console.log(data[0][0]);
+	}
+	*/
   </script>
 <!-- End Javascript -->
 
@@ -415,8 +490,8 @@ $(function () {
     </div>
     
     <div id="profile-primary">
-        <h2>Closest schools if this school is closed</h2>
-        
+        <h2>Closest schools if <%= @school.short_name %> is closed</h2>
+        <!-- <p>If <%= @school.short_name %> closes, its students might to moved to these nearby Neighborhood schools. </p> -->
         <div id="map"></div>
         <ul class="legend">
         	<li><strong style="color: #4b58a6;"><i class="icon-minus"></i></strong> 1 mile</li>
@@ -426,7 +501,8 @@ $(function () {
         	<li><strong style="color: #9e241d;"><i class="icon-circle"></i></strong> Selective enrollment</li>
         </ul>
         
-        <div class="balloon">
+        <!--
+<div class="balloon">
         	<h3>School name</h3>
         	<p>Type</p>
         	<ul>
@@ -434,6 +510,7 @@ $(function () {
         		<li>Performance: Level 3</li>
         	</ul>
         </div>
+-->
     </div>
     
     <div id="profile-secondary">
@@ -459,28 +536,31 @@ $(function () {
             
             <div class="dataset">
                 <h4>CPS utilization rate</h4>
-                <p>Distributing <%= @school.short_name %>'s # students among their # homerooms results in <%= @school.students_per_homeroom(2012) %> for each homeroom, which is less than the 24&ndash;36 students CPS wants in each homeroom.</p>
+                <p>This year, <%= @school.enrollments.select{|u| u.year_from==2012}.first.count %> students were enrolled at <%= @school.short_name %>. However, CPS believes a total of <%= @school.utilizations.select{|u| u.year_from==2012}.first.ideal_capacity %> students should be enrolled at <%= @school.short_name %>.</p>
                                 
                 <div id="utilization">
-                	
-                	<h5><%= @school.students_per_homeroom(2012) %> students per homeroom</h5>
+                	<% enrollment = @school.enrollments.select{ |e| e.year_from==2012}.first.count %>
+                	<% ideal_capacity = @school.utilizations.select{|ut| ut.year_from==2012}.first.ideal_capacity %>
+                	<% utilization_rate = enrollment.to_f / ideal_capacity * 100 %>
+                	<% utilization_percent = number_to_percentage(utilization_rate, :precision => 0)%>
+                 	
+                	<h5><%= utilization_percent %> utilized by CPS calculations</h5>
                 	<p>Underutilized</p>
                 	
                 	<div class="homeroom">
                 		<div class="ideal">
                 			<div class="enrollment">
-                				<% if !(@school.students_per_homeroom(2012).nil?) %>
-                				<% for i in 0..(@school.students_per_homeroom(2012)-1) %>
+                				<% util_symbol_count = (utilization_rate / 5).to_i %>
+                				<% for i in 0..(util_symbol_count) %>
                 					<i class="icon-user"></i>
-                				<% end %>
                 				<% end %>
                 			</div>
                 		</div>
             		</div>
                 	
-                	<div class="legend"><img alt="" src="/images/utilization.png" /></div>
+                	<!-- <div class="legend"><img alt="" src="/images/utilization.png" /></div> -->
                 </div>
-                
+                <p>To learn more about how CPS utilization calculations may not be accurate, see <a href="http://cpsapples2apples.wordpress.com/2012/12/18/does-a2a-show-any-cps-schools-as-underutilized/">CPS Apples 2 Apples</a>.</p>
                 <p class="mute">Source: <a href="http://cps.edu/About_CPS/Policies_and_guidelines/Pages/qualityschools.aspx">CPS Space Utilization and Enrollment Data for School Year 2012-2013</a></p>
             </div>
             
@@ -605,7 +685,7 @@ $(function () {
                 <div id="chart-mobility"></div>
 
                 <h5>Enrollment trend</h5>
-                <p>The number of students attending the school, taken on the 20th day of each school year. [explain why the last three years were highlighted]</p>
+                <p>The number of students attending the school, taken on the 20th day of each school year. CPS will consider only the past three years of enrollment trends in their school closings decisions.</p>
                 <div id="chart-enrollment"></div>
                 
                 <p class="mute">Source: <a href="http://cps.edu/SchoolData/Pages/SchoolData.aspx">Chicago Public Schools Performance Data</a></p>
