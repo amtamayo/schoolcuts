@@ -147,7 +147,7 @@ $(function () {
             series: [
             {
                 name: 'Mobility rate',
-                data: <%= raw @school.mobilities.sort_by{|m| m.year_from }.map{ |m| if m.rate.nil? then '' else m.rate end }.inspect %>, 
+                data: <%= raw @school.mobilities.sort_by{|m| m.year_from }.map{|m| m.rate.nil? ? '' : m.rate}.inspect %>, 
                 pointStart: Date.UTC(<%= raw @school.mobilities.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
             }, {
