@@ -1,5 +1,5 @@
 class School < ActiveRecord::Base
-  attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :level, :longitude, :phone, :school_type, :short_name, :street_address, :zip
+  attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :level, :longitude, :phone, :school_type, :short_name, :street_address, :zip, :isat_url
   
   has_many :enrollments
   has_many :essentials
