@@ -28,12 +28,8 @@
     <td><%= school.school_type %></td>
     <td><%= school.access_type %></td>
     <td><%= link_to 'Show', school %></td>
-    <td><%= link_to 'Edit', edit_school_path(school) %></td>
-    <td><%= link_to 'Destroy', school, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
-
-<%= link_to 'New School', new_school_path %>
