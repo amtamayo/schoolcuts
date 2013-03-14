@@ -57,7 +57,7 @@ namespace :cps do
 			school = School.find_by_cps_id(row[0].to_i)
 			year_from = 1999
 			if(!school.nil?)
-				(75..86).map{|i| 
+				(75..87).map{|i| 
 					rate=nil				 
 					if !(row[i]=="" || row[i].nil?) 
 						rate=row[i].to_f 
