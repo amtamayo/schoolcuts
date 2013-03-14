@@ -14,6 +14,8 @@ class SchoolsController < ApplicationController
   # GET /schools/1.json
   def show
     @school = School.find(params[:id])
+    @enrollment = Enrollment.where(:school_id => @school.id).where(:year_from => 2012).first.count
+    @ideal_capacity = Utilization.where(:school_id => @school.id).where(:year_from => 2012).first.ideal_capacity
 
     respond_to do |format|
       format.html # show.html.erb
