@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130312231925) do
+ActiveRecord::Schema.define(:version => 20130314012029) do
 
   create_table "demographics", :force => true do |t|
     t.integer  "school_id"
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(:version => 20130312231925) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "enrollments", ["year_to"], :name => "index_enrollments_on_year_to"
 
   create_table "essentials", :force => true do |t|
     t.integer  "school_id"
@@ -106,5 +108,7 @@ ActiveRecord::Schema.define(:version => 20130312231925) do
     t.datetime "updated_at",     :null => false
     t.integer  "ideal_capacity"
   end
+
+  add_index "utilizations", ["year_to"], :name => "index_utilizations_on_year_to"
 
 end
