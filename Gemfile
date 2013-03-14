@@ -14,4 +14,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :development, :production do
+  gem 'unicorn'
+  gem 'unicorn-rails'
+end
+
 gem 'jquery-rails'
