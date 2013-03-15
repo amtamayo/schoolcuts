@@ -16,7 +16,7 @@ class SchoolsController < ApplicationController
     @school = School.find(params[:id])
     @year = 2012
     @enrollment = @school.enrollments_for_year(@year)
-    @ideal_capacity = @school.enrollments_for_year(@year)
+    @ideal_capacity = @school.ideal_capacity_for_year(@year)
     @first_enrollment_year = @school.first_enrollment_year
     @enrollment_totals = @school.enrollment_totals
 

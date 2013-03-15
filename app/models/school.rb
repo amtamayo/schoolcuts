@@ -21,7 +21,7 @@ class School < ActiveRecord::Base
   end
 
   def ideal_capacity_for_year(number)
-    utilitizations.select('count').where({
+    utilizations.select('ideal_capacity').where({
       :year_from => number
     }).first.ideal_capacity
   end
