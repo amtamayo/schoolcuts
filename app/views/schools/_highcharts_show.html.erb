@@ -23,8 +23,8 @@ $(function () {
             series: [{
             	color: "#3b5cb2",
                 name: 'Number of students enrolled',
-                data: <%= raw @school.enrollments.sort_by{|e| e.year_from }.collect{|e| e.count}.to_json %>,
-                pointStart: Date.UTC(<%= raw @school.enrollments.first.year_to.to_i %>, 1, 1),
+                data: <%= raw @enrollment_totals %>,
+                pointStart: Date.UTC(<%= raw @first_enrollment_year %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
             }],
             subtitle: { text: ''}, 
