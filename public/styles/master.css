@@ -39,7 +39,7 @@ ul { list-style: disc; margin-left: 2em; }
 ======================================================================*/
 .clear { clear: both; }
 .content { padding: 0 30px 40px; }
-.content, #footer-content, #header-content { margin: 0 auto; width: 980px; }
+.content, #footer-content, #header-content, #nav-content { margin: 0 auto; width: 980px; }
 .static { width: 66%; }
 
 /* Columns */
@@ -145,7 +145,7 @@ ul { list-style: disc; margin-left: 2em; }
 #footer-secondary { float: right; width: 31.29%; }
 
 /* Header */
-#header { background: #3B653D; border-bottom: 7px solid #f0f0f0; margin-bottom: 30px; padding: 30px 30px 10px; }
+#header { background: #3B653D; padding: 30px 30px 10px; }
 #logo { float: left; font-size: 40px; }
 #logo a { color: #fff; }
 #logo a:hover { text-decoration: none; }
@@ -190,8 +190,13 @@ ul { list-style: disc; margin-left: 2em; }
 /* Muted text */
 .mute { color: #555; font-size: 13px; }
 
+/* Navigtion */
+#nav { background: #f0f0f0; font-size: 20px; margin-bottom: 30px; padding: 10px 30px; }
+#nav li { display: inline; margin: 0 0.9em 0 0; }
+#nav li.current a { color: #000; font-weight: bold; }
+#nav ul { list-style: none; margin: 0; }
+
 /* School list */
-#schools { font-size: 14px; }
 #schools li { margin: 0; }
 #schools ol { list-style: none; margin-left: 0; }
 

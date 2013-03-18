@@ -7,7 +7,7 @@
 <!-- Content -->
 <div class="content">
     <div id="intro">
-        <h1><%= link_to 'Home', root_url %> &raquo; <%= @school.short_name %></h1>
+        <h1><%= @school.short_name %></h1>
         <p>
         	<%= @school.full_name %> &bull; <%= @school.phone %> &bull; <%= @school.community_area.split(' ').map {|w| w.capitalize }.join(' ') %> &bull; 
         	<%= @school.street_address %>, Chicago, Illinois <%= @school.zip%>
