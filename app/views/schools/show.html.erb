@@ -7,7 +7,11 @@
 <!-- Content -->
 <div class="content">
     <div id="intro">
-        <h1><%= @school.short_name %></h1>
+        <h1><%= @school.short_name %>
+            <!--<span class="flag-closing">Closing</span>
+            <span class="flag-screened">Screened but not closing</span>
+            <span class="flag-welcome">Welcoming school</span>-->
+        </h1>
         <p>
         	<%= @school.full_name %> &bull; <%= @school.phone %> &bull; <%= @school.community_area.split(' ').map {|w| w.capitalize }.join(' ') %> &bull; 
         	<%= @school.street_address %>, Chicago, Illinois <%= @school.zip%>
@@ -40,7 +44,7 @@
     </div>
     
     <div id="profile-secondary">
-    	<p><a class="action" href="#compare">Jump to evaluation data</a></p>
+    	<p><a class="action" href="#evaluation">Jump to evaluation data</a></p>
         
         <h3><%= @school.short_name %>'s Demographics</h3>
         
@@ -54,7 +58,7 @@
     
     <div class="clear"></div><hr />
     
-    <div id="compare">
+    <div id="evaluation">
         <!-- <h2>What does CPS look at and what else could be considered?</h2> -->
         
         <div class="c2l">
@@ -94,9 +98,9 @@
                 
                 <div class="levels">
 	                <ol>
-	                	<li class=<%= if(@school.level=="Level 1") then @school.level.downcase.tr(' ','') end %>><strong>Level</strong><span>1</span></li>
-	                	<li class=<%= if(@school.level=="Level 2") then @school.level.downcase.tr(' ','') end %>><strong>Level</strong><span>2</span></li>
-	                	<li class=<%= if(@school.level=="Level 3") then @school.level.downcase.tr(' ','') end %>><strong>Level</strong><span>3</span></li>
+	                	<li class="<%= if(@school.level=="Level 1") then @school.level.downcase.tr(' ','') end %>"><strong>Level</strong><span>1</span></li>
+	                	<li class="<%= if(@school.level=="Level 2") then @school.level.downcase.tr(' ','') end %>"><strong>Level</strong><span>2</span></li>
+	                	<li class="<%= if(@school.level=="Level 3") then @school.level.downcase.tr(' ','') end %>"><strong>Level</strong><span>3</span></li>
 	                </ol>
 	                <p class="mute">Level 1 is best</p>
                 </div>

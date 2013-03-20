@@ -8,35 +8,91 @@
     </div>
     
     <div class="c2l">
-        <h2><%= @schools.size.to_s %> schools are screened for closure</h2>
-        <p>Select your child’s school to learn more about it and the schools to which she or he may be sent.</p>
+        <!--<h2><strong># schools</strong> will be closed</h2>
         
-        <div id="schools">
+        <div class="schools">
             <div class="c3l">
-            	 <ol>
-            	 	<% num_columns = 3 %>
-            	 	<% num_schools = @schools.size  %>
-            	 	<% num_column_schools = num_schools / num_columns  %>
-            	 	<% i = 0 %>
-            	 	<% for i in 0..(num_column_schools * 1 - 1) %>
-	            	 	<li><a href="schools/<%= @schools[i].id %>"><%= @schools[i].short_name %></a></li>
-	            	<% end %>
-	            	<% i = num_column_schools * 1 %>
+                <ol>
+                    <li><a href="#">School</a></li>
+                    <li><a href="#">School</a></li>
+                    <li><a href="#">School</a></li>
                 </ol>
             </div>
             <div class="c3m">
-            	 <ol>
-	            	<% for i in i..(num_column_schools * 2 - 1) %>
-	            	 	<li><a href="schools/<%= @schools[i].id %>"><%= @schools[i].short_name %></a></li>
-	            	<% end %>
-	            	<% i = num_column_schools * 2 %>
+                <ol>
+                    <li><a href="#">School</a></li>
+                    <li><a href="#">School</a></li>
+                    <li><a href="#">School</a></li>
                 </ol>
             </div>
             <div class="c3r">
-            	 <ol>
-	            	<% for i in i..num_schools - 1 %>
-	            	 	<li><a href="schools/<%= @schools[i].id %>"><%= @schools[i].short_name %></a></li>
-	            	<% end %>
+                <ol>
+                    <li><a href="#">School</a></li>
+                    <li><a href="#">School</a></li>
+                    <li><a href="#">School</a></li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="clear"></div><hr />
+        
+        <h2><strong># schools</strong> will welcome students from closed schools</h2>
+        
+        <div class="schools">
+            <div class="c3l">
+                <ol>
+                    <li><a href="#">School</a></li>
+                    <li><a href="#">School</a></li>
+                    <li><a href="#">School</a></li>
+                </ol>
+            </div>
+            <div class="c3m">
+                <ol>
+                    <li><a href="#">School</a></li>
+                    <li><a href="#">School</a></li>
+                    <li><a href="#">School</a></li>
+                </ol>
+            </div>
+            <div class="c3r">
+                <ol>
+                    <li><a href="#">School</a></li>
+                    <li><a href="#">School</a></li>
+                    <li><a href="#">School</a></li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="clear"></div><hr />-->
+        
+        <h2><%= @schools.size.to_s %> schools are screened for closure</h2>
+        <p>Select your child’s school to learn more about it and the schools to which she or he may be sent.</p>
+        
+        <div class="schools">
+            <div class="c3l">
+                 <ol>
+                     <% num_columns = 3 %>
+                     <% num_schools = @schools.size  %>
+                     <% num_column_schools = num_schools / num_columns  %>
+                     <% i = 0 %>
+                     <% for i in 0..(num_column_schools * 1 - 1) %>
+                         <li><a href="schools/<%= @schools[i].id %>"><%= @schools[i].short_name %></a></li>
+                    <% end %>
+                    <% i = num_column_schools * 1 %>
+                </ol>
+            </div>
+            <div class="c3m">
+                 <ol>
+                    <% for i in i..(num_column_schools * 2 - 1) %>
+                         <li><a href="schools/<%= @schools[i].id %>"><%= @schools[i].short_name %></a></li>
+                    <% end %>
+                    <% i = num_column_schools * 2 %>
+                </ol>
+            </div>
+            <div class="c3r">
+                 <ol>
+                    <% for i in i..num_schools - 1 %>
+                         <li><a href="schools/<%= @schools[i].id %>"><%= @schools[i].short_name %></a></li>
+                    <% end %>
                 </ol>
             </div>
         </div>

@@ -12,8 +12,8 @@
 
 /* Fonts
 ======================================================================*/
-body { font-family: Lora, Georgia, "Times New Roman", Times, serif; }
-.balloon, .essentials .title, .legend, .levels, .mute, .probation { font-family: "Open Sans", Arial, sans-serif; }
+body, .compare h3 { font-family: Lora, Georgia, "Times New Roman", Times, serif; }
+.balloon, .compare, .essentials .title, [class *= "flag"], .legend, .levels, .mute, #perform-other li, .probation { font-family: "Open Sans", Arial, sans-serif; }
 #logo { font-family: "Homemade Apple", cursive; }
 
 
@@ -98,10 +98,10 @@ ul { list-style: disc; margin-left: 2em; }
 		.essentials-charts .legend strong { display: inline-block; height: 10px; width: 10px; }
 	
 	/* Levels */
+	.level1 { background: #488714; }
+	.level2 { background: #ebcc71; }
+	.level3 { background: #9e241d; }
 	.levels li { background: #ccc; color: #fff; float: left; margin: 0 3px 5px 0; padding: 7px 10px; }
-	.levels li.level1 { background: #488714; }
-	.levels li.level2 { background: #ebcc71; }
-	.levels li.level3 { background: #9e241d; }
 	.levels .mute { clear: both; text-align: center; }
 	.levels ol { line-height: 1.1; list-style: none; margin: 0 auto; text-align: center; text-transform: uppercase; width: 50%; }
 	.levels span { font-size: 36px; font-weight: 800; }
@@ -124,13 +124,39 @@ ul { list-style: disc; margin-left: 2em; }
 	#utilization p { color: #9e241d; font-style: italic; font-weight: bold; margin: 0; text-transform: uppercase; }
 
 /* Compare */
-#compare { margin-top: 30px; }
-#compare .c2r { border-left: 1px solid #ddd; padding-left: 2%; width: 48%; }
-#compare h2, #compare h3 { text-align: center; }
-#compare h3 { font-style: italic; font-weight: bold; }
+.compare { font-size: 14px; list-style: none; margin: 0; }
+.compare dt { font-weight: bold; margin-top: 1em; }
+.compare li { float: left; margin: 0 3.06% 30px 0; width: 22.7%; }
+.compare li:nth-child(4n+4), .compare li.end { margin-right: 0; }
+.compare .school { border: 1px solid #ccc; border-radius: 5px; height: 560px; padding: 15px; }
+.compare .selected .school { background: #f0f0f0; border-color: #3b5cb2; }
+    
+    /* 5Essentials */
+    .compare .essentials { height: 190px; }
+    .compare .essentials .instruction { left: 46px; top: 46px; }
+    .compare .essentials .instruction .title { padding-top: 31px; }
+    .compare .essentials .category { border-width: 4px; height: 47%; width: 47%; }
+    .compare .essentials .title { font-size: 12px; }
+    
+    /* ISAT */
+    .compare .isat { height: 160px; margin-bottom: 5px; }
+    
+    /* Levels */
+    .compare [class *= "level"] { color: #fff; float: left; line-height: 1.1; margin: 4px 8px 0 0; padding: 3px 6px; text-align: center; text-transform: uppercase; }
+    .compare [class *= "level"] span { font-size: 20px; font-weight: 800; }
+    .compare [class *= "level"] strong { display: block; font-size: 10px; }
+    
+    /* Performance */
+    .compare .icon-check-empty { color: #777; }
 
 /* Datasets */
 .dataset { border-bottom: 1px solid #ddd; margin-bottom: 20px; padding-bottom: 20px; }
+
+/* Evaluation metrics */
+#evaluation { margin-top: 30px; }
+#evaluation .c2r { border-left: 1px solid #ddd; padding-left: 2%; width: 48%; }
+#evaluation h2, #evaluation h3 { text-align: center; }
+#evaluation h3 { font-style: italic; font-weight: bold; }
 
 /* Examples */
 .examples dd, .examples dt { padding-left: 35.43%; }
@@ -138,6 +164,22 @@ ul { list-style: disc; margin-left: 2em; }
 .examples dt:first-child { padding-top: 0; }
 .examples img { border: 1px solid #ddd; float: left; margin: 6px 0 0 -168px; }
 .examples p { margin-bottom: 0.5em; }
+
+/* Flags */
+[class *= "flag"] {
+    background: #ccc;
+    border-radius: 3px;
+    color: #fff;
+    display: inline-block;
+    font-size: 16px;
+    padding: 0.3em 0.5em;
+    text-transform: uppercase;
+    vertical-align: middle;
+}
+
+.flag-closing { background: #9e241d; }
+.flag-screened { background: #ebcc71; }
+.flag-welcome { background: #488714; }
 
 /* Footer */
 #footer { background: #f0f0f0; border-top: 1px solid #ddd; padding: 30px; }
@@ -151,6 +193,9 @@ ul { list-style: disc; margin-left: 2em; }
 #logo a:hover { text-decoration: none; }
 #logo i { font-size: 43px; margin-right: 0.3em; opacity: 0.8; }
 #sharing { float: right; }
+
+/* Icons */
+.icon-check { color: #488714; }
 
 /* Intro */
 #intro {
@@ -196,9 +241,20 @@ ul { list-style: disc; margin-left: 2em; }
 #nav li.current a { color: #000; font-weight: bold; }
 #nav ul { list-style: none; margin: 0; }
 
+/* Performance */
+#perform { margin-bototm: 20px; text-align: center; }
+#perform-level { border: 2px solid #ccc; border-radius: 5px; float: left; height: 170px; margin-right: 3.06%; padding: 15px 10px; width: 28.21%; }
+#perform-level .levels ol { width: 55%; }
+#perform-or { float: left; font-size: 24px; padding-top: 80px; text-transform: uppercase; width: 3.52%; }
+#perform-other { border: 2px solid #ccc; border-radius: 5px; float: right; height: 170px; padding: 15px 10px; width: 57.53%; }
+#perform-other, #perform-other h4 { font-size: 13px; }
+#perform-other li { float: left; margin: 0 2% 10px 0; width: 23%; }
+#perform-other p { margin: 0; }
+#perform-other ul { list-style: none; margin: 0; }
+
 /* School list */
-#schools li { margin: 0; }
-#schools ol { list-style: none; margin-left: 0; }
+.schools li { margin: 0; }
+.schools ol { list-style: none; margin-left: 0; }
 
 /* School profile */
 #profile-primary { float: left; margin-bottom: 30px; width: 65.68%; }
