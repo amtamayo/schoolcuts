@@ -101,7 +101,8 @@ ul { list-style: disc; margin-left: 2em; }
 	.level1 { background: #488714; }
 	.level2 { background: #ebcc71; }
 	.level3 { background: #9e241d; }
-	.levels li { background: #ccc; color: #fff; float: left; margin: 0 3px 5px 0; padding: 7px 10px; }
+	.levels .blank { background: #ccc; }
+	.levels li { color: #fff; float: left; margin: 0 3px 5px 0; padding: 7px 10px; }
 	.levels .mute { clear: both; text-align: center; }
 	.levels ol { line-height: 1.1; list-style: none; margin: 0 auto; text-align: center; text-transform: uppercase; width: 50%; }
 	.levels span { font-size: 36px; font-weight: 800; }
