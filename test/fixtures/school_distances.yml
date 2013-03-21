@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  from_school_id: 1
+  to_school_id: MyString
+  distance: 1.5
+
+two:
+  from_school_id: 1
+  to_school_id: MyString
+  distance: 1.5

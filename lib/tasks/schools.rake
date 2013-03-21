@@ -24,7 +24,8 @@ namespace :cps do
 					:short_name => row[1].to_s,
 					:street_address => row[4].to_s,
 					:zip => row[5].to_i,
-					:isat_url =>row[88].to_s
+					:isat_url =>row[88].to_s,
+					:closing_status => row[137].to_i
 				)
 			else
 				school.access_type = row[10].to_s
@@ -39,7 +40,8 @@ namespace :cps do
 				school.short_name = row[1].to_s
 				school.street_address = row[4].to_s
 				school.zip = row[5].to_i
-				school.isat_url = row[88].to_s
+				school.isat_url = row[88].to_s,
+				school.closing_status = row[137].to_i
 				school.save
 			end
 		}
@@ -279,6 +281,22 @@ namespace :cps do
 		    end	
 	    }
     end
+    
+    desc "Import school distances"
+    task :import_school_distances => :environment do
+    	inputfile = "#{Rails.root.to_s}/lib/tasks/data/schooldistances.csv"
+    	list  = CSV.read(inputfile, :headers => true )
+    	list.each{ |row|
+    		school = School.find_by_cps_id(row[0])
+    		to_school = School.find_by_cps_id(row[1])
+    		if (!school.nil? & !to_school.nil?)
+    		
+    			SchoolDistance.create(:from_school_id => school.id, :to_school_id => to_school.id, :distance => row[2].to_i)
+    			#puts "#{row[0]} -> #{row[1]} is #{row[2]} feet apart"
+    		end
+    	}
+    	puts "School distances import completed"
+    end
 
 	desc "Show column names"
 		task :list_import_column_names => :environment do
@@ -316,6 +334,7 @@ namespace :cps do
     	Rake::Task['cps:import_race'].invoke
     	Rake::Task['cps:import_utilization'].invoke
     	Rake::Task['cps:import_demographics'].invoke
+    	Rake::Task['cps:import_school_distances'].invoke
     end
 end
 
