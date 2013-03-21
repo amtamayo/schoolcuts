@@ -24,7 +24,8 @@ namespace :cps do
 					:short_name => row[1].to_s,
 					:street_address => row[4].to_s,
 					:zip => row[5].to_i,
-					:isat_url =>row[88].to_s
+					:isat_url =>row[88].to_s,
+					:closing_status => row[137].to_i
 				)
 			else
 				school.access_type = row[10].to_s
@@ -39,7 +40,8 @@ namespace :cps do
 				school.short_name = row[1].to_s
 				school.street_address = row[4].to_s
 				school.zip = row[5].to_i
-				school.isat_url = row[88].to_s
+				school.isat_url = row[88].to_s,
+				school.closing_status = row[137].to_i
 				school.save
 			end
 		}
