@@ -7,7 +7,7 @@
 <!-- Content -->
 <div class="content">
     <div id="intro">
-        <h1><%= @school.short_name %>
+        <h1><%= @school.short_name.downcase.split(' ').map {|w| w.capitalize }.join(' ') %>
         	<% if (@school.closing_status == 1) %>
         		<span class="flag-screened">Considered but not closing</span>
         	<% end %>

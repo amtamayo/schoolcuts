@@ -44,6 +44,8 @@ namespace :cps do
 				school.closing_status = row[137].to_i
 				school.save
 			end
+			school.short_name = school.short_name.downcase.split(' ').map {|w| w.capitalize }.join(' ')
+			school.save
 		}
 	end
 	
