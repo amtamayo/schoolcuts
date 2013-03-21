@@ -7,7 +7,7 @@
 <!-- Content -->
 <div class="content">
     <div id="intro">
-        <h1><%= @school.short_name %>
+        <h1><%= @school.short_name.downcase.split(' ').map {|w| w.capitalize }.join(' ') %>
         	<% if (@school.closing_status == 1) %>
         		<span class="flag-screened">Considered but not closing</span>
         	<% end %>
@@ -207,7 +207,7 @@
                 
                 <ol class="probation">
 	                <% @school.probations.each{|p|%>
-              			<li class=<%= p.status%>>
+              			<li class=<%= p.status.downcase %>>
 		            	 	<span class="status"<%= if (p.status=="" || p.status.nil?) then " title='Data not available'" else p.status end %>><%= if (p.status=="" || p.status.nil?) then "NA" else p.status end %></span>
 		            	 	<span class="from">&lsquo;<%= p.year_from.to_s[-2,2] %></span>
 		            	 	<span class="to">&lsquo;<%= p.year_to.to_s[-2,2] %></span>
