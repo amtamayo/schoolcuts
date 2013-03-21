@@ -281,6 +281,22 @@ namespace :cps do
 		    end	
 	    }
     end
+    
+    desc "Import school distances"
+    task :import_school_distances => :environment do
+    	inputfile = "#{Rails.root.to_s}/lib/tasks/data/schooldistances.csv"
+    	list  = CSV.read(inputfile, :headers => true )
+    	list.each{ |row|
+    		school = School.find_by_cps_id(row[0])
+    		to_school = School.find_by_cps_id(row[1])
+    		if (!school.nil? & !to_school.nil?)
+    		
+    			SchoolDistance.create(:from_school_id => school.id, :to_school_id => to_school.id, :distance => row[2].to_i)
+    			#puts "#{row[0]} -> #{row[1]} is #{row[2]} feet apart"
+    		end
+    	}
+    	puts "School distances import completed"
+    end
 
 	desc "Show column names"
 		task :list_import_column_names => :environment do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130321032219) do
+ActiveRecord::Schema.define(:version => 20130321052811) do
 
   create_table "demographics", :force => true do |t|
     t.integer  "school_id"
@@ -78,6 +78,14 @@ ActiveRecord::Schema.define(:version => 20130321032219) do
     t.float    "percent"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "school_distances", :force => true do |t|
+    t.integer  "from_school_id"
+    t.string   "to_school_id"
+    t.float    "distance"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "schools", :force => true do |t|
