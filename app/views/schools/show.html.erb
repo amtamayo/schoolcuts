@@ -8,9 +8,11 @@
 <div class="content">
     <div id="intro">
         <h1><%= @school.short_name %>
-            <!--<span class="flag-closing">Closing</span>
-            <span class="flag-screened">Screened but not closing</span>
-            <span class="flag-welcome">Welcoming school</span>-->
+            <!--
+	        <span class="flag-closing">Closing</span>
+            <span class="flag-screened">Considered but not closing</span>
+            <span class="flag-welcome">Receiving school</span>
+-->
         </h1>
         <p>
         	<%= @school.full_name %> &bull; <%= @school.phone %> &bull; <%= @school.community_area.split(' ').map {|w| w.capitalize }.join(' ') %> &bull; 
