@@ -28,7 +28,7 @@
     </div>
     
     <div id="profile-primary">
-        <h2>Closest schools if <%= @school.short_name %> is closed</h2>
+        <h2>Closest schools to <%= @school.short_name %></h2>
         <!-- <p>If <%= @school.short_name %> closes, its students might to moved to these nearby Neighborhood schools. </p> -->
         <div id="map"></div>
         <ul class="legend">
@@ -70,7 +70,7 @@
         <!-- <h2>What does CPS look at and what else could be considered?</h2> -->
         
         <div class="c2l">
-            <h3>Why is this school on the closing list?</h3>
+        	<h3>Why is this school <%= @school.closing_status <= 0 ? "not" : "" %> on the closing list?</h3>
             
             <div class="dataset">
                 <h4>CPS utilization rate</h4>
@@ -81,8 +81,9 @@
                 	<% utilization_percent = number_to_percentage(utilization_rate, :precision => 0)%>
                  	
                 	<h5><%= utilization_percent %> utilized by CPS calculations</h5>
-                	<p>Underutilized</p>
                 	
+                	<p><%= @utilization_status %></p>
+                	        	
                 	<div class="homeroom">
                 		<div class="ideal">
                 			<div class="enrollment">

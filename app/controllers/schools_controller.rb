@@ -21,6 +21,19 @@ class SchoolsController < ApplicationController
     @enrollment_totals = @school.enrollment_totals
 	@is_closing = @school.closing_status == 1
 	
+	utilization_rate = @enrollment.to_f / @ideal_capacity * 100
+    
+    case utilization_rate 
+	    when 0..80
+	    	@utilization_status = "Underutilized"
+		when 80..120
+		    @utilization_status = "Efficient"
+		when utilization_rate > 120
+			@utilization_status = "Overcrowded"
+		else
+			@utilization_status = "Overcrowded"
+	end
+	
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @school }
