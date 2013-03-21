@@ -118,11 +118,18 @@ ul { list-style: disc; margin-left: 2em; }
 	
 	/* Utilization */
 	.homeroom { margin: 0 auto 20px; width: 120px; }
-	.homeroom .enrollment { color: #9e241d; font-size: 19px; line-height: 1.2; position: absolute; left: 5px; text-align: left; top: 5px; }
+	.homeroom .enrollment { font-size: 19px; line-height: 1.2; position: absolute; left: 5px; text-align: left; top: 5px; }
 	.homeroom .enrollment i { margin-right: 3px; }
 	.homeroom .ideal { border: 1px solid #ccc; height: 80px; padding: 10px; position: relative; }
+	.homeroom .overflow { font-size: 19px; line-height: 1.2; text-align: left; padding: 5px; }
+	.homeroom .overflow i { margin-right: 7px; }
 	#utilization { text-align: center; }
-	#utilization p { color: #9e241d; font-style: italic; font-weight: bold; margin: 0; text-transform: uppercase; }
+	#utilization .title { font-style: italic; font-weight: bold; margin: 0; text-transform: uppercase; }
+	
+		/* Status */
+		#utilization.underutilized .enrollment, #utilization.underutilized .overflow, #utilization.underutilized .title { color: #9e241d; }
+		#utilization.overcrowded .enrollment, #utilization.overcrowded .overflow, #utilization.overcrowded .title { color: #9e241d; }
+		
 
 /* Compare */
 .compare { font-size: 14px; list-style: none; margin: 0; }
@@ -179,6 +186,7 @@ ul { list-style: disc; margin-left: 2em; }
 }
 
 .flag-closing { background: #9e241d; }
+.flag-relocating { background: #cf7e53; }
 .flag-screened { background: #ebcc71; }
 .flag-welcome { background: #488714; }
 

@@ -19,6 +19,10 @@
         	<% if (@school.receiving_status == 3) %>
 	            <span class="flag-screened">Screened but not closing</span>
         	<% end %>
+        	<% if (@school.closing_status == 4) %>
+	            <span class="flag-relocating">Relocating</span>
+        	<% end %>
+        	
 	        </h1>
         </h1>
         <p>
@@ -81,22 +85,31 @@
                 <h4>CPS utilization rate</h4>
                 <p>This year, <%= @enrollment %> students were enrolled at <%= @school.short_name %>. However, CPS believes a total of <%= @ideal_capacity %> students should be enrolled at <%= @school.short_name %>.</p>
                                 
-                <div id="utilization">
+                <div class=<%= @utilization_status.downcase %> id="utilization">
                 	<% utilization_rate = @enrollment.to_f / @ideal_capacity * 100 %>
                 	<% utilization_percent = number_to_percentage(utilization_rate, :precision => 0)%>
+                	
                  	
                 	<h5><%= utilization_percent %> utilized by CPS calculations</h5>
                 	
-                	<p><%= @utilization_status %></p>
+                	<p class="title"><%= @utilization_status %></p>
                 	        	
                 	<div class="homeroom">
                 		<div class="ideal">
                 			<div class="enrollment">
-                				<% util_symbol_count = (utilization_rate / 5).to_i %>
-                				<% for i in 0..(util_symbol_count) %>
+                				<% util_box_size = 20 %>
+                				<% util_total_symbols = (utilization_rate / 5).to_i %>
+                				<% util_efficient_symbols = if (util_total_symbols >= util_box_size) then util_box_size else util_total_symbols end %>
+                				<% util_overflow_symbols = util_total_symbols - util_box_size %>
+                				<% for i in 0..(util_efficient_symbols - 1) %>
                 					<i class="icon-user"></i>
                 				<% end %>
                 			</div>
+                		</div>
+                		<div class="overflow">
+	                		<% for i in 0..(util_overflow_symbols - 1) %>
+                				<i class="icon-user"></i>
+                			<% end %>
                 		</div>
             		</div>
                 	
