@@ -11,7 +11,7 @@ namespace :cps do
 			puts row[0].to_s + " " + row[1].to_s
 			school = School.find_by_cps_id(row[0].to_i)
 			if school.nil?
-				School.create(
+				school = School.create(
 					:access_type => row[10].to_s,
 					:community_area => row[6].to_s,
 					:cps_id => row[0].to_i,
@@ -44,6 +44,7 @@ namespace :cps do
 				school.closing_status = row[137].to_i
 				school.save
 			end
+			
 			school.short_name = school.short_name.downcase.split(' ').map {|w| w.capitalize }.join(' ')
 			school.save
 		}
