@@ -334,6 +334,7 @@ namespace :cps do
     	Rake::Task['cps:import_race'].invoke
     	Rake::Task['cps:import_utilization'].invoke
     	Rake::Task['cps:import_demographics'].invoke
+    	Rake::Task['cps:import_school_distances'].invoke
     end
 end
 
