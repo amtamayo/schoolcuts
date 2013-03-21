@@ -1,5 +1,5 @@
 class School < ActiveRecord::Base
-  attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :level, :longitude, :phone, :school_type, :short_name, :street_address, :zip, :isat_url
+attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :level, :longitude, :phone, :school_type, :short_name, :street_address, :zip, :isat_url, :closing_status, :receiving_status
   
   has_many :enrollments
   has_many :essentials
@@ -66,5 +66,5 @@ class School < ActiveRecord::Base
   	end
   	@result
   end
-    
+  
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130314012029) do
+ActiveRecord::Schema.define(:version => 20130321032219) do
 
   create_table "demographics", :force => true do |t|
     t.integer  "school_id"
@@ -90,12 +90,14 @@ ActiveRecord::Schema.define(:version => 20130314012029) do
     t.string   "community_area"
     t.string   "school_type"
     t.string   "access_type"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.string   "phone"
     t.string   "level"
     t.integer  "zip"
     t.string   "isat_url"
+    t.integer  "closing_status"
+    t.integer  "receiving_status"
   end
 
   create_table "utilizations", :force => true do |t|
