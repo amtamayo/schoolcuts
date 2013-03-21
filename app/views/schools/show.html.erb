@@ -19,6 +19,7 @@
 	            <span class="flag-screened">Screened but not closing</span>
         	<% end %>
 	        </h1>
+        </h1>
         <p>
         	<%= @school.full_name %> &bull; <%= @school.phone %> &bull; <%= @school.community_area.split(' ').map {|w| w.capitalize }.join(' ') %> &bull; 
         	<%= @school.street_address %>, Chicago, Illinois <%= @school.zip%>
