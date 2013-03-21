@@ -8,10 +8,17 @@
 <div class="content">
     <div id="intro">
         <h1><%= @school.short_name %>
-            <!--<span class="flag-closing">Closing</span>
-            <span class="flag-screened">Screened but not closing</span>
-            <span class="flag-welcome">Welcoming school</span>-->
-        </h1>
+        	<% if (@school.closing_status == 1) %>
+        		<span class="flag-screened">Considered but not closing</span>
+        	<% end %>
+        	<% if (@school.closing_status == 2) %>
+        		<span class="flag-closing">Closing</span>
+	            <!-- <span class="flag-screened">Screened but not closing</span> -->
+        	<% end %>
+        	<% if (@school.receiving_status == 3) %>
+	            <span class="flag-screened">Screened but not closing</span>
+        	<% end %>
+	        </h1>
         <p>
         	<%= @school.full_name %> &bull; <%= @school.phone %> &bull; <%= @school.community_area.split(' ').map {|w| w.capitalize }.join(' ') %> &bull; 
         	<%= @school.street_address %>, Chicago, Illinois <%= @school.zip%>

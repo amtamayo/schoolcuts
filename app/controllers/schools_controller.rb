@@ -19,7 +19,8 @@ class SchoolsController < ApplicationController
     @ideal_capacity = @school.ideal_capacity_for_year(@year)
     @first_enrollment_year = @school.first_enrollment_year
     @enrollment_totals = @school.enrollment_totals
-
+	@is_closing = @school.closing_status == 1
+	
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @school }
