@@ -8,18 +8,8 @@
 <div class="content">
     <div id="intro">
         <h1><%= @school.short_name.downcase.split(' ').map {|w| w.capitalize }.join(' ') %>
-        	<% if (@school.closing_status == 1) %>
-        		<span class="flag-screened">Considered but not closing</span>
-        	<% end %>
-        	<% if (@school.closing_status == 2) %>
-        		<span class="flag-closing">Closing</span>
-	            <!-- <span class="flag-screened">Screened but not closing</span> -->
-        	<% end %>
-        	<% if (@school.receiving_status == 3) %>
-	            <span class="flag-welcome">Receiving</span>
-        	<% end %>
-        	<% if (@school.closing_status == 4) %>
-	            <span class="flag-relocating">Relocating</span>
+        	<% if (@school.closing_status) %>
+        		<span class="flag-screened"><%= Action.find_by_id(@school.closing_status).name %></span>
         	<% end %>
         	
 	        </h1>
