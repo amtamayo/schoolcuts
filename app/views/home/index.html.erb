@@ -23,7 +23,7 @@
     <% sorted_list = display_order.map{|i| Action.find_by_id(i)} %>
     <% sorted_list.each do |action| %>
     
-    	<% list_of_schools = School.find_all_by_closing_status(action.id) %>
+    	<% list_of_schools = School.find_all_by_closing_status(action.id).sort_by{ |s| s.short_name } %>
     	
 	    <h2><%= list_of_schools.size.to_s %> <%= list_of_schools.size > 1 ? " schools are" : " school is" %> <%= action.name %> </h2>
         <p>Select a school to learn more about it and where its students may be sent.</p>
@@ -31,7 +31,7 @@
         <div class="schools">
             <div class="c3l">
                  <ol>
-                     <% num_columns = 3 %>
+                     <% num_columns = list_of_schools.size > 5 ? 3 : 1 %>
                      <% num_schools = list_of_schools.size  %>
                      <% num_column_schools = num_schools / num_columns  %>
                      <% i = 0 %>
@@ -41,6 +41,7 @@
                     <% i = num_column_schools * 1 %>
                 </ol>
             </div>
+            <% if num_columns > 1%>
             <div class="c3m">
                  <ol>
                     <% for i in i..(num_column_schools * 2 - 1) %>
@@ -56,6 +57,7 @@
                     <% end %>
                 </ol>
             </div>
+            <% end %>
         </div>
         
         <hr />
