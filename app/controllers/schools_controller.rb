@@ -21,15 +21,14 @@ class SchoolsController < ApplicationController
     @enrollment_totals = @school.enrollment_totals
 	@is_closing = @school.closing_status == 2
 	@is_receiving = @school.receiving_status == 1
-
-	# if(@is_closing)
-		@receiving_schools = @school.school_actions.map{|r| if(r.action_id==2) then  r.result_id end}.join(", ")
-	# end
+	@receiving_schools = @school.school_actions.map{|r| if(r.action_id==2) then  r.result_id end}.join(", ")
+	@sending_schools = SchoolAction.where("result_id=" + @school.id.to_s + "").map{|sa| if(sa.action_id==2) then sa.school_id end }.join(",")
+	@new_building_school_id = -1;
 	
-# 	if(@is_receiving)
-		@sending_schools = SchoolAction.where("result_id=" + @school.id.to_s + "").map{|sa| if(sa.action_id==2) then sa.school_id end }.join(",")
-# 	end
-		
+	if(@school.school_actions.size > 0)
+		@new_building_school_id = @school.school_actions.first.result_id	
+	end
+	
 	@latitude = @school.school_addresses.where('year_from=2012').first.address.latitude
 	@longitude = @school.school_addresses.where('year_from=2012').first.address.longitude
 	

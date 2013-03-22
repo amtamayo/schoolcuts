@@ -85,6 +85,9 @@ function query(){
 	  var closing_status = <%= @school.closing_status.nil? ? -1 : @school.closing_status %>;
 	  var receiving_schools = [<%= (@receiving_schools.size > 0) ? @receiving_schools : 0 %>];
 	  var sending_schools = [<%= (@sending_schools.size > 0) ? @sending_schools : 0 %>];
+	  var new_building = <%= @new_building_school_id %>;
+	  
+	  console.log(new_building);
 	  
       layerl0 = new google.maps.FusionTablesLayer({
         query: {
@@ -96,17 +99,44 @@ function query(){
         styleId: 4,
         templateId: 2,
         styles: [{
+        	where: "'ClosingStatus' in (1,2,3,4,5,6,7)" ,
+        	markerOptions: {
+        		iconName: "small_red"
+        	}
+        },{				
         	where: "'SchoolCuts ID' in ("+ receiving_schools +")",
         	markerOptions: {
-        		iconName: "large_red"
+        		iconName: "large_purple"
         	}
         },{				
 		    where: "'SchoolCuts ID' in (" + sending_schools + ")",
         	markerOptions: {
         		iconName: "large_blue"
         	}
+        },{				
+		    
+		    where: "'SchoolCuts ID' in (" + new_building + ")",
+        	markerOptions: {
+        		iconName: "blu_blank"
+        	}	
+         },{				
+		    where: "ClosingStatus = ''",
+        	markerOptions: {
+        		iconName: "small_green"
+        	}	
         }]
       });
+      
+      layerThis = new google.maps.FusionTablesLayer({
+        query: {
+          select: LocationColumn,
+          from: '1ZbjrFIWB_2jlXtPagaAqmLWqoasCVRR1ZZMeuYc',
+          where: "'SchoolCuts ID' = " + <%= @school.id %>
+        },
+        map: map,
+        styleId: 5,
+        templateId: 2
+		});
       
     }
     google.maps.event.addDomListener(window, 'load', initialize);
