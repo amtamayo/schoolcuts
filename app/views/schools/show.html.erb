@@ -26,7 +26,7 @@
         </h1>
         <p>
         	<%= @school.full_name %> &bull; <%= @school.phone %> &bull; <%= @school.community_area.split(' ').map {|w| w.capitalize }.join(' ') %> &bull; 
-        	<%= @school.street_address %>, Chicago, Illinois <%= @school.zip%>
+        	<%= @address.street_address %>, Chicago, Illinois <%= @address.zipcode %>
         </p>
         <div class="clear"></div>
     </div>

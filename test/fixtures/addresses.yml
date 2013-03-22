@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  street_address: MyString
+  zipcode: MyString
+  latitude: 1.5
+  longitude: 1.5
+
+two:
+  street_address: MyString
+  zipcode: MyString
+  latitude: 1.5
+  longitude: 1.5

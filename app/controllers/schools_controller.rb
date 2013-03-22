@@ -21,6 +21,11 @@ class SchoolsController < ApplicationController
     @enrollment_totals = @school.enrollment_totals
 	@is_closing = @school.closing_status == 1
 	
+	@latitude = @school.school_addresses.where('year_from=2012').first.address.latitude
+	@longitude = @school.school_addresses.where('year_from=2012').first.address.longitude
+	
+	@address = @school.school_addresses.where('year_from=2012').first.address
+	
 	utilization_rate = @enrollment.to_f / @ideal_capacity * 100
     
     case utilization_rate 

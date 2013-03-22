@@ -8,7 +8,7 @@
     
     function initialize() {
       map = new google.maps.Map(document.getElementById('map'), {
-        center: new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>),
+        center: new google.maps.LatLng( <%= @address.latitude %>, <%= @address.longitude %>),
         zoom: 13,
         scrollwheel: false,
         minZoom: 13,
@@ -32,7 +32,7 @@
       map.setMapTypeId('map-style');
 
         //var marker = new google.maps.Marker({
-        //    position: new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>),
+        //    position: new google.maps.LatLng( <%= @address.latitude %>, <%= @address.longitude %>),
         //    map: map,
         //    title: '<%= @school.short_name %>'
         //});
@@ -44,7 +44,7 @@
         fillColor: "#4b58a6",
         fillOpacity: 0,
         map: map,
-        center: new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>),
+        center: new google.maps.LatLng( <%= @address.latitude %>, <%= @address.longitude %>),
         clickable: false,
         zIndex: -1,
         radius: 1610
@@ -56,7 +56,7 @@
         fillColor: "#a64b58",
         fillOpacity: 0,
         map: map,
-        center: new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>),
+        center: new google.maps.LatLng( <%= @address.latitude %>, <%= @address.longitude %>),
         clickable: false,
         zIndex: -1,
         radius: 2415
@@ -67,7 +67,7 @@
       searchRadiusCircle = new google.maps.Circle(circleOptions);
       var LocationColumn = "Latitude"
 
-      var whereClause = "ST_INTERSECTS(" + "Latitude" + ", CIRCLE(LATLNG" + new google.maps.LatLng( <%= @school.latitude %>, <%= @school.longitude %>) + "," + 2415 + "))";
+      var whereClause = "ST_INTERSECTS(" + "Latitude" + ", CIRCLE(LATLNG" + new google.maps.LatLng( <%= @address.latitude %>, <%= @address.longitude %>) + "," + 2415 + "))";
 	  /*
 function query(){
 		  var queryStr = [];

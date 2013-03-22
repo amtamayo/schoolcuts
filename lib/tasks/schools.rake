@@ -16,37 +16,57 @@ namespace :cps do
 					:community_area => row[6].to_s,
 					:cps_id => row[0].to_i,
 					:full_name => row[2].to_s,
-					:latitude => row[7].to_f,
 					:level => row[11].to_s,
-					:longitude => row[8].to_f,
 					:phone => row[3].to_s,
 					:school_type => row[9].to_s,
 					:short_name => row[1].to_s,
-					:street_address => row[4].to_s,
-					:zip => row[5].to_i,
 					:isat_url =>row[88].to_s,
 					:closing_status => row[137].to_i
 				)
+				
+				address = Address.create(
+					:street_address => row[4].to_s,
+					:zipcode => row[5].to_s,
+					:latitude => row[7].to_f,
+					:longitude => row[8].to_f
+				)
+				
+				if (!address.nil? && !school.nil?)
+					school_address = SchoolAddress.create(
+						:school_id => school.id,
+						:address_id => address.id,
+						:year_from => 2012,
+						:year_to => 2013
+					)
+				end
 			else
 				school.access_type = row[10].to_s
 				school.community_area = row[6].to_s
 				school.cps_id = row[0].to_i
 				school.full_name = row[2].to_s
-				school.latitude = row[7].to_f
 				school.level = row[11].to_s
-				school.longitude = row[8].to_f
 				school.phone = row[3].to_s
 				school.school_type = row[9].to_s
 				school.short_name = row[1].to_s
-				school.street_address = row[4].to_s
-				school.zip = row[5].to_i
 				school.isat_url = row[88].to_s,
 				school.closing_status = row[137].to_i
 				school.save
+
+				school.short_name = school.short_name.downcase.split(' ').map {|w| w.capitalize }.join(' ')
+				school.save
+				
+				school_address = school.school_addresses.where("year_from = 2012").first
+				if (!school_address.nil?)
+					address = school_address.address
+					
+					address.street_address = row[4].to_s
+					address.zipcode = row[5].to_s
+					address.latitude = row[7].to_f
+					address.longitude = row[8].to_f
+				end
+
 			end
 			
-			school.short_name = school.short_name.downcase.split(' ').map {|w| w.capitalize }.join(' ')
-			school.save
 		}
 	end
 	
@@ -301,6 +321,41 @@ namespace :cps do
     	puts "School distances import completed"
     end
 
+    desc "import action types"
+	task :import_actions => :environment do
+		puts "Importing action types"
+		Action.delete_all
+		
+		Action.create(:name=>"considered but not closing")
+		Action.create(:name=>"closing")
+		Action.create(:name=>"turnaround")
+		Action.create(:name=>"relocating")
+		Action.create(:name=>"co-locating")
+		Action.create(:name=>"closing grades 9-11")
+		Action.create(:name=>"phasing out in 2 years")
+		Action.create(:name=>"not considered but will be turnaround")
+    end
+    
+    desc "import school actions"
+	task :import_school_actions => :environment do
+		puts "Importing school actions"
+		
+		SchoolAction.delete_all
+		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schoolActions.csv"
+		
+		list = CSV.read(inputfile, :headers => true )
+		list.each{ |row|
+    		school = School.find_by_cps_id(row[0])
+    		to_school = School.find_by_cps_id(row[2])
+    		if (!school.nil? & !to_school.nil?)
+    		
+    			SchoolAction.create(:school_id => school.id, :result_id => to_school.id, :action_id => row[1].to_i)
+    			#puts "#{row[0]} -> #{row[1]} -> #{row[2]} "
+    		end
+    	}
+		
+	end
+    
 	desc "Show column names"
 		task :list_import_column_names => :environment do
 		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
@@ -338,6 +393,9 @@ namespace :cps do
     	Rake::Task['cps:import_utilization'].invoke
     	Rake::Task['cps:import_demographics'].invoke
     	Rake::Task['cps:import_school_distances'].invoke
+    	Rake::Task['cps:import_actions'].invoke
+    	Rake::Task['cps:import_school_actions'].invoke
+
     end
 end
 
