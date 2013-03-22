@@ -8,9 +8,15 @@ namespace :cps do
 		list = CSV.read(inputfile, :headers => true )
 		
 		list.each { | row | 
-			puts row[0].to_s + " " + row[1].to_s
+			puts "#{row[0]} #{row[1]} #{row[137]}"
 			school = School.find_by_cps_id(row[0].to_i)
+			
+			puts "#{row[137]}"
+			closing_status = row[137].nil? ? nil : row[137].to_i + 1
+			receiving_status = row[138].nil? ? nil : row[138].to_i + 1
+				
 			if school.nil?
+				
 				school = School.create(
 					:access_type => row[10].to_s,
 					:community_area => row[6].to_s,
@@ -21,7 +27,8 @@ namespace :cps do
 					:school_type => row[9].to_s,
 					:short_name => row[1].to_s,
 					:isat_url =>row[88].to_s,
-					:closing_status => row[137].to_i
+					:closing_status => closing_status,  #hack:  we initially used a zero-based index for statuses; need to increment to map correctly to the action table
+					:receiving_status => receiving_status 
 				)
 				
 				address = Address.create(
@@ -49,7 +56,8 @@ namespace :cps do
 				school.school_type = row[9].to_s
 				school.short_name = row[1].to_s
 				school.isat_url = row[88].to_s,
-				school.closing_status = row[137].to_i
+				school.closing_status = closing_status  
+				school.receiving_status = receiving_status
 				school.save
 
 				

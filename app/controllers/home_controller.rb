@@ -1,8 +1,8 @@
 class HomeController < ApplicationController
   def index
-  	@status = 1
+  	@status = 2
   	filter = "closing_status = #{@status}"
-  	prelim_filter = "closing_status = 0"
+  	prelim_filter = "closing_status = 1"
   	receiving_filter = "receiving_status = 1"
   	relocating_filter = "closing_status = 4"
   	@schools = School.where(filter).sort_by{ |s| s.short_name }
