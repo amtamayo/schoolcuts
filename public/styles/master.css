@@ -185,10 +185,15 @@ ul { list-style: disc; margin-left: 2em; }
     vertical-align: middle;
 }
 
+.flag-considered-but-not-closing { background: #ebcc71; }
 .flag-closing { background: #9e241d; }
+.flag-turnaround { background: #9e241d; }
 .flag-relocating { background: #cf7e53; }
-.flag-screened { background: #ebcc71; }
-.flag-welcome { background: #488714; }
+.flag-co-locating { background: #cf7e53; }
+.flag-closing-grades-9-to-11 { background: #cf7e53; }
+.flag-phasing-out-over-2-years { background: #9e241d; }
+.flag-not-considered-but-will-be-turnaround { background: #9e241d; }
+.flag-receiving { background: #488714; }
 
 /* Footer */
 #footer { background: #f0f0f0; border-top: 1px solid #ddd; padding: 30px; }

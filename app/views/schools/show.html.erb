@@ -8,10 +8,13 @@
 <div class="content">
     <div id="intro">
         <h1><%= @school.short_name.downcase.split(' ').map {|w| w.capitalize }.join(' ') %>
+        	<% closing_label = Action.find_by_id(@school.closing_status).name %>
         	<% if (@school.closing_status) %>
-        		<span class="flag-screened"><%= Action.find_by_id(@school.closing_status).name %></span>
+        		<span class=<%= "flag-" + closing_label.tr(' ','-') %>><%= closing_label %></span>
         	<% end %>
-        	
+        	<% if (@school.receiving_status == 1) %>
+        		<span class="flag-receiving">Receiving</span>
+        	<% end %>
 	        </h1>
         </h1>
         <p>
