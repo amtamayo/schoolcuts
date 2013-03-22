@@ -13,7 +13,7 @@ namespace :cps do
 			
 			puts "#{row[137]}"
 			closing_status = row[137].nil? ? nil : row[137].to_i + 1
-			receiving_status = row[138].nil? ? nil : row[138].to_i + 1
+			receiving_status = row[138].nil? ? nil : row[138].to_i
 				
 			if school.nil?
 				
