@@ -17,7 +17,7 @@
     <% Action.all.map do |action| %>
     <% list_of_schools = School.find_all_by_closing_status(action.id) %>
     	
-	    <h2><%= list_of_schools.size.to_s %> <%= list_of_schools.size > 0 ? " schools are" : " school is" %> <%= action.name %> </h2>
+	    <h2><%= list_of_schools.size.to_s %> <%= list_of_schools.size > 1 ? " schools are" : " school is" %> <%= action.name %> </h2>
         <p>Select a school to learn more about it and where its students may be sent.</p>
         
         <div class="schools">
