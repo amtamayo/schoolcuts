@@ -9,15 +9,14 @@
     <div id="intro">
         <h1><%= @school.short_name.downcase.split(' ').map {|w| w.capitalize }.join(' ') %>
         	<% if (@school.closing_status == 1) %>
-        		<!-- <span class="flag-screened">Considered but not closing</span> -->
-        		<span class="flag-screened">May be closing</span>
+        		<span class="flag-screened">Considered but not closing</span>
         	<% end %>
         	<% if (@school.closing_status == 2) %>
         		<span class="flag-closing">Closing</span>
 	            <!-- <span class="flag-screened">Screened but not closing</span> -->
         	<% end %>
         	<% if (@school.receiving_status == 3) %>
-	            <span class="flag-screened">Screened but not closing</span>
+	            <span class="flag-welcome">Receiving</span>
         	<% end %>
         	<% if (@school.closing_status == 4) %>
 	            <span class="flag-relocating">Relocating</span>
@@ -39,9 +38,10 @@
         <ul class="legend">
         	<li><strong style="color: #4b58a6;"><i class="icon-minus"></i></strong> 1 mile</li>
         	<li><strong style="color: #a64b58;"><i class="icon-minus"></i></strong> 1.5 miles</li>
-            <li><strong style="color: #77a161;"><i class="icon-circle"></i></strong> Neighborhood</li>
-            <li><strong style="color: #ebcc71;"><i class="icon-circle"></i></strong> Lottery/application</li>
-        	<li><strong style="color: #9e241d;"><i class="icon-circle"></i></strong> Selective enrollment</li>
+        	<li><strong style="color: #9e241d;"><i class="icon-stop"></i></strong> Closing</li>
+            <li><strong style="color: #77a161;"><i class="icon-caret-up icon-2x"></i></strong> Higher performing</li>
+            <li><strong style="color: #ebcc71;"><i class="icon-circle"></i></strong> Other neighborhood</li>
+            <li><strong style="color: #3b5cb2;"><i class="icon-circle"></i></strong> Non-neighborhood</li>        	
         </ul>
         
         <!--

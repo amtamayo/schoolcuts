@@ -1,76 +1,22 @@
 <!-- Content -->
 <div class="content">
     <div id="intro">
-        <h1>43,360 students may see their school close</h1>
-        <p>Chicago Public Schools (CPS) has marked <strong>129 elementary schools</strong> for possible closure based on utilization and performance. Closing a school is a very disruptive decision, affecting student outcomes, parental confidence, and neighborhood stability. In addition to showing the data being used by CPS, this website aims to help school leaders, parents, and communities learn more about the schools being considered, and what options will be available in case of closures.</p>
+        <!--
+<h1><%= number_with_delimiter(@students_affected, :delimiter => ',') %> students may see their school close</h1>
+        <p>Chicago Public Schools (CPS) has marked <strong><%= @schools.count %> elementary schools</strong> for possible closure based on utilization and performance. Closing a school is a very disruptive decision, affecting student outcomes, parental confidence, and neighborhood stability. In addition to showing the data being used by CPS, this website aims to help school leaders, parents, and communities learn more about the schools being considered, and what options will be available in case of closures.</p>
+-->
         
-        <!-- 
-        <h1>X students may see their school close</h1>
-        <p>Chicago Public Schools (CPS) has marked <strong>X elementary schools</strong> for closure based on utilization, performance, and community feedback. Closing a school is a very disruptive decision, affecting student outcomes, parental confidence, and neighborhood stability. In addition to showing the data being used by CPS, this website aims to help school leaders, parents, and communities learn more about the schools being closed, and what options may be available.</p> -->
+        
+        <h1><%= number_with_delimiter(@students_affected, :delimiter => ',') %> students will see their school close</h1>
+        <p>Chicago Public Schools (CPS) has marked <strong><%= @schools.count %> elementary schools</strong> for closure based on utilization, performance, and community feedback. Closing a school is a very disruptive decision, affecting student outcomes, parental confidence, and neighborhood stability. In addition to showing the data being used by CPS, this website aims to help school leaders, parents, and communities learn more about the schools being closed, and what options may be available.</p>
         
         <div class="clear"></div>
     </div>
     
     <div class="c2l">
-        <!--<h2><strong># schools</strong> will be closed</h2>
         
-        <div class="schools">
-            <div class="c3l">
-                <ol>
-                    <li><a href="#">School</a></li>
-                    <li><a href="#">School</a></li>
-                    <li><a href="#">School</a></li>
-                </ol>
-            </div>
-            <div class="c3m">
-                <ol>
-                    <li><a href="#">School</a></li>
-                    <li><a href="#">School</a></li>
-                    <li><a href="#">School</a></li>
-                </ol>
-            </div>
-            <div class="c3r">
-                <ol>
-                    <li><a href="#">School</a></li>
-                    <li><a href="#">School</a></li>
-                    <li><a href="#">School</a></li>
-                </ol>
-            </div>
-        </div>
-        
-        <div class="clear"></div><hr />
-        
-        <h2><strong># schools</strong> will welcome students from closed schools</h2>
-        
-        <div class="schools">
-            <div class="c3l">
-                <ol>
-                    <li><a href="#">School</a></li>
-                    <li><a href="#">School</a></li>
-                    <li><a href="#">School</a></li>
-                </ol>
-            </div>
-            <div class="c3m">
-                <ol>
-                    <li><a href="#">School</a></li>
-                    <li><a href="#">School</a></li>
-                    <li><a href="#">School</a></li>
-                </ol>
-            </div>
-            <div class="c3r">
-                <ol>
-                    <li><a href="#">School</a></li>
-                    <li><a href="#">School</a></li>
-                    <li><a href="#">School</a></li>
-                </ol>
-            </div>
-        </div>
-        
-        <div class="clear"></div><hr />-->
-        
-        <% closing_status = 2 %>
-        <h2><%= @schools.size.to_s %> schools are screened for closure</h2>
-        <p>Select your child’s school to learn more about it and the schools to which she or he may be sent.</p>
+       <h2><%= @schools.size.to_s %> schools are being closed</h2>
+        <p>Select a school to learn more about it and where its students may be sent.</p>
         
         <div class="schools">
             <div class="c3l">
@@ -97,6 +43,112 @@
                  <ol>
                     <% for i in i..num_schools - 1 %>
                          <li><a href="schools/<%= @schools[i].id %>"><%= @schools[i].short_name %></a></li>
+                    <% end %>
+                </ol>
+            </div>
+        </div>
+        
+        <hr />
+        <h2><%= @relocating_schools.size.to_s %> schools are being relocated </h2>
+        <p>Select a school to learn more about it and where its students may be sent.</p>
+        
+        <div class="schools">
+            <div class="c3l">
+                 <ol>
+                     <% num_columns = 3 %>
+                     <% num_schools = @relocating_schools.size  %>
+                     <% num_column_schools = num_schools / num_columns  %>
+                     <% i = 0 %>
+                     <% for i in 0..(num_column_schools * 1 - 1) %>
+                         <li><a href="schools/<%= @relocating_schools[i].id %>"><%= @relocating_schools[i].short_name %></a></li>
+                    <% end %>
+                    <% i = num_column_schools * 1 %>
+                </ol>
+            </div>
+            <div class="c3m">
+                 <ol>
+                    <% for i in i..(num_column_schools * 2 - 1) %>
+                         <li><a href="schools/<%= @relocating_schools[i].id %>"><%= @relocating_schools[i].short_name %></a></li>
+                    <% end %>
+                    <% i = num_column_schools * 2 %>
+                </ol>
+            </div>
+            <div class="c3r">
+                 <ol>
+                    <% for i in i..num_schools - 1 %>
+                         <li><a href="schools/<%= @relocating_schools[i].id %>"><%= @relocating_schools[i].short_name %></a></li>
+                    <% end %>
+                </ol>
+            </div>
+        </div>
+        
+        <!--
+<hr/>
+        
+        <h2><%= @receiving_schools.size.to_s %> schools will be receiving</h2>
+        <p>Select a receiving school to learn more about it.</p>
+        
+        <div class="schools">
+            <div class="c3l">
+                 <ol>
+                     <% num_columns = 3 %>
+                     <% num_schools = @receiving_schools.size  %>
+                     <% num_column_schools = num_schools / num_columns  %>
+                     <% i = 0 %>
+                     <% for i in 0..(num_column_schools * 1 - 1) %>
+                         <li><a href="schools/<%= @receiving_schools[i].id %>"><%= @receiving_schools[i].short_name %></a></li>
+                    <% end %>
+                    <% i = num_column_schools * 1 %>
+                </ol>
+            </div>
+            <div class="c3m">
+                 <ol>
+                    <% for i in i..(num_column_schools * 2 - 1) %>
+                         <li><a href="schools/<%= @receiving_schools[i].id %>"><%= @receiving_schools[i].short_name %></a></li>
+                    <% end %>
+                    <% i = num_column_schools * 2 %>
+                </ol>
+            </div>
+            <div class="c3r">
+                 <ol>
+                    <% for i in i..num_schools - 1 %>
+                         <li><a href="schools/<%= @receiving_schools[i].id %>"><%= @receiving_schools[i].short_name %></a></li>
+                    <% end %>
+                </ol>
+            </div>
+        </div>
+-->
+       
+       <hr />
+       
+        <h2><%= @prelim_schools.size.to_s %> schools were screened for closure</h2>
+        <p>Select your child’s school to learn more about it and the schools to which she or he may be sent.</p>
+        
+        <div class="schools">
+            <div class="c3l">
+                 <ol>
+                     <% num_columns = 3 %>
+                     <% num_schools = @prelim_schools.size  %>
+                     <% num_column_schools = num_schools / num_columns  %>
+                     <% i = 0 %>
+                     <% for i in 0..(num_column_schools * 1 - 1) %>
+                         <li><a href="schools/<%= @prelim_schools[i].id %>"><%= @prelim_schools[i].short_name %></a></li>
+                    <% end %>
+                    <% i = num_column_schools * 1 %>
+                </ol>
+            </div>
+            <div class="c3m">
+                 <ol>
+                    <% for i in i..(num_column_schools * 2 - 1) %>
+                         <li><a href="schools/<%= @prelim_schools[i].id %>"><%= @prelim_schools[i].short_name %></a></li>
+                    <% end %>
+                    <% i = num_column_schools * 2 %>
+                </ol>
+            </div>
+            <div class="c3r">
+                 <ol>
+                    <% for i in i..num_schools - 1 %>
+                         <li><a href="schools/<%= @prelim_schools[i].id %>"><%= @prelim_schools[i].short_name %></a></li>
                     <% end %>
                 </ol>
             </div>

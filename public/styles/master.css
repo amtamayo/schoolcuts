@@ -231,6 +231,7 @@ ul { list-style: disc; margin-left: 2em; }
 .legend { clear: both; font-size: 12px; list-style: none; margin: 0; text-align: center; }
 .legend li { display: inline; margin-right: 1em; }
 
+
 /* Map */
 #map { border: 1px solid #ddd; margin-bottom: 20px; height: 450px; }
 
