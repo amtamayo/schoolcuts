@@ -32,10 +32,12 @@
         <ul class="legend">
         	<li><strong style="color: #4b58a6;"><i class="icon-minus"></i></strong> 1 mile</li>
         	<li><strong style="color: #a64b58;"><i class="icon-minus"></i></strong> 1.5 miles</li>
-        	<li><strong style="color: #9e241d;"><i class="icon-stop"></i></strong> Closing</li>
-            <li><strong style="color: #77a161;"><i class="icon-caret-up icon-2x"></i></strong> Higher performing</li>
-            <li><strong style="color: #ebcc71;"><i class="icon-circle"></i></strong> Other neighborhood</li>
-            <li><strong style="color: #3b5cb2;"><i class="icon-circle"></i></strong> Non-neighborhood</li>        	
+        	<li><strong style="color: #3b5cb2;"><i class="icon-circle"></i></strong> 
+        		<%= if(@is_relocating) then "New building" else if(@is_receiving) then "Sending" else if(@is_closing) then "Receiving" else @school.short_name end end end%></li>
+        	<li><strong style="color: #9e241d;"><i class="icon-circle"></i></strong> Closing action</li>
+            <li><strong style="color: #77a161;"><i class="icon-circle"></i></strong> Considered, not closing</li>
+            <li><strong style="color: #ebcc71;"><i class="icon-circle"></i></strong> No closing action</li>
+                    	
         </ul>
         
         <!--

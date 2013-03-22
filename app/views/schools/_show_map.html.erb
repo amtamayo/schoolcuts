@@ -96,7 +96,7 @@ function query(){
           where: whereClause
         },
         map: map,
-        styleId: 4,
+        styleId: 5,
         templateId: 2,
         styles: [{
         	where: "'ClosingStatus' in (1,2,3,4,5,6,7)" ,
@@ -106,12 +106,12 @@ function query(){
         },{				
         	where: "'SchoolCuts ID' in ("+ receiving_schools +")",
         	markerOptions: {
-        		iconName: "large_purple"
+        		iconName: "small_blue"
         	}
         },{				
 		    where: "'SchoolCuts ID' in (" + sending_schools + ")",
         	markerOptions: {
-        		iconName: "large_blue"
+        		iconName: "small_blue"
         	}
         },{				
 		    
@@ -130,11 +130,11 @@ function query(){
       layerThis = new google.maps.FusionTablesLayer({
         query: {
           select: LocationColumn,
-          from: '1ZbjrFIWB_2jlXtPagaAqmLWqoasCVRR1ZZMeuYc',
+          from: '12Di-mOSIPQr7fBGz3bhyUrg3qKVAS5yn3qgLKR0',
           where: "'SchoolCuts ID' = " + <%= @school.id %>
         },
         map: map,
-        styleId: 5,
+        styleId: 2,
         templateId: 2
 		});
       
