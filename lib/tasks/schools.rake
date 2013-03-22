@@ -359,7 +359,7 @@ namespace :cps do
     		to_school = School.find_by_cps_id(row[2])
     		if (!school.nil? & !to_school.nil?)
     		
-    			SchoolAction.create(:school_id => school.id, :result_id => to_school.id, :action_id => row[1].to_i)
+    			SchoolAction.create(:school_id => school.id, :result_id => to_school.id, :action_id => row[1].to_i + 1)
     			#puts "#{row[0]} -> #{row[1]} -> #{row[2]} "
     		end
     	}

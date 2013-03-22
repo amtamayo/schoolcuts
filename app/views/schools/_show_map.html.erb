@@ -80,22 +80,31 @@ function query(){
 	  }
 	  query();
     //console.log(isBetter(3, 70, 38, 0, 1));
-*/
-
+*/    var test = 1 ;
+	  var id = 307;
+	  var closing_status = <%= @school.closing_status.nil? ? -1 : @school.closing_status %>;
+	  var receiving_schools = [<%= (@receiving_schools.size > 0) ? @receiving_schools : 0 %>];
+	  var sending_schools = [<%= (@sending_schools.size > 0) ? @sending_schools : 0 %>];
+	  
       layerl0 = new google.maps.FusionTablesLayer({
         query: {
           select: LocationColumn,
-          from: '1z1-EA7NoUQwox20w4VpjfMd_oGJ15h_JWVzQ8OA',
+          from: '1ZbjrFIWB_2jlXtPagaAqmLWqoasCVRR1ZZMeuYc',
           where: whereClause
         },
         map: map,
         styleId: 4,
         templateId: 2,
         styles: [{
-            where: "'School ID' = " + thisCPSid,
-            markerOptions: {
-                iconName: "large_blue"
-            }
+        	where: "'SchoolCuts ID' in ("+ receiving_schools +")",
+        	markerOptions: {
+        		iconName: "large_red"
+        	}
+        },{				
+		    where: "'SchoolCuts ID' in (" + sending_schools + ")",
+        	markerOptions: {
+        		iconName: "large_blue"
+        	}
         }]
       });
       

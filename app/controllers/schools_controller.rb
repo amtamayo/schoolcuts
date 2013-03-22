@@ -19,7 +19,16 @@ class SchoolsController < ApplicationController
     @ideal_capacity = @school.ideal_capacity_for_year(@year)
     @first_enrollment_year = @school.first_enrollment_year
     @enrollment_totals = @school.enrollment_totals
-	@is_closing = @school.closing_status == 1
+	@is_closing = @school.closing_status == 2
+	@is_receiving = @school.receiving_status == 1
+
+	# if(@is_closing)
+		@receiving_schools = @school.school_actions.map{|r| if(r.action_id==2) then  r.result_id end}.join(", ")
+	# end
+	
+# 	if(@is_receiving)
+		@sending_schools = SchoolAction.where("result_id=" + @school.id.to_s + "").map{|sa| if(sa.action_id==2) then sa.school_id end }.join(",")
+# 	end
 		
 	@latitude = @school.school_addresses.where('year_from=2012').first.address.latitude
 	@longitude = @school.school_addresses.where('year_from=2012').first.address.longitude
