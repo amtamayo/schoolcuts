@@ -60,8 +60,7 @@ namespace :cps do
 				school.receiving_status = receiving_status
 				school.save
 
-				school.short_name = school.short_name.downcase.split(' ').map {|w| w.capitalize }.join(' ')
-				school.save
+				
 				
 				school_address = school.school_addresses.where("year_from = 2012").first
 				if (!school_address.nil?)
@@ -72,8 +71,11 @@ namespace :cps do
 					address.latitude = row[7].to_f
 					address.longitude = row[8].to_f
 				end
-
+			
 			end
+			
+			school.short_name = school.short_name.downcase.split(' ').map {|w| w.capitalize }.join(' ')
+			school.save
 			
 		}
 	end
