@@ -14,8 +14,16 @@
     </div>
     
     <div class="c2l">
-    <% Action.all.map do |action| %>
-    <% list_of_schools = School.find_all_by_closing_status(action.id) %>
+    
+    
+    
+    
+    <% display_order = [2,3,4,5,6,7,8,1] %>
+    
+    <% sorted_list = display_order.map{|i| Action.find_by_id(i)} %>
+    <% sorted_list.each do |action| %>
+    
+    	<% list_of_schools = School.find_all_by_closing_status(action.id) %>
     	
 	    <h2><%= list_of_schools.size.to_s %> <%= list_of_schools.size > 1 ? " schools are" : " school is" %> <%= action.name %> </h2>
         <p>Select a school to learn more about it and where its students may be sent.</p>
