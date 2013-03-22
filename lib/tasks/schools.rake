@@ -341,8 +341,8 @@ namespace :cps do
 		Action.create(:name=>"turnaround")
 		Action.create(:name=>"relocating")
 		Action.create(:name=>"co-locating")
-		Action.create(:name=>"closing grades 9-11")
-		Action.create(:name=>"phasing out in 2 years")
+		Action.create(:name=>"closing grades 9 to 11")
+		Action.create(:name=>"phasing out over 2 years")
 		Action.create(:name=>"not considered but will be turnaround")
     end
     
