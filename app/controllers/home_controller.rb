@@ -1,10 +1,9 @@
 class HomeController < ApplicationController
   def index
-  	@status = 2
-  	filter = "closing_status = #{@status}"
+  	@status = 
+  	  	
   	
-  	
-  	@schools = School.where(filter).sort_by{ |s| s.short_name }
+  	@schools = School.all.select{ |s| (!s.closing_status.nil? && s.closing_status > 1 ) || s.receiving_status == 1}.sort_by{ |s| s.short_name }
   	@students_affected = @schools.map{|s| s.enrollments.select{|e|e.year_from==2012}}.map{|e| e.first.count }.inject{|sum,x| sum + x}
   	@receiving_schools = School.where("receiving_status = 1").sort_by{|s| s.short_name }
   	

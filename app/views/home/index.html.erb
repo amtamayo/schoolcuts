@@ -7,99 +7,82 @@
 -->
         
         
-        <h1><%= number_with_delimiter(@students_affected, :delimiter => ',') %> students will see their school close</h1>
-        <p>Chicago Public Schools (CPS) has marked <strong><%= @schools.count %> elementary schools</strong> for closure based on utilization, performance, and community feedback. Closing a school is a very disruptive decision, affecting student outcomes, parental confidence, and neighborhood stability. In addition to showing the data being used by CPS, this website aims to help school leaders, parents, and communities learn more about the schools being closed, and what options may be available.</p>
+        <h1><%= number_with_delimiter(@students_affected, :delimiter => ',') %> students will be affected by school closings</h1>
+        <p>Chicago Public Schools (CPS) has marked <strong><%= @schools.count %> elementary schools</strong> for closure or consolidation based on utilization, performance, and community feedback. Closing a school is a very disruptive decision, affecting student outcomes, parental confidence, and neighborhood stability. In addition to showing the data being used by CPS, this website aims to help school leaders, parents, and communities learn more about the schools being closed, and what options may be available.</p>
         
         <div class="clear"></div>
     </div>
-    
-    <div class="c2l">
-    
+
     
     
     
-    <% display_order = [2,3,4,5,6,7,8,1] %>
     
-    <% sorted_list = display_order.map{|i| Action.find_by_id(i)} %>
-    <% sorted_list.each do |action| %>
     
-    	<% list_of_schools = School.find_all_by_closing_status(action.id).sort_by{ |s| s.short_name } %>
-    	
-	    <h2><%= list_of_schools.size.to_s %> <%= list_of_schools.size > 1 ? " schools are" : " school is" %> <%= action.name %> </h2>
-        <p>Select a school to learn more about it and where its students may be sent.</p>
-        
-        <div class="schools">
-            <div class="c3l">
+    	<% list_of_schools = School.all.select{ |s| (!s.closing_status.nil? && s.closing_status > 1 ) || s.receiving_status == 1 }.sort_by{ |s| s.short_name } %>
+	    <h2><%= list_of_schools.size.to_s %> <%= list_of_schools.size > 1 ? " schools are" : " school is" %> affected </h2>
+	    
+	    <ul class="school-filters">
+		  <li><strong>Filter by:</strong></li>
+		  <li><a class="selected flag-all" href="#" data-filter="*">All</a></li>
+		  <li><a class="flag-closing" href="#" data-filter=".closing">Closing</a></li>
+		  <li><a class="flag-turnaround" href="#" data-filter=".turnaround">Turnaround</a></li>
+		  <li><a class="flag-relocating" href="#" data-filter=".relocating">Relocating</a></li>
+		  <li><a class="flag-co-locating" href="#" data-filter=".co-locating">Co-locating</a></li>
+		  <li><a class="flag-closing-grades-9-to-11" href="#" data-filter=".closing-grades-9-to-11">Closing grades 9-11</a></li>
+		  <li><a class="flag-receiving" href="#" data-filter=".receiving">Receiving</a></li>
+		  <li><a class="flag-phasing-out-over-2-years" href="#" data-filter=".phasing-out-over-2-years">Phasing out over 2 years</a></li>
+		</ul>
+		
+		<div class="clear"></div>
+	    
+        <div class="schools" id="names">
                  <ol>
-                     <% num_columns = list_of_schools.size > 5 ? 3 : 1 %>
-                     <% num_schools = list_of_schools.size  %>
-                     <% num_column_schools = num_schools / num_columns  %>
-                     <% i = 0 %>
-                     <% for i in 0..(num_column_schools * 1 - 1) %>
-                         <li><a href="schools/<%= list_of_schools[i].id %>"><%= list_of_schools[i].short_name %></a></li>
-                    <% end %>
-                    <% i = num_column_schools * 1 %>
-                </ol>
-            </div>
-            <% if num_columns > 1%>
-            <div class="c3m">
-                 <ol>
-                    <% for i in i..(num_column_schools * 2 - 1) %>
-                         <li><a href="schools/<%= list_of_schools[i].id %>"><%= list_of_schools[i].short_name %></a></li>
-                    <% end %>
-                    <% i = num_column_schools * 2 %>
-                </ol>
-            </div>
-            <div class="c3r">
-                 <ol>
-                    <% for i in i..num_schools - 1 %>
-                         <li><a href="schools/<%= list_of_schools[i].id %>"><%= list_of_schools[i].short_name %></a></li>
+                     
+                     <% for i in 0..(list_of_schools.size-1) %> 
+                     <% school = list_of_schools[i]  %>
+                     <% label = "class='#{school.closing_status_name.tr(' ','-')} #{school.receiving_status_name.tr(' ','-')}'"  %>
+                     
+                     
+                     <li <%= label %> >
+	                     		                     
+	                     <a href="schools/<%= list_of_schools[i].id %>"><%= list_of_schools[i].short_name %></a>
+	                     <span <%= (list_of_schools[i].closing_status.nil? || list_of_schools[i].closing_status == 1) ? "" : 
+	                     	"class=flag-#{list_of_schools[i].closing_status_name.tr(' ','-')}" %>>
+		                    <%= (list_of_schools[i].closing_status==1) ? "" : list_of_schools[i].closing_status_name %>
+	                     </span>
+	                     <span <%= list_of_schools[i].receiving_status.nil? ? "" : "class=flag-#{list_of_schools[i].receiving_status_name.tr(' ','-')}" %>>
+		                 	<%= list_of_schools[i].receiving_status_name %>
+	                     </span>
+	                     
+                     </li>
                     <% end %>
                 </ol>
-            </div>
-            <% end %>
+                
+                <script src="/scripts/jquery.isotope.min.js" type="text/javascript"></script>
+                
+                <script type="text/javascript">
+                	$(function(){
+                		var $container = $("#names ol");
+                		
+	                	$container.isotope({
+						  itemSelector: "li",
+						  layoutMode: 'fitColumns'
+						});
+						
+						
+						$('.school-filters a').click(function(){
+							$(".school-filters a").removeClass("selected");
+							$(this).addClass("selected");
+						  var selector = $(this).attr('data-filter');
+						  $container.isotope({ filter: selector });
+						  return false;
+						});
+                	});
+                </script>
         </div>
         
         <hr />
-    
-    <% end %>
-
-    	<h2><%= @receiving_schools.size.to_s %> schools are receiving </h2>
-        <p>Select a school to learn more about it and where its students may be sent.</p>
         
-        <div class="schools">
-            <div class="c3l">
-                 <ol>
-                     <% num_columns = 3 %>
-                     <% num_schools = @receiving_schools.size  %>
-                     <% num_column_schools = num_schools / num_columns  %>
-                     <% i = 0 %>
-                     <% for i in 0..(num_column_schools * 1 - 1) %>
-                         <li><a href="schools/<%= @receiving_schools[i].id %>"><%= @receiving_schools[i].short_name %></a></li>
-                    <% end %>
-                    <% i = num_column_schools * 1 %>
-                </ol>
-            </div>
-            <div class="c3m">
-                 <ol>
-                    <% for i in i..(num_column_schools * 2 - 1) %>
-                         <li><a href="schools/<%= @receiving_schools[i].id %>"><%= @receiving_schools[i].short_name %></a></li>
-                    <% end %>
-                    <% i = num_column_schools * 2 %>
-                </ol>
-            </div>
-            <div class="c3r">
-                 <ol>
-                    <% for i in i..num_schools - 1 %>
-                         <li><a href="schools/<%= @receiving_schools[i].id %>"><%= @receiving_schools[i].short_name %></a></li>
-                    <% end %>
-                </ol>
-            </div>
-        </div>
-               
-    </div>
-    
-    <div class="c2r">
         <h2>A detailed look at schools on the list</h2>
         
         <p>The following data helps better understand each school. </p>

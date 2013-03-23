@@ -167,7 +167,7 @@ ul { list-style: disc; margin-left: 2em; }
 #evaluation h3 { font-style: italic; font-weight: bold; }
 
 /* Examples */
-.examples dd, .examples dt { padding-left: 35.43%; }
+.examples dd, .examples dt { padding-left: 168px; }
 .examples dt { clear: both; font-weight: bold; padding-top: 20px; }
 .examples dt:first-child { padding-top: 0; }
 .examples img { border: 1px solid #ddd; float: left; margin: 6px 0 0 -168px; }
@@ -179,21 +179,64 @@ ul { list-style: disc; margin-left: 2em; }
     border-radius: 3px;
     color: #fff;
     display: inline-block;
-    font-size: 16px;
+    font-size: 10px;
     padding: 0.3em 0.5em;
     text-transform: uppercase;
     vertical-align: middle;
 }
 
 .flag-considered-but-not-closing { background: #ebcc71; }
-.flag-closing { background: #9e241d; }
-.flag-turnaround { background: #9e241d; }
-.flag-relocating { background: #cf7e53; }
+.flag-closing { background: #852d2f; }
+.flag-turnaround { background: #978d81; }
+.flag-relocating { background: #e4cfb3; }
 .flag-co-locating { background: #cf7e53; }
-.flag-closing-grades-9-to-11 { background: #cf7e53; }
-.flag-phasing-out-over-2-years { background: #9e241d; }
-.flag-not-considered-but-will-be-turnaround { background: #9e241d; }
-.flag-receiving { background: #488714; }
+.flag-closing-grades-9-to-11 { background: #a76459; }
+.flag-phasing-out-over-2-years { background: #c3aba1; }
+.flag-not-considered-but-will-be-turnaround { background: #9aacae; }
+.flag-receiving { background: #506880; }
+
+	h1 [class *= "flag"] { font-size: 16px; }
+
+/* Filtering */
+.school-filters { list-style: none; margin: 2.5em 0 2em; }
+.school-filters [class *= "flag"] { border: 2px solid #fff; }
+.school-filters [class *= "flag"].selected { border-color: #000; }
+.school-filters li { display: inline; margin-right: 1em; }
+
+.isotope-item {
+  z-index: 2;
+}
+
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
+}
+
+.isotope,
+.isotope .isotope-item {
+  /* change duration value to whatever you like */
+  -webkit-transition-duration: 0.8s;
+     -moz-transition-duration: 0.8s;
+      -ms-transition-duration: 0.8s;
+       -o-transition-duration: 0.8s;
+          transition-duration: 0.8s;
+}
+
+.isotope {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+      -ms-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.isotope .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity;
+     -moz-transition-property:    -moz-transform, opacity;
+      -ms-transition-property:     -ms-transform, opacity;
+       -o-transition-property:      -o-transform, opacity;
+          transition-property:         transform, opacity;
+}
 
 /* Footer */
 #footer { background: #f0f0f0; border-top: 1px solid #ddd; padding: 30px; }
@@ -268,8 +311,8 @@ ul { list-style: disc; margin-left: 2em; }
 #perform-other ul { list-style: none; margin: 0; }
 
 /* School list */
-.schools li { margin: 0; }
-.schools ol { list-style: none; margin-left: 0; }
+.schools li { margin: 0 0 0.25em; width: 245px; }
+.schools ol { height: 850px; list-style: none; margin-left: 0; }
 
 /* School profile */
 #profile-primary { float: left; margin-bottom: 30px; width: 65.68%; }

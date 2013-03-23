@@ -104,6 +104,11 @@ function query(){
         		iconName: "small_red"
         	}
         },{				
+		    where: "ClosingStatus = 0",
+        	markerOptions: {
+        		iconName: "small_green"
+        	}	
+        },{				
         	where: "'SchoolCuts ID' in ("+ receiving_schools +")",
         	markerOptions: {
         		iconName: "small_blue"
@@ -114,15 +119,9 @@ function query(){
         		iconName: "small_blue"
         	}
         },{				
-		    
 		    where: "'SchoolCuts ID' in (" + new_building + ")",
         	markerOptions: {
         		iconName: "blu_blank"
-        	}	
-         },{				
-		    where: "ClosingStatus = ''",
-        	markerOptions: {
-        		iconName: "small_green"
         	}	
         }]
       });
