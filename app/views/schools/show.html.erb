@@ -8,7 +8,7 @@
 <div class="content">
     <div id="intro">
         <h1><%= @school.short_name.downcase.split(' ').map {|w| w.capitalize }.join(' ') %>
-        	<% closing_label = Action.find_by_id(@school.closing_status).name %>
+        	<% closing_label = @school.closing_status_name %>
         	<% if (@school.closing_status) %>
         		<span class=<%= "flag-" + closing_label.tr(' ','-') %>><%= closing_label %></span>
         	<% end %>

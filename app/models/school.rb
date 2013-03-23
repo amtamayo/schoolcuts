@@ -13,10 +13,12 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   has_many :school_actions
 
   def enrollments_for_year(number)
-    enrollments.select('count').where({
+  	enrollment = enrollments.select('count').where({
       :year_from => number
-    }).first.count
+    })
+    enrollment.nil? ? 0 : enrollment.first.count
   end
+  
 
   def enrollment_totals
     enrollments.select('count').order('year_from').map(&:count).to_json
@@ -68,5 +70,15 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   	end
   	@result
   end
+  
+  def closing_status_name
+  	@closing_status.nil? ? "" : Action.find_by_id(@action.id).nil? ? "" : Action.find_by_id(@action.id).name
+  end
+  
+  
+  def is_closing?
+  	@closing_status == 2
+  end
+  
   
 end
