@@ -8,11 +8,12 @@
 <div class="content">
     <div id="intro">
         <h1><%= @school.short_name.downcase.split(' ').map {|w| w.capitalize }.join(' ') %>
-        	<% closing_label = @school.closing_status_name %>
-        	<% if (@school.closing_status) %>
-        		<span class=<%= "flag-" + closing_label.tr(' ','-') %>><%= closing_label %></span>
+        	<% if(!@school.closing_status.nil?) %>
+        	<% 		closing_label = @school.closing_status_name %>
+        			<span class=<%= "flag-" + closing_label.tr(' ','-') %>><%= closing_label %></span>
         	<% end %>
-        	<% if (@school.receiving_status == 1) %>
+        		
+        	<% if (@is_receiving) %>
         		<span class="flag-receiving">Receiving</span>
         	<% end %>
 	        </h1>
@@ -31,10 +32,12 @@
         <ul class="legend">
         	<li><strong style="color: #4b58a6;"><i class="icon-minus"></i></strong> 1 mile</li>
         	<li><strong style="color: #a64b58;"><i class="icon-minus"></i></strong> 1.5 miles</li>
-        	<li><strong style="color: #9e241d;"><i class="icon-stop"></i></strong> Closing</li>
-            <li><strong style="color: #77a161;"><i class="icon-caret-up icon-2x"></i></strong> Higher performing</li>
-            <li><strong style="color: #ebcc71;"><i class="icon-circle"></i></strong> Other neighborhood</li>
-            <li><strong style="color: #3b5cb2;"><i class="icon-circle"></i></strong> Non-neighborhood</li>        	
+        	<li><strong style="color: #3b5cb2;"><i class="icon-circle"></i></strong> 
+        		<%= if(@is_relocating) then "New building" else if(@is_receiving) then "Sending" else if(@is_closing) then "Receiving" else @school.short_name end end end%></li>
+        	<li><strong style="color: #9e241d;"><i class="icon-circle"></i></strong> Closing action</li>
+            <li><strong style="color: #77a161;"><i class="icon-circle"></i></strong> Considered, not closing</li>
+            <li><strong style="color: #ebcc71;"><i class="icon-circle"></i></strong> No closing action</li>
+                    	
         </ul>
         
         <!--
@@ -68,7 +71,7 @@
         <!-- <h2>What does CPS look at and what else could be considered?</h2> -->
         
         <div class="c2l">
-            <% if (@school.closing_status <= 0) %>
+            <% if (!@is_closing) %>
  		       	<h3>This school is not on a closing list</h3>
             <% else %>
 	        	<h3>Why is this school on the closing list?</h3>
@@ -140,7 +143,7 @@
             </div>
             <div class="dataset">
                 <h4>Is this school organized for improvement?</h4>
-                <p>The University of Chicago identifies five basic elements of a successful school and rates each school based on the results of yearly parent, student, and teacher surveys.</p>
+                <p>The University of Chicago identifies five basic elements of a successful school and rates each school based on the results of yearly student and teacher surveys.</p>
                 
                 <div class="essentials-charts">
                 	<div class="c2l">

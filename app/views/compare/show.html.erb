@@ -1,9 +1,5 @@
-<h1>Compare#show</h1>
-<p>Find me in app/views/compare/show.html.erb</p>
-
-<%= @school.short_name %>
-
 <%= render :partial => "highcharts_show" %>
+<%= link_to 'Back', schools_path %>
 
 <!-- Content -->
 <div class="content">
@@ -59,7 +55,7 @@
     <ul class="compare">
         <li class="selected">
             <div class="school">
-                <h3><a href="#"><%= @school.short_name %></a></h3>
+                <h3><a href="./schools/<%= @school.id%>"><%= @school.short_name %></a></h3>
                 
                 <div class="level3"><strong>Level</strong><span>3</span></div>
                 
@@ -76,24 +72,24 @@
                     <dt>5Essentials (2012)</dt>
                     <dd>
                         <div class="essentials">
-						    <div class="category leaders neutral" 
-						    	title="Neutral">
+						    <div class="category leaders <%= @school.essentials.where("category = 'leaders' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'leaders' AND year_to=2011").first.rating.capitalize %>">
 						    	<span class="title">Effective leaders</span>
 						    </div>
-						    <div class="category teachers neutral" 
-						    	title="Neutral">
+						    <div class="category teachers <%= @school.essentials.where("category = 'teachers' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'teachers' AND year_to=2011").first.rating.capitalize %>">
 						    	<span class="title">Collaborative teachers</span>
 						    </div>
-						    <div class="category instruction neutral" 
-						    	title="Neutral">
+						    <div class="category instruction <%= @school.essentials.where("category = 'instruction' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'instruction' AND year_to=2011").first.rating.capitalize %>">
 						    	<span class="title">Ambitious instruction</span>
 						    </div>
-						    <div class="category environment neutral" 
-						    	title="Neutral">
+						    <div class="category environment <%= @school.essentials.where("category = 'environment' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'environment' AND year_to=2011").first.rating.capitalize %>">
 						    	<span class="title">Supportive environment</span>
 						    </div>
-						    <div class="category families strong" 
-						    	title="Strong">
+						    <div class="category families <%= @school.essentials.where("category = 'families' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'families' AND year_to=2011").first.rating.capitalize %>">
 						    	<span class="title">Involved families</span>
 						    </div>
 						</div>
@@ -106,7 +102,7 @@
 
         <li>
             <div class="school">
-                <h3><a href="#"><%= related_school.short_name %></a></h3>
+                <h3><a href="./schools/<%= related_school.id %>"><%= related_school.short_name %></a></h3>
                 
                 <div class="level2"><strong>Level</strong><span>2</span></div>
                 
@@ -116,7 +112,7 @@
                     
                     <dt>Why is it better?</dt>
                     <dd>
-                        <i class="icon-large icon-check"></i> or 
+                        <i class="icon-large <%= @school.level_number > related_school.level_number ? "icon-check" : "icon-check-empty" %>"></i> or 
                         <i class="icon-large icon-check-empty"></i>
                         <i class="icon-large icon-check-empty"></i>
                         <i class="icon-large icon-check-empty"></i>
@@ -129,24 +125,24 @@
                     <dt>5Essentials (2012)</dt>
                     <dd>
                         <div class="essentials">
-						    <div class="category leaders neutral" 
-						    	title="Neutral">
+						    <div class="category leaders <%= related_school.essentials.where("category = 'leaders' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= related_school.essentials.where("category = 'leaders' AND year_to=2011").first.rating.capitalize %>">
 						    	<span class="title">Effective leaders</span>
 						    </div>
-						    <div class="category teachers neutral" 
-						    	title="Neutral">
+						    <div class="category teachers <%= related_school.essentials.where("category = 'teachers' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= related_school.essentials.where("category = 'teachers' AND year_to=2011").first.rating.capitalize %>">
 						    	<span class="title">Collaborative teachers</span>
 						    </div>
-						    <div class="category instruction neutral" 
-						    	title="Neutral">
+						    <div class="category instruction <%= related_school.essentials.where("category = 'instruction' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= related_school.essentials.where("category = 'instruction' AND year_to=2011").first.rating.capitalize %>">
 						    	<span class="title">Ambitious instruction</span>
 						    </div>
-						    <div class="category environment neutral" 
-						    	title="Neutral">
+						    <div class="category environment <%= related_school.essentials.where("category = 'environment' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= related_school.essentials.where("category = 'environment' AND year_to=2011").first.rating.capitalize %>">
 						    	<span class="title">Supportive environment</span>
 						    </div>
-						    <div class="category families strong" 
-						    	title="Strong">
+						    <div class="category families <%= related_school.essentials.where("category = 'families' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= related_school.essentials.where("category = 'families' AND year_to=2011").first.rating.capitalize %>">
 						    	<span class="title">Involved families</span>
 						    </div>
 						</div>

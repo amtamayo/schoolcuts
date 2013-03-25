@@ -12,7 +12,7 @@ namespace :cps do
 			school = School.find_by_cps_id(row[0].to_i)
 			
 			puts "#{row[137]}"
-			closing_status = row[137].nil? ? nil : row[137].to_i + 1
+			closing_status = row[137].nil? ? nil : row[137].to_i
 			receiving_status = row[138].nil? ? nil : row[138].to_i
 				
 			if school.nil?
@@ -27,7 +27,7 @@ namespace :cps do
 					:school_type => row[9].to_s,
 					:short_name => row[1].to_s,
 					:isat_url =>row[88].to_s,
-					:closing_status => closing_status,  #hack:  we initially used a zero-based index for statuses; need to increment to map correctly to the action table
+					:closing_status => closing_status
 					:receiving_status => receiving_status 
 				)
 				
@@ -336,14 +336,14 @@ namespace :cps do
 		puts "Importing action types"
 		Action.delete_all
 		
-		Action.create(:name=>"considered but not closing")
-		Action.create(:name=>"closing")
-		Action.create(:name=>"turnaround")
-		Action.create(:name=>"relocating")
-		Action.create(:name=>"co-locating")
-		Action.create(:name=>"closing grades 9 to 11")
-		Action.create(:name=>"phasing out over 2 years")
-		Action.create(:name=>"not considered but will be turnaround")
+		Action.create(:action_code => 1, :name=>"considered but not closing")
+		Action.create(:action_code => 2, :name=>"closing")
+		Action.create(:action_code => 3, :name=>"turnaround")
+		Action.create(:action_code => 4, :name=>"relocating")
+		Action.create(:action_code => 5, :name=>"co-locating")
+		Action.create(:action_code => 6, :name=>"closing grades 9 to 11")
+		Action.create(:action_code => 7, :name=>"phasing out over 2 years")
+		Action.create(:action_code => 8, :name=>"not considered but will be turnaround")
     end
     
     desc "import school actions"
@@ -359,7 +359,7 @@ namespace :cps do
     		to_school = School.find_by_cps_id(row[2])
     		if (!school.nil? & !to_school.nil?)
     		
-    			SchoolAction.create(:school_id => school.id, :result_id => to_school.id, :action_id => row[1].to_i)
+    			SchoolAction.create(:school_id => school.id, :result_id => to_school.id, :action_id => row[1].to_i + 1)
     			#puts "#{row[0]} -> #{row[1]} -> #{row[2]} "
     		end
     	}
