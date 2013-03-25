@@ -52,7 +52,9 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   end
   
   def closing_status_name
-	@closing_status_name = self.closing_status.nil? ? "" : Action.find_by_id(self.closing_status).name 
+	@closing_status_name = self.closing_status.nil? ? "" : 
+		Action.find_by_action_code(self.closing_status).nil? ? "" : 
+			Action.find_by_action_code(self.closing_status).name 
 	@closing_status_name
   end
   
