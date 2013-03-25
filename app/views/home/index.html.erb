@@ -12,14 +12,7 @@
         
         <div class="clear"></div>
     </div>
-
-    
-    
-    
-    
-    
-    	<% list_of_schools = School.all.select{ |s| (!s.closing_status.nil? && s.closing_status > 1 ) || s.receiving_status == 1 }.sort_by{ |s| s.short_name } %>
-	    <h2><%= list_of_schools.size.to_s %> <%= list_of_schools.size > 1 ? " schools are" : " school is" %> affected </h2>
+	    <h2><%= @schools.size.to_s %> <%= @schools.size > 1 ? " schools are" : " school is" %> affected </h2>
 	    
 	    <ul class="school-filters">
 		  <li><strong>Filter by:</strong></li>
@@ -38,20 +31,18 @@
         <div class="schools" id="names">
                  <ol>
                      
-                     <% for i in 0..(list_of_schools.size-1) %> 
-                     <% school = list_of_schools[i]  %>
-                     <% label = "class='#{school.closing_status_name.tr(' ','-')} #{school.receiving_status_name.tr(' ','-')}'"  %>
+                     <% for i in 0..(@schools.size-1) %> 
+                     <% school = @schools[i]  %>
                      
                      
-                     <li <%= label %> >
-	                     		                     
-	                     <a href="schools/<%= list_of_schools[i].id %>"><%= list_of_schools[i].short_name %></a>
-	                     <span <%= (list_of_schools[i].closing_status.nil? || list_of_schools[i].closing_status == 1) ? "" : 
-	                     	"class=flag-#{list_of_schools[i].closing_status_name.tr(' ','-')}" %>>
-		                    <%= (list_of_schools[i].closing_status==1) ? "" : list_of_schools[i].closing_status_name %>
+                     <li <%= "class='#{school.closing_status_name.tr(' ','-')} #{school.receiving_status_name.tr(' ','-')}'"  %> >
+	                     <a href="schools/<%= school.id %>"><%= school.short_name %></a>
+	                     <span <%= (school.closing_status.nil? || school.closing_status == 1) ? "" : 
+	                     	"class=flag-#{school.closing_status_name.tr(' ','-')}" %>>
+		                    <%= (school.closing_status==1) ? "" : school.closing_status_name %>
 	                     </span>
-	                     <span <%= list_of_schools[i].receiving_status.nil? ? "" : "class=flag-#{list_of_schools[i].receiving_status_name.tr(' ','-')}" %>>
-		                 	<%= list_of_schools[i].receiving_status_name %>
+	                     <span <%= school.receiving_status.nil? ? "" : "class=flag-#{school.receiving_status_name.tr(' ','-')}" %>>
+		                 	<%= school.receiving_status_name %>
 	                     </span>
 	                     
                      </li>
