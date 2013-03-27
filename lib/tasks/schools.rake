@@ -27,7 +27,7 @@ namespace :cps do
 					:school_type => row[9].to_s,
 					:short_name => row[1].to_s,
 					:isat_url =>row[88].to_s,
-					:closing_status => closing_status
+					:closing_status => closing_status,
 					:receiving_status => receiving_status 
 				)
 				
