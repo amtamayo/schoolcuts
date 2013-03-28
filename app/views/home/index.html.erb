@@ -37,9 +37,9 @@
                      
                      <li <%= "class='#{school.closing_status_name.tr(' ','-')} #{school.receiving_status_name.tr(' ','-')}'"  %> >
 	                     <a href="schools/<%= school.id %>"><%= school.short_name %></a>
-	                     <span <%= (school.closing_status.nil? || school.closing_status == 1) ? "" : 
+	                     <span <%= (school.closing_status.nil? || school.closing_status == 0) ? "" : 
 	                     	"class=flag-#{school.closing_status_name.tr(' ','-')}" %>>
-		                    <%= (school.closing_status==1) ? "" : school.closing_status_name %>
+		                    <%= (school.closing_status==0) ? "" : school.closing_status_name %>
 	                     </span>
 	                     <span <%= school.receiving_status.nil? ? "" : "class=flag-#{school.receiving_status_name.tr(' ','-')}" %>>
 		                 	<%= school.receiving_status_name %>
