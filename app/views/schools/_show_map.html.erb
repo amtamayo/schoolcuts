@@ -92,36 +92,36 @@ function query(){
       layerl0 = new google.maps.FusionTablesLayer({
         query: {
           select: LocationColumn,
-          from: '1ZbjrFIWB_2jlXtPagaAqmLWqoasCVRR1ZZMeuYc',
+          from: '1rwYoQj6HhxjrdFnCQ4wSHYx43ilxMdPjnusdkSc',
           where: whereClause
         },
         map: map,
-        styleId: 5,
+        styleId: 2,
         templateId: 2,
-        styles: [{
-        	where: "'ClosingStatus' in (1,2,3,4,5,6,7)" ,
-        	markerOptions: {
-        		iconName: "small_red"
-        	}
-        },{				
-		    where: "ClosingStatus = 0",
-        	markerOptions: {
-        		iconName: "small_green"
-        	}	
-        },{				
+        styles: [{ 				
         	where: "'SchoolCuts ID' in ("+ receiving_schools +")",
-        	markerOptions: {
-        		iconName: "small_blue"
-        	}
-        },{				
-		    where: "'SchoolCuts ID' in (" + sending_schools + ")",
-        	markerOptions: {
-        		iconName: "small_blue"
-        	}
-        },{				
+          markerOptions: {
+            iconName: "blu_blank"
+          }
+        },{       
+        where: "'SchoolCuts ID' in (" + sending_schools + ")",
+          markerOptions: {
+            iconName: "red_blank"
+          }
+        },{ 
+          where: "'SchoolCuts ID' =  <%= @school.id %>  AND 'ReceivingStatus' = 1",
+          markerOptions: {
+            iconName: "large_blue"
+          }
+        },{     
+        where: "'SchoolCuts ID' =  <%= @school.id %>  AND 'ClosingStatus' in (1, 6)",
+          markerOptions: {
+            iconName: "large_red"
+          }
+        },{        
 		    where: "'SchoolCuts ID' in (" + new_building + ")",
         	markerOptions: {
-        		iconName: "blu_blank"
+        		iconName: "ltblu_blank"
         	}	
         }]
       });
@@ -129,11 +129,11 @@ function query(){
       layerThis = new google.maps.FusionTablesLayer({
         query: {
           select: LocationColumn,
-          from: '12Di-mOSIPQr7fBGz3bhyUrg3qKVAS5yn3qgLKR0',
-          where: "'SchoolCuts ID' = " + <%= @school.id %>
+          from: '1rwYoQj6HhxjrdFnCQ4wSHYx43ilxMdPjnusdkSc',
+          where: "'SchoolCuts ID' =  <%= @school.id %>  AND 'ClosingStatus' in (2, 5, 7)"
         },
         map: map,
-        styleId: 2,
+        styleId: 4,
         templateId: 2
 		});
       
