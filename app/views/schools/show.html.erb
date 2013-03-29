@@ -13,7 +13,7 @@
         			<span class=<%= "flag-" + closing_label.tr(' ','-') %>><%= closing_label %></span>
         	<% end %>
         		
-        	<% if (@is_receiving) %>
+        	<% if (@school.is_receiving?) %>
         		<span class="flag-receiving">Receiving</span>
         	<% end %>
 	        </h1>
@@ -33,7 +33,7 @@
         	<li><strong style="color: #4b58a6;"><i class="icon-minus"></i></strong> 1 mile</li>
         	<li><strong style="color: #a64b58;"><i class="icon-minus"></i></strong> 1.5 miles</li>
         	<li><strong style="color: #3b5cb2;"><i class="icon-circle"></i></strong> 
-        		<%= if(@is_relocating) then "New building" else if(@is_receiving) then "Sending" else if(@is_closing) then "Receiving" else @school.short_name end end end%></li>
+        		<%= if(@school.is_relocating?) then "New building" else if(@school.is_receiving?) then "Sending" else if(@school.is_closing?) then "Receiving" else @school.short_name end end end%></li>
         	<li><strong style="color: #9e241d;"><i class="icon-circle"></i></strong> Closing or impacted</li>
             <li><strong style="color: #77a161;"><i class="icon-circle"></i></strong> Considered, not closing</li>
             <li><strong style="color: #ebcc71;"><i class="icon-circle"></i></strong> No closing action</li>
@@ -71,7 +71,7 @@
         <!-- <h2>What does CPS look at and what else could be considered?</h2> -->
         
         <div class="c2l">
-            <% if (!@is_closing) %>
+            <% if (!@school.is_closing?) %>
  		       	<h3>This school is not on a closing list</h3>
             <% else %>
 	        	<h3>Why is this school on the closing list?</h3>

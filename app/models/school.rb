@@ -84,7 +84,15 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   end
     
   def is_closing?
-  	@closing_status == 2
+  	self.closing_status == 1
+  end
+  
+  def is_receiving?
+  	self.receiving_status == 1
+  end
+  
+  def is_relocating?
+  	self.closing_status == 3
   end
   
   #FIXME:  change the source file to have levels as integers not strings
