@@ -83,9 +83,9 @@ function query(){
 */    var test = 1 ;
 	  var id = 307;
 	  var closing_status = <%= @school.closing_status.nil? ? -1 : @school.closing_status %>;
-	  var receiving_schools = [<%= (@receiving_schools.size > 0) ? @receiving_schools : 0 %>];
-	  var sending_schools = [<%= (@sending_schools.size > 0) ? @sending_schools : 0 %>];
-	  var new_building = <%= @new_building_school_id %>;
+	  var receiving_schools = [<%= (@school.receiving_schools().size > 0) ? @school.receiving_schools() : 0 %>];
+	  var sending_schools = [<%= (@school.sending_schools().size > 0) ? @school.sending_schools() : 0 %>];
+	  var new_building = <%= @school.new_building("id")%>;
 	  
 	  console.log(new_building);
 	  

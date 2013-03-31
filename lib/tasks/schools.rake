@@ -74,9 +74,7 @@ namespace :cps do
 			
 			end
 			
-			school.short_name = school.short_name.downcase.split(' ').map {|w| w.capitalize }.join(' ')
 			school.save
-			
 		}
 	end
 	

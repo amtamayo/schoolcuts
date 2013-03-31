@@ -7,13 +7,13 @@
 <!-- Content -->
 <div class="content">
     <div id="intro">
-        <h1><%= @school.short_name.downcase.split(' ').map {|w| w.capitalize }.join(' ') %>
+        <h1><%= @school.short_name %>
         	<% if(!@school.closing_status.nil?) %>
         	<% 		closing_label = @school.closing_status_name %>
         			<span class=<%= "flag-" + closing_label.tr(' ','-') %>><%= closing_label %></span>
         	<% end %>
         		
-        	<% if (@is_receiving) %>
+        	<% if (@school.is_receiving?) %>
         		<span class="flag-receiving">Receiving</span>
         	<% end %>
 	        </h1>
@@ -32,11 +32,76 @@
         <ul class="legend">
         	<li><strong style="color: #4b58a6;"><i class="icon-minus"></i></strong> 1 mile</li>
         	<li><strong style="color: #a64b58;"><i class="icon-minus"></i></strong> 1.5 miles</li>
-        	<li><strong style="color: #3b5cb2;"><i class="icon-circle"></i></strong> 
-        		<%= if(@is_relocating) then "New building" else if(@is_receiving) then "Sending" else if(@is_closing) then "Receiving" else @school.short_name end end end%></li>
-        	<li><strong style="color: #9e241d;"><i class="icon-circle"></i></strong> Closing or impacted</li>
-            <li><strong style="color: #77a161;"><i class="icon-circle"></i></strong> Considered, not closing</li>
-            <li><strong style="color: #ebcc71;"><i class="icon-circle"></i></strong> No closing action</li>
+        	       	
+        	
+        	<!-- SPECIFIC TO CLOSING SCHOOLS -->
+        	<% if(@school.is_closing?) %>
+        		<li><img src="/images/map icons/large-red.png" /><%= @school.short_name %> is closing<li>
+        		<li><img src="/images/map icons/large-blue-blank.png" />
+	        		<% for i in 0..(@school.receiving_school_names().size-1) %>
+		        		<a href=<%= @school.receiving_school_links()[i] %>><%= @school.receiving_school_names()[i] %></a>
+		        		<%= if(i>=0 && i<@school.receiving_school_names().size-1) then ", " end %>
+	        		<% end %>
+        		<%= (@school.receiving_school_names().size == 1) ? " is " : " are "%>receiving students from <%= @school.short_name %><li>
+        	<% end %>
+        	<!--/ SPECIFIC TO CLOSING SCHOOLS -->
+        	
+        	<!-- SPECIFIC TO RECEIVING SCHOOLS -->
+	        <% if(@school.is_receiving?) %>
+        		<% if(@school.is_relocating?) %>
+        			<li><img src="/images/map icons/large-ltblue-blank.png" />
+	        	<% else %>
+	        		<li><img src="/images/map icons/large-red-blank.png" />
+	        	<% end %>
+		        		
+	        		<% for i in 0..(@school.sending_school_names().size-1) %>
+		        		<a href=<%= @school.sending_school_links()[i] %>><%= @school.sending_school_names()[i] %></a>
+		        		<%= if(i>=0 && i<@school.sending_school_names().size-1) then ", " end%>
+	        		<% end %>
+	        		<%= (@school.sending_school_names().size == 1) ? " is " : " are "%> closing
+	        	
+	        	<% if(@school.is_relocating?) %>
+        				and <%= @school.short_name + " is relocating to "%>
+        				<a href=<%= @school.new_building("link") %>> <%= @school.new_building("name") %></a>'s building
+        			</li>    
+	        	<% end %>
+	        		</li>
+        		
+        		<li><img src="/images/map icons/large-blue.png" /><%= @school.short_name %> is receiving students from
+	        		<% for i in 0..(@school.sending_school_names().size-1) %>
+		        		<a href=<%= @school.sending_school_links()[i] %>><%= @school.sending_school_names()[i] %></a>
+		        		<%= if(i>=0 && i<@school.sending_school_names().size-1) then ", " end %>
+	        		<% end %>
+        		</li>
+        	<% end %>
+        	<!--/ SPECIFIC TO RECEIVING SCHOOLS -->
+       	
+        	<!-- SPECIFIC TO CO-LOCATING SCHOOLS -->
+        	<!--
+	        	<% if(@school.is_colocating?) %>
+        			<li><img src="/images/map icons/large-yellow.png" /><%= @school.short_name + " is co-locating" %></li>
+        		<% end %>
+        	-->
+        	<!--/ SPECIFIC TO CO-LOCATING SCHOOLS -->
+       	
+        	<!-- SPECIFIC TO OTHER ACTIONS-->
+        	<% if(@school.is_turnaround? || @school.is_special_turnaround?) %>
+        		<li><img src="/images/map icons/large-yellow.png" /><%= @school.short_name + " will be a Turnaround" %></li>
+        	<% end %>
+        	
+        	<% if(@school.is_phaseout?) %>
+        		<li><img src="/images/map icons/large-red.png" /><%= @school.short_name + " is " + @school.closing_status_name %></li>
+        	<% end %>
+
+        	<% if(@school.is_program_closure?) %>
+        		<li><img src="/images/map icons/large-yellow.png" /><%= @school.short_name + " is " + @school.closing_status_name %></li>
+        	<% end %>
+        	<!--/ SPECIFIC TO OTHER ACTIONS -->
+        	
+        	<br/>
+        	<li><strong style="color: #9e241d;"><i class="icon-circle"></i></strong> Closing</li>
+            <li><strong style="color: #ebcc71;"><i class="icon-circle"></i></strong> Impacted</li>
+            <li><strong style="color: #c0c0c0;"><i class="icon-circle"></i></strong> Other</li>
                     	
         </ul>
         
@@ -71,7 +136,7 @@
         <!-- <h2>What does CPS look at and what else could be considered?</h2> -->
         
         <div class="c2l">
-            <% if (!@is_closing) %>
+            <% if (!@school.is_closing?) %>
  		       	<h3>This school is not on a closing list</h3>
             <% else %>
 	        	<h3>Why is this school on the closing list?</h3>

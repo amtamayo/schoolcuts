@@ -83,8 +83,36 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   	@result
   end
     
+  def is_receiving?
+    self.receiving_status == 1
+  end 
+   
   def is_closing?
-  	@closing_status == 2
+  	self.closing_status == 1
+  end
+  
+  def is_turnaround?
+  	self.closing_status == 2
+  end
+  
+  def is_relocating?
+    self.closing_status == 3
+  end
+  
+  def is_colocating?
+  	self.closing_status == 4
+  end
+  
+  def is_program_closure?
+  	self.closing_status == 5
+  end
+  
+  def is_phaseout?
+  	self.closing_status == 6
+  end
+  
+  def is_special_turnaround?
+  	self.closing_status == 7
   end
   
   #FIXME:  change the source file to have levels as integers not strings
@@ -95,6 +123,56 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   		@levelNumber = matches.first.to_i
   	end
   	@levelNumber
+  end
+   
+  def receiving_schools
+  	@receiving_schools = self.school_actions.map{|r| if(r.action_id==2) then  r.result_id end}.join(", ")
+  end
+  
+  def receiving_school_names
+	@receiving_school_names = self.school_actions.map{|r| if(r.action_id==2) then  School.find_by_id(r.result_id).short_name end}
+  end
+  
+  def receiving_school_links
+	@receiving_school_links = self.school_actions.map{|r| if(r.action_id==2) then  "/schools/" + r.result_id.to_s end}
+  end
+  
+  def sending_schools
+  	@sending_schools = SchoolAction.where("result_id=" + self.id.to_s + "").map{|sa| if(sa.action_id==2) then sa.school_id end }.join(",")
+  end 
+  
+  def sending_school_names
+	@sending_school_names = SchoolAction.where("result_id=" + self.id.to_s + "").
+		map{|sa| if(sa.action_id==2) then School.find_by_id(sa.school_id).short_name end }
+  end
+  
+  def sending_school_links
+	@sending_school_links = SchoolAction.where("result_id=" + self.id.to_s + "").
+		map{|sa| if(sa.action_id==2) then "/schools/" + sa.school_id.to_s end }
+  end
+  
+  def new_building(format)
+  	@result = nil 
+  	@new_building_school_id = -1
+  	@new_building_school_name = ""
+  	@new_building_school_link = "#"
+  	
+  	if(self.school_actions.size > 0 && !self.school_actions.find_by_action_id(4).nil?)
+  		@new_building_school_id = self.school_actions.find_by_action_id(4).result_id
+  		@new_building_school_name = School.find_by_id(@new_building_school_id).short_name
+  		@new_building_school_link = "/schools/" + @new_building_school_id.to_s
+  	end
+  	
+  	case format
+  		when "id"
+  			@result = @new_building_school_id
+  		when "name"
+  			@result = @new_building_school_name
+  		when "link"
+  			@result = @new_building_school_link
+  	end 
+  	
+	@result
   end
   
 end
