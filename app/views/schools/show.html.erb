@@ -29,17 +29,15 @@
         <h2>Closest schools to <%= @school.short_name %></h2>
         <!-- <p>If <%= @school.short_name %> closes, its students might to moved to these nearby Neighborhood schools. </p> -->
         <div id="map"></div>
-        <ul class="legend">
-        	<li><strong style="color: #4b58a6;"><i class="icon-minus"></i></strong> 1 mile</li>
-        	<li><strong style="color: #a64b58;"><i class="icon-minus"></i></strong> 1.5 miles</li>
-        	
+        
+        <div class="c2l">
+        <ul class="legend">	
         	<!-- SPECIFIC TO CLOSING SCHOOLS -->
         	<% if(@school.is_closing?) %>
         		<li><img src="/images/map icons/large-red.png" /><%= @school.short_name %> is closing<li>
         		<li><img src="/images/map icons/large-blue-blank.png" />
 	        		<% for i in 0..(@school.receiving_school_names().size-1) %>
-		        		<a href=<%= @school.receiving_school_links()[i] %>><%= @school.receiving_school_names()[i] %></a>
-		        		<%= if(i>=0 && i<@school.receiving_school_names().size-1) then ", " end %>
+		        		<a href=<%= @school.receiving_school_links()[i] %>><%= @school.receiving_school_names()[i] %></a><%= if(i>=0 && i<@school.receiving_school_names().size-1) then ", " end %>
 	        		<% end %>
         		<%= (@school.receiving_school_names().size == 1) ? " is " : " are "%>receiving students from <%= @school.short_name %><li>
         	<% end %>
@@ -54,22 +52,19 @@
 	        	<% end %>
 		        		
 	        		<% for i in 0..(@school.sending_school_names().size-1) %>
-		        		<a href=<%= @school.sending_school_links()[i] %>><%= @school.sending_school_names()[i] %></a>
-		        		<%= if(i>=0 && i<@school.sending_school_names().size-1) then ", " end%>
+		        		<a href=<%= @school.sending_school_links()[i] %>><%= @school.sending_school_names()[i] %></a><%= if(i>=0 && i<@school.sending_school_names().size-1) then ", " end%>
 	        		<% end %>
 	        		<%= (@school.sending_school_names().size == 1) ? " is " : " are "%> closing
 	        	
 	        	<% if(@school.is_relocating?) %>
         				and <%= @school.short_name + " is relocating to "%>
-        				<a href=<%= @school.new_building("link") %>> <%= @school.new_building("name") %></a>'s building
-        			</li>    
+        				<a href=<%= @school.new_building("link") %>> <%= @school.new_building("name") %></a>'s building   
 	        	<% end %>
-	        		</li>
+        		</li>
         		
         		<li><img src="/images/map icons/large-blue.png" /><%= @school.short_name %> is receiving students from
 	        		<% for i in 0..(@school.sending_school_names().size-1) %>
-		        		<a href=<%= @school.sending_school_links()[i] %>><%= @school.sending_school_names()[i] %></a>
-		        		<%= if(i>=0 && i<@school.sending_school_names().size-1) then ", " end %>
+		        		<a href=<%= @school.sending_school_links()[i] %>><%= @school.sending_school_names()[i] %></a><%= if(i>=0 && i<@school.sending_school_names().size-1) then ", " end %>
 	        		<% end %>
         		</li>
         	<% end %>
@@ -96,12 +91,20 @@
         		<li><img src="/images/map icons/large-yellow.png" /><%= @school.short_name + " is " + @school.closing_status_name %></li>
         	<% end %>
         	<!--/ SPECIFIC TO OTHER ACTIONS -->
-        	
-        	<br/>
-        	<li><strong style="color: #9e241d;"><i class="icon-circle"></i></strong> Closing</li>
-            <li><strong style="color: #ebcc71;"><i class="icon-circle"></i></strong> Impacted</li>
-            <li><strong style="color: #c0c0c0;"><i class="icon-circle"></i></strong> Other</li>                    	
-        </ul>
+		</ul>
+		</div>
+		
+		<div class="c2r">
+            <ul class="legend">
+                <li><strong style="color: #f36968;"><i class="icon-circle"></i></strong> Closing</li>
+                <li><strong style="color: #ebcc71;"><i class="icon-circle"></i></strong> Impacted</li>
+                <li><strong style="color: #c0c0c0;"><i class="icon-circle"></i></strong> Other</li>                    	
+            </ul>
+            <ul class="legend">
+            	<li><strong style="color: #4b58a6;"><i class="icon-minus"></i></strong> 1 mile</li>
+            	<li><strong style="color: #a64b58;"><i class="icon-minus"></i></strong> 1.5 miles</li>
+            </ul>
+		</div>
         
         <!--
 	        <div class="balloon">

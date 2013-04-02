@@ -34,6 +34,9 @@ ol { list-style: decimal; margin-left: 2em; }
 li { margin-bottom: 0.5em; }
 ul { list-style: disc; margin-left: 2em; }
 
+.l { float: left; }
+.r { float: right; }
+
 
 /* Layout
 ======================================================================*/
@@ -276,8 +279,8 @@ ul { list-style: disc; margin-left: 2em; }
 #intro p:last-child { margin-bottom: 0; }
 
 /* Legends */
-.legend { clear: both; font-size: 12px; list-style: none; margin: 0; } 
-.legend li { display: inline; margin-right: 1em;}
+.legend { font-size: 12px; list-style: none; margin: 0 0 0.5em; }
+.legend li { display: inline; margin-right: 1em; }
 
 /* Map */
 #map { border: 1px solid #ddd; margin-bottom: 20px; height: 450px; }
@@ -315,4 +318,8 @@ ul { list-style: disc; margin-left: 2em; }
 
 /* School profile */
 #profile-primary { float: left; margin-bottom: 30px; width: 65.68%; }
+#profile-primary .c2l .legend li { display: block; margin-bottom: 1em; padding-left: 28px; }
+#profile-primary .c2l .legend li img { float: left; margin: -2px 0 0 -28px; }
+#profile-primary .c2r .legend { text-align: right; }
+#profile-primary .c2r .legend li { display: inline; margin-left: 1em; }
 #profile-secondary { float: right; margin-bottom: 30px; width: 31.29%; }
