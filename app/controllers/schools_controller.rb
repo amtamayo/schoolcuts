@@ -25,6 +25,8 @@ class SchoolsController < ApplicationController
 	
 	@address = @school.school_addresses.where('year_from=2012').first.address
 	
+	@status_with_transition_links = [1,2,3,4,6,7]
+	
 	utilization_rate = @enrollment.to_f / @ideal_capacity * 100
     
     case utilization_rate 

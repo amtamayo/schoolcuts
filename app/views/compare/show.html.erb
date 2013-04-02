@@ -56,7 +56,7 @@
             <div class="school">
                 <h3><a href="./schools/<%= @school.id%>"><%= @school.short_name %></a></h3>
                 
-                <div class="level3"><strong>Level</strong><span>3</span></div>
+                <div class="<%= "level#{@school.level_number}" %>"><strong>Level</strong><span><%= @school.level_number%></span></div>
                 
                 <dl>
                     <dt>Enrollment</dt>
@@ -103,7 +103,7 @@
             <div class="school">
                 <h3><a href="./schools/<%= related_school.id %>"><%= related_school.short_name %></a></h3>
                 
-                <div class="level2"><strong>Level</strong><span>2</span></div>
+                <div class="<%= "level#{related_school.level_number}" %>"><strong>Level</strong><span><%= related_school.level_number%></span></div>
                 
                 <dl>
                     <dt>Enrollment</dt>

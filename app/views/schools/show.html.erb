@@ -22,6 +22,11 @@
         	<%= @school.full_name %> &bull; <%= @school.phone %> &bull; <%= @school.community_area.split(' ').map {|w| w.capitalize }.join(' ') %> &bull; 
         	<%= @address.street_address %>, Chicago, Illinois <%= @address.zipcode %>
         </p>
+        
+        <% if @status_with_transition_links.include?(@school.closing_status)  %>
+        <p class="mute"><a href="http://www.cps.edu/qualityschools/pages/schools.aspx?s=<%= @school.cps_id %>">View transition plan for this school at CPS.edu</a> &raquo;</p>
+        <% end %>
+
         <div class="clear"></div>
     </div>
     
