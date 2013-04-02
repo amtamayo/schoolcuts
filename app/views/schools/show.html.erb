@@ -119,7 +119,7 @@
     </div>
     
     <div id="profile-secondary">
-    	<p><a class="action" href="#evaluation">Jump to evaluation data</a></p>
+    	<p><a class="action noprint" href="#evaluation">Jump to evaluation data</a></p>
         
         <h3><%= @school.short_name %>'s Demographics</h3>
         
@@ -128,7 +128,7 @@
         
         <strong>Race/ethnicity</strong>
         <div id="race-chart"></div>
-        <p><a href="http://www.cps.edu/Schools/Pages/school.aspx?id=<%= @school.cps_id %>">View more demographics at CPS.edu</a> &raquo;</p>
+        <p class="noprint"><a href="http://www.cps.edu/Schools/Pages/school.aspx?id=<%= @school.cps_id %>">View more demographics at CPS.edu</a> &raquo;</p>
     </div>
     
     <div class="clear"></div>
@@ -218,23 +218,33 @@
 		                <div class="essentials">
 						    <div class="category leaders <%= @school.essentials.where("category = 'leaders' AND year_to=2011").first.rating.tr(' ','-') %>" 
 						    	title="<%= @school.essentials.where("category = 'leaders' AND year_to=2011").first.rating.capitalize %>">
-						    	<span class="title">Effective leaders</span>
+						    	<span class="title">Effective leaders
+    						    	<span class="status"><%= @school.essentials.where("category = 'leaders' AND year_to=2011").first.rating.capitalize %></span>
+						    	</span>
 						    </div>
 						    <div class="category teachers <%= @school.essentials.where("category = 'teachers' AND year_to=2011").first.rating.tr(' ','-') %>" 
 						    	title="<%= @school.essentials.where("category = 'teachers' AND year_to=2011").first.rating.capitalize %>">
-						    	<span class="title">Collaborative teachers</span>
+						    	<span class="title">Collaborative teachers
+    						    	<span class="status"><%= @school.essentials.where("category = 'teachers' AND year_to=2011").first.rating.capitalize %></span>
+						    	</span>
 						    </div>
 						    <div class="category instruction <%= @school.essentials.where("category = 'instruction' AND year_to=2011").first.rating.tr(' ','-') %>" 
 						    	title="<%= @school.essentials.where("category = 'instruction' AND year_to=2011").first.rating.capitalize %>">
-						    	<span class="title">Ambitious instruction</span>
+						    	<span class="title">Ambitious instruction
+    						    	<span class="status"><%= @school.essentials.where("category = 'instruction' AND year_to=2011").first.rating.capitalize %></span>
+						    	</span>
 						    </div>
 						    <div class="category environment <%= @school.essentials.where("category = 'environment' AND year_to=2011").first.rating.tr(' ','-') %>" 
 						    	title="<%= @school.essentials.where("category = 'environment' AND year_to=2011").first.rating.capitalize %>">
-						    	<span class="title">Supportive environment</span>
+						    	<span class="title">Supportive environment
+    						    	<span class="status"><%= @school.essentials.where("category = 'environment' AND year_to=2011").first.rating.capitalize %></span>
+						    	</span>
 						    </div>
 						    <div class="category families <%= @school.essentials.where("category = 'families' AND year_to=2011").first.rating.tr(' ','-') %>" 
 						    	title="<%= @school.essentials.where("category = 'families' AND year_to=2011").first.rating.capitalize %>">
-						    	<span class="title">Involved families</span>
+						    	<span class="title">Involved families
+    						    	<span class="status"><%= @school.essentials.where("category = 'families' AND year_to=2011").first.rating.capitalize %></span>
+						    	</span>
 						    </div>
 						</div>
 						<!-- /2011 Essentials -->
@@ -245,23 +255,33 @@
 						<div class="essentials">
 						    <div class="category leaders <%= @school.essentials.where("category = 'leaders' AND year_to=2012").first.rating.tr(' ','-') %>" 
 						    	title="<%= @school.essentials.where("category = 'leaders' AND year_to=2012").first.rating.capitalize %>">
-						    	<span class="title">Effective leaders</span>
+						    	<span class="title">Effective leaders
+    						    	<span class="status"><%= @school.essentials.where("category = 'leaders' AND year_to=2012").first.rating.capitalize %></span>
+						    	</span>
 						    </div>
 						    <div class="category teachers <%= @school.essentials.where("category = 'teachers' AND year_to=2012").first.rating.tr(' ','-') %>" 
 						    	title="<%= @school.essentials.where("category = 'teachers' AND year_to=2012").first.rating.capitalize %>">
-						    	<span class="title">Collaborative teachers</span>
+						    	<span class="title">Collaborative teachers
+    						    	<span class="status"><%= @school.essentials.where("category = 'teachers' AND year_to=2012").first.rating.capitalize %></span>
+						    	</span>
 						    </div>
 						    <div class="category instruction <%= @school.essentials.where("category = 'instruction' AND year_to=2012").first.rating.tr(' ','-') %>" 
 						    	title="<%= @school.essentials.where("category = 'instruction' AND year_to=2012").first.rating.capitalize %>">
-						    	<span class="title">Ambitious instruction</span>
+						    	<span class="title">Ambitious instruction
+    						    	<span class="status"><%= @school.essentials.where("category = 'instruction' AND year_to=2012").first.rating.capitalize %></span>
+						    	</span>
 						    </div>
 						    <div class="category environment <%= @school.essentials.where("category = 'environment' AND year_to=2012").first.rating.tr(' ','-') %>" 
 						    	title="<%= @school.essentials.where("category = 'environment' AND year_to=2012").first.rating.capitalize %>">
-						    	<span class="title">Supportive environment</span>
+						    	<span class="title">Supportive environment
+    						    	<span class="status"><%= @school.essentials.where("category = 'environment' AND year_to=2012").first.rating.capitalize %></span>
+						    	</span>
 						    </div>
 						    <div class="category families <%= @school.essentials.where("category = 'families' AND year_to=2012").first.rating.tr(' ','-') %>" 
 						    	title="<%= @school.essentials.where("category = 'families' AND year_to=2012").first.rating.capitalize %>">
-						    	<span class="title">Involved families</span>
+						    	<span class="title">Involved families
+    						    	<span class="status"><%= @school.essentials.where("category = 'families' AND year_to=2012").first.rating.capitalize %></span>
+						    	</span>
 						    </div>
 						</div>
 		                <!-- /2012 Essentials -->

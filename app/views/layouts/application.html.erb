@@ -11,8 +11,9 @@
     <%= csrf_meta_tags %>
     
     <!-- Styles -->
-    <link href="/styles/master.css" media="Screen" rel="stylesheet" type="text/css" />
-    <link href="/styles/font-awesome.min.css" media="Screen" rel="stylesheet" type="text/css" />
+    <link href="/styles/master.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="/styles/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="/styles/print.css" media="print" rel="stylesheet" type="text/css" />
     
     <!--[if IE 7]>
         <link href="/styles/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
@@ -73,13 +74,17 @@
             <li><a href="/about/index">About</a></li>
         </ul>
         
-        <div class="mute"></div>
+        <ul class="nav-extras">
+            <li><a href="#" onclick="print(); return false;"><i class="icon-print"></i> Print this page</a></li>
+        </ul>
+        
+        <div class="clear"></div>
     </div>
 </div>
 
 <%= yield %>
 
-<div class="content">
+<div class="content" id="discussion">
 	<hr />
 	<h2>Join the discussion</h2>
 	
@@ -126,15 +131,15 @@ js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement
 	    
 	    <div id="footer-secondary">
 	        <h2>Collaborators</h2>        
-	        <p>
-	            <a href="http://twitter.com/JMOChicago">Jeanne Marie Olson</a>, <a href="http://cpsapples2apples.wordpress.com">Apples 2 Apples</a>
-	            <br /><a href="http://twitter.com/shua123">Josh Kalov</a>, <a href="http://cpsapples2apples.wordpress.com">Apples 2 Apples</a>
-	            <br /><a href="http://www.linkedin.com/in/ljchandler">Lincoln Chandler</a>
-	            <br /><a href="http://twitter.com/_amtamayo">Anna Marie-Tamayo</a>, <a href="http://opendatainstitute.org">Open Data Institute</a>
-	            <br /><a href="http://twitter.com/elnazem">Elnaz Moshfeghian</a>, <a href="http://opendatainstitute.org">Open Data Institute</a>
-	            <br /><a href="http://twitter.com/PaulBaker">Paul Baker</a>, <a href="http://opendatainstitute.org">Open Data Institute</a>
-	            <br /><a href="http://twitter.com/rougeux">Nick Rougeux</a>, <a href="http://opendatainstitute.org">Open Data Institute</a>
-	        </p>
+	        <ul class="collaborators">
+	            <li><a href="http://twitter.com/JMOChicago">Jeanne Marie Olson</a>, <a href="http://cpsapples2apples.wordpress.com">Apples 2 Apples</a></li>
+	            <li><a href="http://twitter.com/shua123">Josh Kalov</a>, <a href="http://cpsapples2apples.wordpress.com">Apples 2 Apples</a></li>
+	            <li><a href="http://www.linkedin.com/in/ljchandler">Lincoln Chandler</a></li>
+	            <li><a href="http://twitter.com/_amtamayo">Anna Marie-Tamayo</a>, <a href="http://opendatainstitute.org">Open Data Institute</a></li>
+	            <li><a href="http://twitter.com/elnazem">Elnaz Moshfeghian</a>, <a href="http://opendatainstitute.org">Open Data Institute</a></li>
+	            <li><a href="http://twitter.com/PaulBaker">Paul Baker</a>, <a href="http://opendatainstitute.org">Open Data Institute</a></li>
+	            <li><a href="http://twitter.com/rougeux">Nick Rougeux</a>, <a href="http://opendatainstitute.org">Open Data Institute</a></li>
+	        </ul>
 	    </div>
 	</div>
     

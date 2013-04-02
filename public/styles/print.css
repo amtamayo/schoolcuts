@@ -1,0 +1,67 @@
+/*------------------------+
+ | Site: School closings  |
+ | Part: Print stylesheet |
+ +------------------------*/
+
+/* Hide unnecessary elements
+=====================================================================*/
+#discussion, #nav, .noprint, #sharing { display: none; }
+
+
+/* Reset layout
+=====================================================================*/
+.content,
+#footer,
+#footer-content,
+#footer-primary,
+#footer-secondary,
+#header,
+#header-content,
+.static {
+    background: none;
+	border: 0;
+	box-shadow: none;
+	float: none;
+	padding: 0;
+	margin: 0;
+	max-width: 100%;
+	min-width: 0;
+	position: static;
+	width: auto;
+}
+
+
+/* Content
+=====================================================================*/
+
+/* Charts */
+#chart-isat, .highcharts-container, #chart-mobility, .highcharts-container { margin: 0 auto; }
+
+    /* 5Essentials */
+    .essentials .title { font-size: 12px; }
+    .essentials .status { display: block; font-size: 8px; font-weight: bold; text-transform: uppercase; }
+    .essentials-charts { margin: 0 auto; width: 470px; }
+    
+        /* Categories */
+        .essentials .instruction .title { padding-top: 20px; }
+    
+    /* Levels */
+    .levels ol { margin: 0 auto; width: 235px; }
+    .level1, .level2, .level3 { border: 2px solid #000; }
+
+/* Evaluation metrics */
+#evaluation > .c2l, #evaluation > .c2r { border: 0; float: none; padding: 0; width: 100%; }
+
+/* Flags */
+[class *= "flag"] { background: #fff; border-radius: 3px; border: 1px solid #ccc; color: #000; }
+
+/* Footer */
+#footer { border-top: 1px solid #ccc; font-size: 14px; padding-top: 20px; }
+
+/* Header */
+#header { margin-bottom: 20px; }
+#logo { float: none; }
+#logo a { color: #3B653D; }
+
+/* Intro */
+#intro { background: none; filter: 0; box-shadow: none; }

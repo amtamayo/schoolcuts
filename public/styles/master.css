@@ -76,6 +76,7 @@ ul { list-style: disc; margin-left: 2em; }
 	.essentials { height: 220px; margin-bottom: 15px; position: relative; }
 	.essentials .category { background: #ddd; border: 8px solid #fff; height: 45%; position: absolute; width: 45%; }
 	.essentials .title { display: block; font-size: 13px; line-height: 1.3; position: absolute; width: 80%; }
+	.essentials .status { display: none; }
 	.essentials-charts h4 { text-align: center; }
 	
 		/* Categories */
@@ -245,6 +246,8 @@ ul { list-style: disc; margin-left: 2em; }
 #footer { background: #f0f0f0; border-top: 1px solid #ddd; padding: 30px; }
 #footer-primary { float: left; width: 65.68%; }
 #footer-secondary { float: right; width: 31.29%; }
+.collaborators { list-style: none; margin: 0; }
+.collaborators li { margin: 0; }
 
 /* Header */
 #header { background: #3B653D; padding: 30px 30px 10px; }
@@ -279,7 +282,7 @@ ul { list-style: disc; margin-left: 2em; }
 #intro p:last-child { margin-bottom: 0; }
 
 /* Legends */
-.legend { font-size: 12px; list-style: none; margin: 0 0 0.5em; }
+.legend { clear: both; font-size: 12px; list-style: none; margin: 0 0 0.5em; }
 .legend li { display: inline; margin-right: 1em; }
 
 /* Map */
@@ -299,7 +302,8 @@ ul { list-style: disc; margin-left: 2em; }
 #nav { background: #f0f0f0; font-size: 20px; margin-bottom: 30px; padding: 10px 30px; }
 #nav li { display: inline; margin: 0 0.9em 0 0; }
 #nav li.current a { color: #000; font-weight: bold; }
-#nav ul { list-style: none; margin: 0; }
+#nav ul { float: left; list-style: none; margin: 0; }
+#nav ul.nav-extras { float: right; font-size: 16px; }
 
 /* Performance */
 #perform { margin-bototm: 20px; text-align: center; }
@@ -318,6 +322,7 @@ ul { list-style: disc; margin-left: 2em; }
 
 /* School profile */
 #profile-primary { float: left; margin-bottom: 30px; width: 65.68%; }
+#profile-primary .legend { clear: none; }
 #profile-primary .c2l .legend li { display: block; margin-bottom: 1em; padding-left: 28px; }
 #profile-primary .c2l .legend li img { float: left; margin: -2px 0 0 -28px; }
 #profile-primary .c2r .legend { text-align: right; }
