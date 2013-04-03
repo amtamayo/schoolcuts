@@ -363,6 +363,25 @@ namespace :cps do
     	}
 		
 	end
+	
+	desc "import performance_metrics"
+	task :import_performance_metrics => :environment do
+	
+		PerformanceMetric.delete_all
+		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
+		
+		list = CSV.read(inputfile, :headers => true )
+		list.each{ |row|
+    		school = School.find_by_cps_id(row[0])
+    		if (!school.nil?)
+    			PerformanceMetric.create(:school_id => school.id, :policy_points => row[139].to_f, :isat_composite => row[140].to_f, :value_added_math => row[141].to_f, :value_added_reading => row[142].to_f)
+    			
+    			puts "#{row[0]} -> #{row[139]} -> #{row[140]} "
+    		end
+    	}
+
+		
+	end
     
 	desc "Show column names"
 		task :list_import_column_names => :environment do
