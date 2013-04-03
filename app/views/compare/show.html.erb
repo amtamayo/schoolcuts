@@ -13,7 +13,7 @@
             <h3><i class="icon-check"></i> Better level (1 or 2)</h3>
             <div class="levels">
                 <ol>
-                	<li class="level3"><strong>Level</strong><span>1</span></li>
+                	<li class="level1"><strong>Level</strong><span>1</span></li>
                 	<li class="level2"><strong>Level</strong><span>2</span></li>
                 </ol>
                 <p class="mute">Level 1 is best</p>
@@ -112,10 +112,10 @@
                     <dt>Why is it better?</dt>
                     <dd>
                         <i class="icon-large <%= @school.level_number > related_school.level_number ? "icon-check" : "icon-check-empty" %>"></i> or 
-                        <i class="icon-large icon-check-empty"></i>
-                        <i class="icon-large icon-check-empty"></i>
-                        <i class="icon-large icon-check-empty"></i>
-                        <i class="icon-large icon-check-empty"></i>
+                        <i class="icon-large <%= @school.performance_metric.policy_points < related_school.performance_metric.policy_points ? "icon-check" : "icon-check-empty" %>" ></i>
+                        <i class="icon-large <%= @school.performance_metric.isat_composite < related_school.performance_metric.isat_composite ? "icon-check" : "icon-check-empty" %>" ></i>
+                        <i class="icon-large <%= @school.performance_metric.value_added_math < related_school.performance_metric.value_added_math ? "icon-check" : "icon-check-empty" %>" ></i>
+                        <i class="icon-large <%= @school.performance_metric.value_added_reading < related_school.performance_metric.value_added_reading ? "icon-check" : "icon-check-empty" %>" ></i>
                     </dd>
                     
                     <dt>ISAT trends</dt>

@@ -11,6 +11,7 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   has_many :demographics
   has_many :school_addresses
   has_many :school_actions
+  has_one :performance_metric
 
   def enrollments_for_year(number)
   	enrollment = enrollments.select('count').where({

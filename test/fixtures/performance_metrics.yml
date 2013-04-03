@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  school_id: 1
+  policy_points: 
+  isat_composite: 
+  value_added_math: 
+  value_added_reading: 
+
+two:
+  school_id: 1
+  policy_points: 
+  isat_composite: 
+  value_added_math: 
+  value_added_reading: 
