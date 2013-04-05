@@ -83,12 +83,37 @@ function query(){
 */    var test = 1 ;
 	  var id = 307;
 	  var closing_status = <%= @school.closing_status.nil? ? -1 : @school.closing_status %>;
+    
 	  var receiving_schools = [<%= (@school.receiving_schools().size > 0) ? @school.receiving_schools() : 0 %>];
 	  var sending_schools = [<%= (@school.sending_schools().size > 0) ? @school.sending_schools() : 0 %>];
 	  var new_building = <%= @school.new_building("id")%>;
 	  
 	  console.log(new_building);
+
+    var whereBoundary = ''
 	  
+    if (receiving_schools != 0)
+    {
+        whereBoundary = "'SchoolCuts ID' in ("+ receiving_schools +")"
+    }
+    else
+    {
+        whereBoundary = "'SchoolCuts ID' =  <%= @school.id %>"
+    }
+      
+      layerBoundaries = new google.maps.FusionTablesLayer({
+        query: {
+          select: "col0\x3e\x3e1",
+          from: "1u2jMELhnoivuc678nMUn23dIFZwiqAnADsZX2u0",
+          where: whereBoundary
+        },
+        map: map,
+        styleId: 2,
+        templateId: 2
+        });
+
+
+
       layerl0 = new google.maps.FusionTablesLayer({
         query: {
           select: LocationColumn,
@@ -136,6 +161,8 @@ function query(){
         styleId: 4,
         templateId: 2
 		});
+      
+      
       
     }
     google.maps.event.addDomListener(window, 'load', initialize);
