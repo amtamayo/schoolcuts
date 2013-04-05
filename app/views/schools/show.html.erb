@@ -45,6 +45,7 @@
 		        		<a href=<%= @school.receiving_school_links()[i] %>><%= @school.receiving_school_names()[i] %></a><%= if(i>=0 && i<@school.receiving_school_names().size-1) then ", " end %>
 	        		<% end %>
         		<%= (@school.receiving_school_names().size == 1) ? " is " : " are "%>receiving students from <%= @school.short_name %><li>
+
         	<% end %>
         	<!--/ SPECIFIC TO CLOSING SCHOOLS -->
         	
@@ -108,6 +109,9 @@
             <ul class="legend">
             	<li><strong style="color: #4b58a6;"><i class="icon-minus"></i></strong> 1 mile</li>
             	<li><strong style="color: #a64b58;"><i class="icon-minus"></i></strong> 1.5 miles</li>
+            </ul>
+            <ul class="legend">
+                <li><strong style="color: #ff9900;"><i class="icon-minus"></i></strong> Proposed Attendance Boundary</li>
             </ul>
 		</div>
         
