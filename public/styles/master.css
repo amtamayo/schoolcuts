@@ -138,9 +138,9 @@ ul { list-style: disc; margin-left: 2em; }
 /* Compare */
 .compare { font-size: 14px; list-style: none; margin: 0; }
 .compare dt { font-weight: bold; margin-top: 1em; }
-.compare li { float: left; margin: 0 3.06% 30px 0; width: 22.7%; }
+.compare li { float: left; margin: 0 2.5% 30px 0; width: 22.9%; }
 .compare li:nth-child(4n+4), .compare li.end { margin-right: 0; }
-.compare .school { border: 1px solid #ccc; border-radius: 5px; height: 560px; padding: 15px; }
+.compare .school { border: 1px solid #ccc; border-radius: 5px; height: 600px; padding: 15px; }
 .compare .selected .school { background: #f0f0f0; border-color: #3b5cb2; }
     
     /* 5Essentials */
@@ -298,7 +298,7 @@ ul { list-style: disc; margin-left: 2em; }
 /* Muted text */
 .mute { color: #555; font-size: 13px; }
 
-/* Navigtion */
+/* Navigation */
 #nav { background: #f0f0f0; font-size: 20px; margin-bottom: 30px; padding: 10px 30px; }
 #nav li { display: inline; margin: 0 0.9em 0 0; }
 #nav li.current a { color: #000; font-weight: bold; }
@@ -306,11 +306,11 @@ ul { list-style: disc; margin-left: 2em; }
 #nav ul.nav-extras { float: right; font-size: 16px; }
 
 /* Performance */
-#perform { margin-bototm: 20px; text-align: center; }
-#perform-level { border: 2px solid #ccc; border-radius: 5px; float: left; height: 170px; margin-right: 3.06%; padding: 15px 10px; width: 28.21%; }
+#perform { margin-bottom: 20px; text-align: center; }
+#perform-level { border: 2px solid #ccc; border-radius: 5px; float: left; height: 210px; margin-right: 3.06%; padding: 15px 10px; width: 28.21%; }
 #perform-level .levels ol { width: 55%; }
 #perform-or { float: left; font-size: 24px; padding-top: 80px; text-transform: uppercase; width: 3.52%; }
-#perform-other { border: 2px solid #ccc; border-radius: 5px; float: right; height: 170px; padding: 15px 10px; width: 57.53%; }
+#perform-other { border: 2px solid #ccc; border-radius: 5px; float: right; height: 210px; padding: 15px 10px; width: 57.53%; }
 #perform-other, #perform-other h4 { font-size: 13px; }
 #perform-other li { float: left; margin: 0 2% 10px 0; width: 23%; }
 #perform-other p { margin: 0; }
@@ -328,3 +328,9 @@ ul { list-style: disc; margin-left: 2em; }
 #profile-primary .c2r .legend { text-align: right; }
 #profile-primary .c2r .legend li { display: inline; margin-left: 1em; }
 #profile-secondary { float: right; margin-bottom: 30px; width: 31.29%; }
+
+
+/* new */
+.question .yes { color: green }
+.question .no { color: red }
+

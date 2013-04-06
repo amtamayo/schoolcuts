@@ -21,12 +21,12 @@
         <p>
         	<%= @school.full_name %> &bull; <%= @school.phone %> &bull; <%= @school.community_area.split(' ').map {|w| w.capitalize }.join(' ') %> &bull; 
         	<%= @address.street_address %>, Chicago, Illinois <%= @address.zipcode %>
-        </p>
+        
         
         <% if @status_with_transition_links.include?(@school.closing_status)  %>
-        <p class="mute"><a href="http://www.cps.edu/qualityschools/pages/schools.aspx?s=<%= @school.cps_id %>">View transition plan for this school at CPS.edu</a> &raquo;</p>
+        	<p class="mute"><a href="http://www.cps.edu/qualityschools/pages/schools.aspx?s=<%= @school.cps_id %>">View transition plan for this school at CPS.edu</a> &raquo;</p>
         <% end %>
-
+        </p>
         <div class="clear"></div>
     </div>
     
@@ -45,7 +45,7 @@
 		        		<a href=<%= @school.receiving_school_links()[i] %>><%= @school.receiving_school_names()[i] %></a><%= if(i>=0 && i<@school.receiving_school_names().size-1) then ", " end %>
 	        		<% end %>
         		<%= (@school.receiving_school_names().size == 1) ? " is " : " are "%>receiving students from <%= @school.short_name %><li>
-
+<p class="mute"><a href="../compare/<%= @school.id %>">Compare these schools</a> &raquo;</p>
         	<% end %>
         	<!--/ SPECIFIC TO CLOSING SCHOOLS -->
         	
@@ -192,7 +192,7 @@
             
             <div class="dataset">
                 <h4>CPS performance level</h4>
-                <p>The Performance Level is the CPS indicator of school quality based on a formula that uses ISAT test scores and attendance rates. Level 1 is indicates a school that has the highest scores on this metric, and Level 3 is the lowest.</p>
+                <p>The Performance Level is the CPS indicator of school quality based on a formula that uses ISAT test scores and attendance rates. Level 1 indicates a school that has the highest scores on this metric, and Level 3 is the lowest.</p>
                 
                 <div class="levels">
 	                <ol>

@@ -152,6 +152,26 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
 		map{|sa| if(sa.action_id==2) then "/schools/" + sa.school_id.to_s end }
   end
   
+  def is_higher_performing?(other_school)
+  
+  	@score = 0
+  	if self.performance_metric.policy_points > other_school.performance_metric.policy_points 
+  		@score = @score + 1
+  	end
+    if self.performance_metric.isat_composite > other_school.performance_metric.isat_composite
+  		@score = @score + 1
+  	end
+	if self.performance_metric.value_added_reading > other_school.performance_metric.value_added_reading
+		@score = @score + 1
+	end
+
+	if self.performance_metric.value_added_math > other_school.performance_metric.value_added_math
+		@score = @score + 1
+	end
+  
+  	self.level_number < other_school.level_number ||  @score > 2  		  		
+  end 
+  
   def new_building(format)
   	@result = nil 
   	@new_building_school_id = -1
@@ -175,5 +195,6 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   	
 	@result
   end
+  
   
 end

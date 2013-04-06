@@ -374,7 +374,11 @@ namespace :cps do
 		list.each{ |row|
     		school = School.find_by_cps_id(row[0])
     		if (!school.nil?)
-    			PerformanceMetric.create(:school_id => school.id, :policy_points => row[139].to_f, :isat_composite => row[140].to_f, :value_added_math => row[141].to_f, :value_added_reading => row[142].to_f)
+    			PerformanceMetric.create(:school_id => school.id, 
+    			:policy_points => row[139].to_f, 
+    			:isat_composite => row[140].to_f, 
+    			:value_added_math => row[141].to_f, 
+    			:value_added_reading => row[142].to_f)
     			
     			puts "#{row[0]} -> #{row[139]} -> #{row[140]} "
     		end
@@ -421,6 +425,7 @@ namespace :cps do
     	Rake::Task['cps:import_demographics'].invoke
     	Rake::Task['cps:import_actions'].invoke
     	Rake::Task['cps:import_school_actions'].invoke
+    	Rake::Task['cps:import_performance_metrics'].invoke
 
     end
 end

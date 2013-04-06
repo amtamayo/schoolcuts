@@ -2,11 +2,11 @@
 
 <!-- Content -->
 <div class="content">
-    <h1>Compare potential receiving schools if <a href="#"><%= @school.short_name %> </a> is closed</h1>
+    <h1>Compare potential receiving schools if <a href="../schools/<%= @school.id%>"><%= @school.short_name %> </a> is closed</h1>
     
-    <p>CPS states that they will place students in higher-performing schools. Compare <%= @school.short_name %> to the schools that may receive students from <%= @school.short_name %>. Xerferia sperchil elloritiam idit fuga. Xero inia aperchil exceperspis et reptate nostiuntia voluptatatem reheni doluptat excerumqui cus, te consecae eum fugitasperum volenest od que nonsequid quosant fugia con nihic to dolupta.</p>
+    <p>CPS states that they will place students in higher-performing schools. How CPS is defining a school as "higher performing" is important to understand. A higher performing schools means a higher level on the Performance Policy for the year 2011-2012 school year or a school that performs higher in 3 of 4 selected metrics (performance points, ISAT composite meets or exceeds score, value added reading and value added math).  Here, you can compare available data on <%= @school.short_name %> to the school (or schools) chosen to receive students from <%= @school.short_name %>.</p>
     
-    <h2>What is a higher-performing school?</h2>
+    <h2>How is CPS defining "higher-performing" school?</h2>
     
     <div id="perform">
         <div id="perform-level">
@@ -17,6 +17,7 @@
                 	<li class="level2"><strong>Level</strong><span>2</span></li>
                 </ol>
                 <p class="mute">Level 1 is best</p>
+                <p>A rating of a school's performance calculated from Performance Policy points. <a href="http://cps.edu/Performance/Pages/Performancepolicy.aspx">More</a> &raquo;</p>
             </div>
         </div>
         <div id="perform-or">or</div>
@@ -25,23 +26,23 @@
             <ul id="perform-points">
                 <li>
                     <h4><i class="icon-large icon-check"></i></h4>
-                    <h4>Performance points</h4>
-                    <p>One sentence describing performance points</p>
+                    <h4>Performance Policy points</h4>
+                    <p>Percent of points on 8 metrics including ISAT Composite, Value-added reading and Value-added math. <a href="http://cps.edu/Performance/Pages/Performancepolicy.aspx">More</a> &raquo;</p>
                 </li>
                 <li>
                     <h4><i class="icon-large icon-check"></i></h4>
                     <h4>ISAT composite</h4>
-                    <p>One sentence describing ISAT composite</p>
+                    <p>Percent of students meeting or exceeding state testing standards. <a href=" http://cps.edu/Performance/Documents/DataFiles/CPS%20FACT%20SHEET%20ON%20ISAT%20COMPOSITE.pdf">More</a> &raquo;</p>
                 </li>
                 <li>
                     <h4><i class="icon-large icon-check"></i></h4>
                     <h4>Value-added reading</h4>
-                    <p>One sentence describing value-added reading</p>
+                    <p>Measure of individual improvement in Math ISAT relative to district average <a href="http://cps.edu/pages/valueadded.aspx">More</a> &raquo;</p>
                 </li>
                 <li>
                     <h4><i class="icon-large icon-check"></i></h4>
                     <h4>Value-added math</h4>
-                    <p>One sentence describing value-added math</p>
+                    <p>Measure of individual improvement in Reading ISAT relative to district average. <a href="http://cps.edu/pages/valueadded.aspx">More</a> &raquo;</p>
                 </li>
             </ul>
         </div>
@@ -54,7 +55,7 @@
     <ul class="compare">
         <li class="selected">
             <div class="school">
-                <h3><a href="./schools/<%= @school.id%>"><%= @school.short_name %></a></h3>
+                <h3><a href="../schools/<%= @school.id%>"><%= @school.short_name %></a></h3>
                 
                 <div class="<%= "level#{@school.level_number}" %>"><strong>Level</strong><span><%= @school.level_number%></span></div>
                 
@@ -65,6 +66,7 @@
                     <dt>Which schools are better?</dt>
                     <dd>See right and below</dd>
                     
+                    <hr />
                     <dt>ISAT trends</dt>
                     <dd><div class="isat" id="<%= @school.short_name %>"></div></dd>
                     
@@ -101,7 +103,7 @@
 
         <li>
             <div class="school">
-                <h3><a href="./schools/<%= related_school.id %>"><%= related_school.short_name %></a></h3>
+                <h3><a href="../schools/<%= related_school.id %>"><%= related_school.short_name %></a></h3>
                 
                 <div class="<%= "level#{related_school.level_number}" %>"><strong>Level</strong><span><%= related_school.level_number%></span></div>
                 
@@ -109,15 +111,22 @@
                     <dt>Enrollment</dt>
                     <dd><%= related_school.ideal_capacity_for_year(2012)-related_school.enrollments_for_year(2012) %> empty seats</dd>
                     
-                    <dt>Why is it better?</dt>
-                    <dd>
-                        <i class="icon-large <%= @school.level_number > related_school.level_number ? "icon-check" : "icon-check-empty" %>"></i> or 
-                        <i class="icon-large <%= @school.performance_metric.policy_points < related_school.performance_metric.policy_points ? "icon-check" : "icon-check-empty" %>" ></i>
-                        <i class="icon-large <%= @school.performance_metric.isat_composite < related_school.performance_metric.isat_composite ? "icon-check" : "icon-check-empty" %>" ></i>
-                        <i class="icon-large <%= @school.performance_metric.value_added_math < related_school.performance_metric.value_added_math ? "icon-check" : "icon-check-empty" %>" ></i>
-                        <i class="icon-large <%= @school.performance_metric.value_added_reading < related_school.performance_metric.value_added_reading ? "icon-check" : "icon-check-empty" %>" ></i>
-                    </dd>
+                    <dt class="question">Is it higher-performing?
+                    	<span class="<%=  related_school.is_higher_performing?(@school) ? "yes" : "no" %>">
+                    	<%=  related_school.is_higher_performing?(@school) ? "Yes" : "No" %>
+	                    	</span>
+                    </dt>
                     
+                    <dd>
+                        <i title="Performance Level" class="icon-large <%= @school.level_number > related_school.level_number ? "icon-check" : "icon-check-empty" %>"></i> or 
+                        <i title="Performance Policy points" class="icon-large <%= @school.performance_metric.policy_points < related_school.performance_metric.policy_points ? "icon-check" : "icon-check-empty" %>" ></i>
+                        <i title="ISAT composite" class="icon-large <%= @school.performance_metric.isat_composite < related_school.performance_metric.isat_composite ? "icon-check" : "icon-check-empty" %>" ></i>
+                        <i title="Value-added reading" class="icon-large <%= @school.performance_metric.value_added_math < related_school.performance_metric.value_added_math ? "icon-check" : "icon-check-empty" %>" ></i>
+                        <i title="Value-added math" class="icon-large <%= @school.performance_metric.value_added_reading < related_school.performance_metric.value_added_reading ? "icon-check" : "icon-check-empty" %>" ></i>
+                    </dd>
+
+                    <hr />
+
                     <dt>ISAT trends</dt>
                     <dd><div class="isat" id="<%= related_school.short_name %>"></div></dd>
                     
