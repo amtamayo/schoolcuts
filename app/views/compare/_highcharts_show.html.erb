@@ -63,17 +63,20 @@
                 series: [
                     {
                         color: "#1F88EA",
-                        data: [40, 57, 58, 75, 78, 83],
+                        data: <%= raw @school.reading.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
+                        pointStart: Date.UTC(<%= raw @school.reading.first.year_to.to_i %>, 1, 1),
                         name: "Reading"
                     },
                     {
                      	color: "#9E241D",
-                        data: [67, 71, 70, 87, 76, 81],
+                        data: <%= raw @school.math.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
+                        pointStart: Date.UTC(<%= raw @school.math.first.year_to.to_i %>, 1, 1),
                         name: "Math",
                     },
                     {
                      	color: "#A9B80D",
-                        data: [null, 53, null, null, 76, null],
+                        data: <%= raw @school.science.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
+                        pointStart: Date.UTC(<%= raw @school.science.first.year_to.to_i %>, 1, 1),
                         name: "Science"
                     }		
                 ],
@@ -82,21 +85,24 @@
             <% @associated_schools.each do |related_school| %>
             <% chart_i = 1 %>
             	charts[<%= chart_i %>] = new Highcharts.Chart($.extend(true, {}, options, {
-                chart: { renderTo: <%= related_school.short_name.tr(' ', '-') %> },
+                chart: { renderTo: "<%= related_school.short_name.tr(' ', '-') %>" },
                 series: [
                     {
                         color: "#1F88EA",
-                        data: [52, 63, 53, 70, 85, 90],
+                        data: <%= raw related_school.reading.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
+                        pointStart: Date.UTC(<%= raw related_school.reading.first.year_to.to_i %>, 1, 1),
                         name: "Reading"
                     },
                     {
                      	color: "#9E241D",
-                        data: [75, 80, 72, 74, 88, 88],
+                        data: <%= raw related_school.math.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
+                        pointStart: Date.UTC(<%= raw related_school.math.first.year_to.to_i %>, 1, 1),
                         name: "Math",
                     },
                     {
                      	color: "#A9B80D",
-                        data: [null, 69, null, null, 85, null],
+                        data: <%= raw related_school.science.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
+                        pointStart: Date.UTC(<%= raw related_school.science.first.year_to.to_i %>, 1, 1),
                         name: "Science"
                     }		
                 ],

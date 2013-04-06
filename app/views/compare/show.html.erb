@@ -68,7 +68,7 @@
                     
                     <hr />
                     <dt>ISAT trends</dt>
-                    <dd><div class="isat" id="<%= @school.short_name %>"></div></dd>
+                    <dd><div class="isat" id="<%= @school.short_name.tr(' ', '-') %>"></div></dd>
                     
                     <dt>5Essentials (2012)</dt>
                     <dd>
@@ -128,7 +128,7 @@
                     <hr />
 
                     <dt>ISAT trends</dt>
-                    <dd><div class="isat" id="<%= related_school.short_name %>"></div></dd>
+                    <dd><div class="isat" id="<%= related_school.short_name.tr(' ', '-') %>"></div></dd>
                     
                     <dt>5Essentials (2012)</dt>
                     <dd>
