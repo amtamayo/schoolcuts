@@ -59,7 +59,7 @@
             
             // <%= @school.short_name %>
             charts[0] = new Highcharts.Chart($.extend(true, {}, options, {
-                chart: { renderTo: "<%= @school.short_name %>" },
+                chart: { renderTo: "<%= @school.short_name.tr(' ', '-')  %>" },
                 series: [
                     {
                         color: "#1F88EA",
