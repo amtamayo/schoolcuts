@@ -4,7 +4,7 @@
 <div class="content">
     <h1>Compare potential receiving schools if <a href="../schools/<%= @school.id%>"><%= @school.short_name %> </a> is closed</h1>
     
-    <p>CPS states that they will place students in higher-performing schools. How CPS is defining a school as "higher performing" is important to understand. A higher performing schools means a higher level on the Performance Policy for the year 2011-2012 school year or a school that performs higher in 3 of 4 selected metrics (performance points, ISAT composite meets or exceeds score, value added reading and value added math).  Here, you can compare available data on <%= @school.short_name %> to the school (or schools) chosen to receive students from <%= @school.short_name %>.</p>
+    <p>CPS states that they will place students in higher-performing schools. <a href="http://schoolcuts.wordpress.com/2013/04/03/cps-standards-many-students-moving-to-better-bad-schools/">How CPS is defining a school as "higher performing" is important to understand</a>. A higher performing schools means a higher level on the Performance Policy for the year 2011-2012 school year or a school that performs higher in 3 of 4 selected metrics (performance points, ISAT composite meets or exceeds score, value added reading and value added math).  Here, you can compare available data on <%= @school.short_name %> to the school (or schools) chosen to receive students from <%= @school.short_name %>.</p>
     
     <h2>How is CPS defining "higher-performing" school?</h2>
     
@@ -63,7 +63,7 @@
                     <dt>Enrollment</dt>
                     <dd><%= @school.enrollments_for_year(2012) %></dd>
                     
-                    <dt>Which schools are better?</dt>
+                    <dt>Compare to other schools:</dt>
                     <dd>See right and below</dd>
                     
                     <hr />
