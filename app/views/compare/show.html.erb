@@ -4,7 +4,11 @@
 <div class="content">
     <h1>Compare potential receiving schools if <a href="../schools/<%= @school.id%>"><%= @school.short_name %> </a> is closed</h1>
     
-    <p>CPS states that they will place students in higher-performing schools. <a href="http://schoolcuts.wordpress.com/2013/04/03/cps-standards-many-students-moving-to-better-bad-schools/">How CPS is defining a school as "higher performing" is important to understand</a>. A higher performing schools means a higher level on the Performance Policy for the year 2011-2012 school year or a school that performs higher in 3 of 4 selected metrics (performance points, ISAT composite meets or exceeds score, value added reading and value added math).  Here, you can compare available data on <%= @school.short_name %> to the school (or schools) chosen to receive students from <%= @school.short_name %>.</p>
+    <p>CPS states that they will place students in higher-performing schools. How CPS is defining a school as "higher performing" is important to understand. A higher performing schools means a higher level on the Performance Policy for the year 2011-2012 school year or a school that performs higher in 3 of 4 selected metrics (performance points, ISAT composite meets or exceeds score, value added reading and value added math).  Here you can compare <%= @school.short_name %> to its welcoming schools using CPS's own criteria and other available data.</p>
+    
+    <p>
+	    
+    </p>
     
     <h2>How is CPS defining "higher-performing" school?</h2>
     
@@ -63,34 +67,34 @@
                     <dt>Enrollment</dt>
                     <dd><%= @school.enrollments_for_year(2012) %></dd>
                     
-                    <dt>Compare to other schools:</dt>
+                    <dt>Compare to other schools</dt>
                     <dd>See right and below</dd>
                     
-                    <hr />
-                    <dt>ISAT trends</dt>
+                    <dt>Other available data</dt>
+                    <dt>ISAT cohort trend</dt>
                     <dd><div class="isat" id="<%= @school.short_name.tr(' ', '-') %>"></div></dd>
                     
                     <dt>5Essentials (2012)</dt>
                     <dd>
                         <div class="essentials">
-						    <div class="category leaders <%= @school.essentials.where("category = 'leaders' AND year_to=2011").first.rating.tr(' ','-') %>" 
-						    	title="<%= @school.essentials.where("category = 'leaders' AND year_to=2011").first.rating.capitalize %>">
+						    <div class="category leaders <%= @school.essentials.where("category = 'leaders' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'leaders' AND year_to=2012").first.rating.capitalize %>">
 						    	<span class="title">Effective leaders</span>
 						    </div>
-						    <div class="category teachers <%= @school.essentials.where("category = 'teachers' AND year_to=2011").first.rating.tr(' ','-') %>" 
-						    	title="<%= @school.essentials.where("category = 'teachers' AND year_to=2011").first.rating.capitalize %>">
+						    <div class="category teachers <%= @school.essentials.where("category = 'teachers' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'teachers' AND year_to=2012").first.rating.capitalize %>">
 						    	<span class="title">Collaborative teachers</span>
 						    </div>
-						    <div class="category instruction <%= @school.essentials.where("category = 'instruction' AND year_to=2011").first.rating.tr(' ','-') %>" 
-						    	title="<%= @school.essentials.where("category = 'instruction' AND year_to=2011").first.rating.capitalize %>">
+						    <div class="category instruction <%= @school.essentials.where("category = 'instruction' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'instruction' AND year_to=2012").first.rating.capitalize %>">
 						    	<span class="title">Ambitious instruction</span>
 						    </div>
-						    <div class="category environment <%= @school.essentials.where("category = 'environment' AND year_to=2011").first.rating.tr(' ','-') %>" 
-						    	title="<%= @school.essentials.where("category = 'environment' AND year_to=2011").first.rating.capitalize %>">
+						    <div class="category environment <%= @school.essentials.where("category = 'environment' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'environment' AND year_to=2012").first.rating.capitalize %>">
 						    	<span class="title">Supportive environment</span>
 						    </div>
-						    <div class="category families <%= @school.essentials.where("category = 'families' AND year_to=2011").first.rating.tr(' ','-') %>" 
-						    	title="<%= @school.essentials.where("category = 'families' AND year_to=2011").first.rating.capitalize %>">
+						    <div class="category families <%= @school.essentials.where("category = 'families' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'families' AND year_to=2012").first.rating.capitalize %>">
 						    	<span class="title">Involved families</span>
 						    </div>
 						</div>
@@ -111,7 +115,7 @@
                     <dt>Enrollment</dt>
                     <dd><%= related_school.ideal_capacity_for_year(2012)-related_school.enrollments_for_year(2012) %> empty seats</dd>
                     
-                    <dt class="question">Higher-performing?
+                    <dt class="question">Meets CPS criteria?
                     	<span class="<%=  related_school.is_higher_performing?(@school) ? "yes" : "no" %>">
                     	<%=  related_school.is_higher_performing?(@school) ? "Yes" : "No" %>
 	                    	</span>
@@ -125,32 +129,32 @@
                         <i title="Value-added math" class="icon-large <%= @school.performance_metric.value_added_reading < related_school.performance_metric.value_added_reading ? "icon-check" : "icon-check-empty" %>" ></i>
                     </dd>
 
-                    <hr />
+                    <dt>Other available data</dt>
 
-                    <dt>ISAT trends</dt>
+                    <dt>ISAT cohort trend</dt>
                     <dd><div class="isat" id="<%= related_school.short_name.tr(' ', '-') %>"></div></dd>
                     
                     <dt>5Essentials (2012)</dt>
                     <dd>
                         <div class="essentials">
-						    <div class="category leaders <%= related_school.essentials.where("category = 'leaders' AND year_to=2011").first.rating.tr(' ','-') %>" 
-						    	title="<%= related_school.essentials.where("category = 'leaders' AND year_to=2011").first.rating.capitalize %>">
+						    <div class="category leaders <%= related_school.essentials.where("category = 'leaders' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= related_school.essentials.where("category = 'leaders' AND year_to=2012").first.rating.capitalize %>">
 						    	<span class="title">Effective leaders</span>
 						    </div>
-						    <div class="category teachers <%= related_school.essentials.where("category = 'teachers' AND year_to=2011").first.rating.tr(' ','-') %>" 
-						    	title="<%= related_school.essentials.where("category = 'teachers' AND year_to=2011").first.rating.capitalize %>">
+						    <div class="category teachers <%= related_school.essentials.where("category = 'teachers' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= related_school.essentials.where("category = 'teachers' AND year_to=2012").first.rating.capitalize %>">
 						    	<span class="title">Collaborative teachers</span>
 						    </div>
-						    <div class="category instruction <%= related_school.essentials.where("category = 'instruction' AND year_to=2011").first.rating.tr(' ','-') %>" 
-						    	title="<%= related_school.essentials.where("category = 'instruction' AND year_to=2011").first.rating.capitalize %>">
+						    <div class="category instruction <%= related_school.essentials.where("category = 'instruction' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= related_school.essentials.where("category = 'instruction' AND year_to=2012").first.rating.capitalize %>">
 						    	<span class="title">Ambitious instruction</span>
 						    </div>
-						    <div class="category environment <%= related_school.essentials.where("category = 'environment' AND year_to=2011").first.rating.tr(' ','-') %>" 
-						    	title="<%= related_school.essentials.where("category = 'environment' AND year_to=2011").first.rating.capitalize %>">
+						    <div class="category environment <%= related_school.essentials.where("category = 'environment' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= related_school.essentials.where("category = 'environment' AND year_to=2012").first.rating.capitalize %>">
 						    	<span class="title">Supportive environment</span>
 						    </div>
-						    <div class="category families <%= related_school.essentials.where("category = 'families' AND year_to=2011").first.rating.tr(' ','-') %>" 
-						    	title="<%= related_school.essentials.where("category = 'families' AND year_to=2011").first.rating.capitalize %>">
+						    <div class="category families <%= related_school.essentials.where("category = 'families' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= related_school.essentials.where("category = 'families' AND year_to=2012").first.rating.capitalize %>">
 						    	<span class="title">Involved families</span>
 						    </div>
 						</div>
