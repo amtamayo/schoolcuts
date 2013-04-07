@@ -140,7 +140,7 @@ ul { list-style: disc; margin-left: 2em; }
 .compare dt { font-weight: bold; margin-top: 1em; }
 .compare li { float: left; margin: 0 2.5% 30px 0; width: 22.9%; }
 .compare li:nth-child(4n+4), .compare li.end { margin-right: 0; }
-.compare .school { border: 1px solid #ccc; border-radius: 5px; height: 570px; padding: 15px; }
+.compare .school { border: 1px solid #ccc; border-radius: 5px; height: 587px; padding: 15px; }
 .compare .selected .school { background: #f0f0f0; border-color: #3b5cb2; }
     
     /* 5Essentials */
