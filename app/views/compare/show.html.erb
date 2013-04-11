@@ -113,7 +113,9 @@
                 
                 <dl>
                     <dt>Enrollment</dt>
-                    <dd><%= related_school.ideal_capacity_for_year(2012)-related_school.enrollments_for_year(2012) %> empty seats</dd>
+                    <dd>
+                    	<%= related_school.proposed_empty_seats(2012) %> empty seats
+                    </dd>
                     
                     <dt class="question">Meets CPS criteria?
                     	<span class="<%=  related_school.is_higher_performing?(@school) ? "yes" : "no" %>">

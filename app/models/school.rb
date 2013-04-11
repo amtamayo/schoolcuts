@@ -35,6 +35,20 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
     enrollments.select('year_to').order('year_to').limit(1).first.year_to
   end
   
+  def current_empty_seats(year)
+  	ideal_capacity_for_year(year) - enrollments_for_year(year)
+  end 
+  # empty seat - if relocating use the ideal capacity for the new building
+  def proposed_empty_seats(year)
+  	if self.is_relocating?
+  		relocation = SchoolAction.find_by_result_id(self.id)
+  		relocation_school = School.find_by_id(relocation.school_id)
+  		relocation_school.ideal_capacity_for_year(year) - enrollments_for_year(year)
+  	else
+  		ideal_capacity_for_year(year) - enrollments_for_year(year)
+  	end
+  end
+  
   def scores_for(subject)
   	self.isat_scores.select{|s| s.subject.downcase == subject.downcase }
   end
