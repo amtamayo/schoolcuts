@@ -344,6 +344,15 @@ namespace :cps do
 		Action.create(:action_code => 7, :name=>"not considered but will be turnaround")
     end
     
+    desc "import receiving action types"
+	task :import_receiving_actions => :environment do
+		puts "Importing receiving action types"
+		ReceivingAction.delete_all
+		
+		ReceivingAction.create(:receiving_code => 1, :name=>"welcoming")
+		ReceivingAction.create(:receiving_code => 2, :name=>"boundary")
+    end
+        
     desc "import school actions"
 	task :import_school_actions => :environment do
 		puts "Importing school actions"
@@ -426,7 +435,7 @@ namespace :cps do
     	Rake::Task['cps:import_actions'].invoke
     	Rake::Task['cps:import_school_actions'].invoke
     	Rake::Task['cps:import_performance_metrics'].invoke
-
+    	Rake::Task['cps:import_receiving_actions'].invoke
     end
 end
 
