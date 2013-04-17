@@ -2,6 +2,46 @@
 $(function () {
 	var enrollment_chart, isat_chart, mobility_chart, race_chart;
     $(document).ready(function() {
+    	//AIR CONDITIONING
+    	ac_chart = new Highcharts.Chart({
+	    	chart: {
+	    		height: 80,
+	    		margin: 0,
+	    		spacingBottom: 0,
+	    		spacingLeft: 0,
+	    		spacingRight: 0,
+	    		spacingTop: 0,
+		    	renderTo: 'ac-chart',
+		    	type: 'pie'
+	    	},
+	    	colors: ["#3B653D", "#c8c8c8"],
+	    	credits: { enabled: false },
+            legend: { enabled:false },
+            plotOptions: {
+	            pie: {
+		            dataLabels: {
+		            	color: "#fff",
+			            distance: -20,
+			            formatter: function(){
+			            	return (this.point.name != "") ? this.percentage + "%": "";
+			            }/*,
+			            style: { fontSize: "9px" }*/
+		            },
+		            states: {
+			            hover: { enabled: false }
+		            }
+	            }
+            },
+            series: [{
+	            data: [
+		            ["AC", 60],
+		            ["", 40]
+	            ]
+            }],
+            title: { text: null },
+            tooltip: { enabled: false }
+    	});
+    	
     	//ENROLLMENT CHART
         enrollment_chart = new Highcharts.Chart({
             chart: {
@@ -16,8 +56,7 @@ $(function () {
 		            	lineColor: "#fff",
 		            	lineWidth: 1.5,
 		            	radius: 5
-	            	},
-		            shadow: false
+	            	}
 	            }
             },
             series: [{
@@ -87,8 +126,7 @@ $(function () {
 		            	lineWidth: 1.5,
 		            	radius: 4,
 		            	symbol: "circle"
-	            	},
-	            	shadow: false
+	            	}
 	            }
             },
             series: [{
@@ -212,8 +250,7 @@ $(function () {
 		            	lineWidth: 1.5,
 		            	radius: 5,
 		            	symbol: "circle"
-	            	},
-		            shadow: false
+	            	}
 	            }
             },
             subtitle: { text: ''},
@@ -264,7 +301,9 @@ $(function () {
 	                        }
 	                    },
 	                    groupPadding: 0,
-	                    shadow: false
+	                    states: {
+				            hover: { enabled: false }
+			            }
 	                }
 	            },
 	            series: [{
@@ -301,7 +340,9 @@ $(function () {
 	                        }
 	                    },
 	                    groupPadding: 0,
-	                    shadow: false
+	                    states: {
+				            hover: { enabled: false }
+			            }
 	                }
 	            },
 	            series: [{
