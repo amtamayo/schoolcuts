@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130414161413) do
+ActiveRecord::Schema.define(:version => 20130417222115) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -70,6 +70,14 @@ ActiveRecord::Schema.define(:version => 20130414161413) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "map_legends", :force => true do |t|
+    t.integer  "school_id"
+    t.string   "marker"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "mobilities", :force => true do |t|
     t.integer  "school_id"
     t.integer  "year_from"
@@ -117,8 +125,9 @@ ActiveRecord::Schema.define(:version => 20130414161413) do
     t.integer  "school_id"
     t.integer  "action_id"
     t.integer  "result_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "result_code"
   end
 
   create_table "school_addresses", :force => true do |t|
