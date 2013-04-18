@@ -4,6 +4,7 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   has_many :enrollments
   has_many :essentials
   has_many :isat_scores
+  has_many :map_legends
   has_many :mobilities
   has_many :probations
   has_many :races
@@ -99,7 +100,7 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   end
     
   def is_receiving?
-    self.receiving_status == 1
+    self.receiving_status == 1 || 2
   end 
    
   def is_closing?
@@ -138,6 +139,10 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   		@levelNumber = matches.first.to_i
   	end
   	@levelNumber
+  end
+   
+  def map_legends
+  	@map_legends = MapLegend.where('school_id='+self.id.to_s)
   end
    
   def receiving_schools
@@ -209,6 +214,5 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   	
 	@result
   end
-  
   
 end
