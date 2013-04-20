@@ -3,7 +3,7 @@ class CreateMapLegends < ActiveRecord::Migration
     create_table :map_legends do |t|
       t.integer :school_id
       t.string :marker
-      t.string :description
+      t.text :description
 
       t.timestamps
     end

@@ -2,11 +2,12 @@ SchoolID,Marker,Text
 2,large-red.png,Altgeld is closing
 2,large-blue-blank.png,"<a href=""/schools/405"">Wentworth</a> is receiving students from Altgeld"
 3,large-red.png,"Armstrong, L. is closing"
-3,large-blue-blank.png,"<a href=""schools/435"">Leland</a> is receiving students from Armstrong, L."
+3,large-blue-blank.png,"<a href=""/schools/435"">Leland</a> is receiving students from Armstrong, L."
 5,large-red.png,Attucks is phasing out over 2 years
+5,large-blue-blank.png,"<a href=""/schools/414"">Beethoven</a> is receiving students currently attending Attucks."
 6,large-red.png,Banneker is closing
 83,large-red.png,Near North is closing
-83,large-blue-blank.png,"<a href=""schools/81"">Montefiore</a> is receiving students from Near North"
+83,large-blue-blank.png,"<a href=""/schools/81"">Montefiore</a> is receiving students from Near North"
 6,large-blue-blank.png,"<a href=""/schools/75"">Mays</a> is receiving students from Banneker"
 140,large-yellow.png,Barton will be a Turnaround
 141,large-red-blank.png,"<a href=""/schools/127"">Woods Acad</a> is closing"
@@ -171,10 +172,11 @@ SchoolID,Marker,Text
 117,large-blue-blank.png,"<a href=""/schools/438"">Diego</a> is receiving students from Von Humboldt"
 118,large-ltblue-blank.png,"<a href=""/schools/29"">Dumas</a> is closing and Wadsworth is relocating to <a href=""/schools/29"">Dumas</a>'s building"
 118,large-blue.png,"Wadsworth is receiving students from <a href=""/schools/29"">Dumas</a> and is a proposed neighborhood school for children living in the <a href=""/schools/34"">Fermi</a> boundary who are not currently attending <a href=""/schools/34"">Fermi</a>"
+118,large-red-blank.png,"<a href=""/schools/34"">Fermi</a> is closing"
 299,large-red-blank.png,"<a href=""/schools/38"">Garfield Park</a> is closing"
 299,large-blue.png,"Faraday is receiving students from <a href=""/schools/38"">Garfield Park</a>"
-34,large-red.png,Fermi is closing
-34,large-blue-blank.png,"<a href=""/schools/463"">South Shore</a> is receiving students currently attending Fermi. <a href=""/schools/118"">Wadsworth</a> is a proposed neighborhood school for children living in the Fermi boundary who are not currently attending Fermi"
+34,large-red.png,"Fermi is closing. <a href=""/schools/463"">South Shore</a> is receiving students currently attending Fermi. "
+34,large-blue-blank.png,"<a href=""/schools/118"">Wadsworth</a> is a proposed neighborhood school for children living in the Fermi boundary who are not currently attending Fermi"
 36,large-ltblue-blank.png,"<a href=""/schools/106"">Sexton</a> is closing and Fiske is relocating to <a href=""/schools/106"">Sexton</a>'s building"
 36,large-blue.png,"Fiske is receiving students from <a href=""/schools/106"">Sexton</a>"
 222,large-red-blank.png,"<a href=""/schools/55"">Jackson, M.</a> is closing"
@@ -243,3 +245,9 @@ SchoolID,Marker,Text
 63,large-blue.png,"Langford is a proposed neighborhood school for children living in the <a href=""/schools/127"">Woods Acad</a> boundary who are not currently attending <a href=""/schools/127"">Woods Acad</a>"
 79,large-red-blank.png,"<a href=""/schools/123"">West Pullman</a> is closing"
 79,large-blue.png,"Metcalfe is a proposed neighborhood school for children living in the <a href=""/schools/123"">West Pullman</a> boundary who are not currently attending <a href=""/schools/123"">West Pullman</a>"
+414,large-red-blank.png,"<a href=""/schools/5"">Attucks</a> is phasing out over 2 years"
+414,large-blue.png,"Beethoven is receiving students currently attending <a href=""/schools/5"">Attucks</a>."
+460,large-yellow.png,"Disney II is relocating to <a href=""/schools/443"">Marshall, T.</a>'s building and colocating with <a href=""/schools/443"">Marshall, T.</a>"
+460,large-ltblue-blank.png,"<a href=""/schools/443"">Marshall, T.</a> building"
+443,large-yellow.png,"Marshall, T. is colocating with <a href=""/schools/460"">Disney II</a>"
+443,large-yellow.png,"<a href=""/schools/460"">Disney II</a> is relocating to Marshall, T.'s building and colocating with Marshall, T."

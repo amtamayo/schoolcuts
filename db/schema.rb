@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(:version => 20130417222115) do
   create_table "map_legends", :force => true do |t|
     t.integer  "school_id"
     t.string   "marker"
-    t.string   "description"
+    t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end

@@ -134,7 +134,7 @@ function query(){
             iconName: "red_blank"
           }
         },{ 
-          where: "'SchoolCuts ID' =  <%= @school.id %>  AND 'ReceivingStatus' = 1",
+          where: "'SchoolCuts ID' =  <%= @school.id %>  AND 'ReceivingStatus' > 0",
           markerOptions: {
             iconName: "large_blue"
           }
@@ -155,7 +155,7 @@ function query(){
         query: {
           select: LocationColumn,
           from: '1rwYoQj6HhxjrdFnCQ4wSHYx43ilxMdPjnusdkSc',
-          where: "'SchoolCuts ID' =  <%= @school.id %>  AND 'ClosingStatus' in (2, 5, 7)"
+          where: "'SchoolCuts ID' =  <%= @school.id %>  AND 'ClosingStatus' in (2, 4, 5, 7)"
         },
         map: map,
         styleId: 4,
