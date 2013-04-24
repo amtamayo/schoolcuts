@@ -156,6 +156,10 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   def receiving_school_links
 	@receiving_school_links = self.school_actions.map{|r| if(r.action_id==2 || r.action_id==7) then  "/schools/" + r.result_id.to_s end}
   end
+
+  def colocating_schools
+   @colocating_schools = self.school_actions.map{|r| if(r.action_id==5) then  r.result_id end}.join(", ")
+  end
   
   def sending_schools
   	@sending_schools = SchoolAction.where("result_id=" + self.id.to_s + "").map{|sa| if(sa.action_id==2 || sa.action_id==7) then sa.school_id end }.join(",")
