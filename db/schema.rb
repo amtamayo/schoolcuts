@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130417222115) do
+ActiveRecord::Schema.define(:version => 20130429003837) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -160,10 +160,10 @@ ActiveRecord::Schema.define(:version => 20130417222115) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.string   "phone"
-    t.string   "level"
     t.string   "isat_url"
     t.integer  "closing_status"
     t.integer  "receiving_status"
+    t.integer  "level"
   end
 
   create_table "utilizations", :force => true do |t|

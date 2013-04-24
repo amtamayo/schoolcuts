@@ -130,16 +130,6 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   def is_special_turnaround?
   	self.closing_status == 7
   end
-  
-  #FIXME:  change the source file to have levels as integers not strings
-  def level_number
-  	@levelNumber
-  	matches = /Level\s+(?<level>\d)+/.match(self.level).captures
-  	if (!matches.nil?)
-  		@levelNumber = matches.first.to_i
-  	end
-  	@levelNumber
-  end
    
   def map_legends
   	@map_legends = MapLegend.where('school_id='+self.id.to_s)
@@ -192,7 +182,7 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
 		@score = @score + 1
 	end
   
-  	self.level_number < other_school.level_number ||  @score > 2  		  		
+  	self.level < other_school.level ||  @score > 2  		  		
   end 
   
   def new_building(format)
