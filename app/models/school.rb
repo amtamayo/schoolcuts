@@ -100,7 +100,7 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   end
     
   def is_receiving?
-    self.receiving_status == 1 || 2
+    self.receiving_status == 1 || self.receiving_status == 2
   end 
    
   def is_closing?
