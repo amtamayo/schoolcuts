@@ -146,29 +146,29 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   end
    
   def receiving_schools
-  	@receiving_schools = self.school_actions.map{|r| if(r.action_id==2) then  r.result_id end}.join(", ")
+  	@receiving_schools = self.school_actions.map{|r| if(r.action_id==2 || r.action_id==7) then  r.result_id end}.join(", ")
   end
   
   def receiving_school_names
-	@receiving_school_names = self.school_actions.map{|r| if(r.action_id==2) then  School.find_by_id(r.result_id).short_name end}
+	@receiving_school_names = self.school_actions.map{|r| if(r.action_id==2 || r.action_id==7) then  School.find_by_id(r.result_id).short_name end}
   end
   
   def receiving_school_links
-	@receiving_school_links = self.school_actions.map{|r| if(r.action_id==2) then  "/schools/" + r.result_id.to_s end}
+	@receiving_school_links = self.school_actions.map{|r| if(r.action_id==2 || r.action_id==7) then  "/schools/" + r.result_id.to_s end}
   end
   
   def sending_schools
-  	@sending_schools = SchoolAction.where("result_id=" + self.id.to_s + "").map{|sa| if(sa.action_id==2) then sa.school_id end }.join(",")
+  	@sending_schools = SchoolAction.where("result_id=" + self.id.to_s + "").map{|sa| if(sa.action_id==2 || sa.action_id==7) then sa.school_id end }.join(",")
   end 
   
   def sending_school_names
 	@sending_school_names = SchoolAction.where("result_id=" + self.id.to_s + "").
-		map{|sa| if(sa.action_id==2) then School.find_by_id(sa.school_id).short_name end }
+		map{|sa| if(sa.action_id==2 || sa.action_id==7) then School.find_by_id(sa.school_id).short_name end }
   end
   
   def sending_school_links
 	@sending_school_links = SchoolAction.where("result_id=" + self.id.to_s + "").
-		map{|sa| if(sa.action_id==2) then "/schools/" + sa.school_id.to_s end }
+		map{|sa| if(sa.action_id==2 || sa.action_id==7) then "/schools/" + sa.school_id.to_s end }
   end
   
   def is_higher_performing?(other_school)
