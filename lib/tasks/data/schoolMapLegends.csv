@@ -171,7 +171,7 @@ SchoolID,Marker,Text
 117,large-red.png,Von Humboldt is closing
 117,large-blue-blank.png,"<a href=""/schools/438"">Diego</a> is receiving students from Von Humboldt"
 118,large-ltblue-blank.png,"<a href=""/schools/29"">Dumas</a> is closing and Wadsworth is relocating to <a href=""/schools/29"">Dumas</a>'s building"
-118,large-blue.png,"Wadsworth is receiving students from <a href=""/schools/29"">Dumas</a> and is a proposed neighborhood school for children living in the <a href=""/schools/34"">Fermi</a> boundary who are not currently attending <a href=""/schools/34"">Fermi</a>"
+118,large-blue.png,"Wadsworth is receiving students currently attending <a href=""/schools/29"">Dumas</a> and is a proposed neighborhood school for children living in <a href=""/schools/34"">Fermi</a> and <a href=""/schools/29"">Dumas</a> boundaries who are not currently attending <a href=""/schools/34"">Fermi</a>"
 118,large-red-blank.png,"<a href=""/schools/34"">Fermi</a> is closing"
 299,large-red-blank.png,"<a href=""/schools/38"">Garfield Park</a> is closing"
 299,large-blue.png,"Faraday is receiving students from <a href=""/schools/38"">Garfield Park</a>"
