@@ -37,66 +37,12 @@
         
         <div class="c2l">
         <ul class="legend">	
-        	<!-- SPECIFIC TO CLOSING SCHOOLS -->
-        	<% if(@school.is_closing?) %>
-        		<li><img src="/images/map icons/large-red.png" /><%= @school.short_name %> is closing<li>
-        		<li><img src="/images/map icons/large-blue-blank.png" />
-	        		<% for i in 0..(@school.receiving_school_names().size-1) %>
-		        		<a href=<%= @school.receiving_school_links()[i] %>><%= @school.receiving_school_names()[i] %></a><%= if(i>=0 && i<@school.receiving_school_names().size-1) then ", " end %>
-	        		<% end %>
-        		<%= (@school.receiving_school_names().size == 1) ? " is " : " are "%>receiving students from <%= @school.short_name %><li>
-<p class="mute"><a href="../compare/<%= @school.id %>">Compare these schools</a> &raquo;</p>
+        	<% for i in 0..(@school.map_legends.size - 1) %>
+        		<li><img src="/images/map icons/<%= @school.map_legends[i].marker %>" /><%= @school.map_legends[i].description.html_safe %></li>
         	<% end %>
-        	<!--/ SPECIFIC TO CLOSING SCHOOLS -->
-        	
-        	<!-- SPECIFIC TO RECEIVING SCHOOLS -->
-	        <% if(@school.is_receiving?) %>
-        		<% if(@school.is_relocating?) %>
-        			<li><img src="/images/map icons/large-ltblue-blank.png" />
-	        	<% else %>
-	        		<li><img src="/images/map icons/large-red-blank.png" />
-	        	<% end %>
-		        		
-	        		<% for i in 0..(@school.sending_school_names().size-1) %>
-		        		<a href=<%= @school.sending_school_links()[i] %>><%= @school.sending_school_names()[i] %></a><%= if(i>=0 && i<@school.sending_school_names().size-1) then ", " end%>
-	        		<% end %>
-	        		<%= (@school.sending_school_names().size == 1) ? " is " : " are "%> closing
-	        	
-	        	<% if(@school.is_relocating?) %>
-        				and <%= @school.short_name + " is relocating to "%>
-        				<a href=<%= @school.new_building("link") %>> <%= @school.new_building("name") %></a>'s building   
-	        	<% end %>
-        		</li>
-        		
-        		<li><img src="/images/map icons/large-blue.png" /><%= @school.short_name %> is receiving students from
-	        		<% for i in 0..(@school.sending_school_names().size-1) %>
-		        		<a href=<%= @school.sending_school_links()[i] %>><%= @school.sending_school_names()[i] %></a><%= if(i>=0 && i<@school.sending_school_names().size-1) then ", " end %>
-	        		<% end %>
-        		</li>
-        	<% end %>
-        	<!--/ SPECIFIC TO RECEIVING SCHOOLS -->
-       	
-        	<!-- SPECIFIC TO CO-LOCATING SCHOOLS -->
-        	<!--
-	        	<% if(@school.is_colocating?) %>
-        			<li><img src="/images/map icons/large-yellow.png" /><%= @school.short_name + " is co-locating" %></li>
-        		<% end %>
-        	-->
-        	<!--/ SPECIFIC TO CO-LOCATING SCHOOLS -->
-       	
-        	<!-- SPECIFIC TO OTHER ACTIONS-->
-        	<% if(@school.is_turnaround? || @school.is_special_turnaround?) %>
-        		<li><img src="/images/map icons/large-yellow.png" /><%= @school.short_name + " will be a Turnaround" %></li>
-        	<% end %>
-        	
-        	<% if(@school.is_phaseout?) %>
-        		<li><img src="/images/map icons/large-red.png" /><%= @school.short_name + " is " + @school.closing_status_name %></li>
-        	<% end %>
-
-        	<% if(@school.is_program_closure?) %>
-        		<li><img src="/images/map icons/large-yellow.png" /><%= @school.short_name + " is " + @school.closing_status_name %></li>
-        	<% end %>
-        	<!--/ SPECIFIC TO OTHER ACTIONS -->
+            <% if(@school.is_closing?) %>
+               <li><p class="mute"><a href="../compare/<%= @school.id %>">Compare these schools</a> &raquo;</p>
+            <% end %>
 		</ul>
 		</div>
 		

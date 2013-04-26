@@ -1,0 +1,221 @@
+SchoolID,Marker,Text
+2,large-red.png,Altgeld is closing
+2,large-blue-blank.png,"<a href=""/schools/405"">Wentworth</a> is receiving students from Altgeld"
+3,large-red.png,"Armstrong, L. is closing"
+3,large-blue-blank.png,"<a href=""schools/435"">Leland</a> is receiving students from Armstrong, L."
+5,large-red.png,Attucks is phasing out over 2 years
+6,large-red.png,Banneker is closing
+83,large-red.png,Near North is closing
+83,large-blue-blank.png,"<a href=""schools/81"">Montefiore</a> is receiving students from Near North"
+6,large-blue-blank.png,"<a href=""/schools/75"">Mays</a> is receiving students from Banneker"
+140,large-yellow.png,Barton will be a Turnaround
+141,large-red-blank.png,"<a href=""/schools/127"">Woods Acad</a> is closing"
+141,large-blue.png,"Bass is receiving students from <a href=""/schools/127"">Woods Acad</a>"
+8,large-red.png,Bethune is closing
+8,large-blue-blank.png,"<a href=""/schools/241"">Gregory</a> is receiving students from Bethune"
+155,large-red-blank.png,"<a href=""/schools/123"">West Pullman</a> is closing"
+155,large-blue.png,"Haley is receiving students from <a href=""/schools/123"">West Pullman</a>"
+252,large-red-blank.png,"<a href=""/schools/16"">Cantor Middle</a> is closing"
+252,large-blue.png,"Harte is receiving students from <a href=""/schools/16"">Cantor Middle</a>"
+253,large-red-blank.png,"<a href=""/schools/129"">Yale</a> is closing"
+253,large-blue.png,"Harvard is receiving students from <a href=""/schools/129"">Yale</a> "
+264,large-red-blank.png,"<a href=""/schools/40"">Goldblatt</a> is closing"
+264,large-blue.png,"Hefferan is receiving students from <a href=""/schools/40"">Goldblatt</a>"
+9,large-red.png,Bontemps is closing
+9,large-blue-blank.png,"<a href=""/schools/143"">Nicholson</a> is receiving students from Bontemps"
+10,large-red-blank.png,"<a href=""/schools/112"">Stewart</a> is closing"
+10,large-blue.png,"Brennemann is receiving students from <a href=""/schools/112"">Stewart</a>"
+13,large-red.png,Buckingham is closing
+13,large-blue-blank.png,"<a href=""/schools/81"">Montefiore</a> is receiving students from Buckingham"
+163,large-ltblue-blank.png,"<a href=""/schools/65"">Lawrence</a> is closing and Burnham is relocating to <a href=""/schools/65"">Lawrence</a>'s building"
+163,large-blue.png,"Burnham is receiving students from <a href=""/schools/65"">Lawrence</a>"
+15,large-red.png,Calhoun North is closing
+15,large-blue-blank.png,"<a href=""/schools/421"">Cather</a> is receiving students from Calhoun North"
+16,large-red.png,Canter Middle is closing
+16,large-blue-blank.png,"<a href=""/schools/252"">Harte</a>, <a href=""/schools/358"">Ray</a> are receiving students from Canter Middle"
+284,large-red-blank.png,"<a href=""/schools/89"">Paderewski</a> is closing"
+284,large-blue.png,"Cardenas is receiving students from <a href=""/schools/89"">Paderewski</a>"
+48,large-red.png,Henson is closing
+48,large-blue-blank.png,"<a href=""/schools/54"">Hughes, C.</a> is receiving students from Henson"
+49,large-red.png,Herbert is closing
+49,large-blue-blank.png,"<a href=""/schools/26"">Dett</a> is receiving students from Herbert"
+53,large-red-blank.png,"<a href=""/schools/60"">Kohn</a> is closing"
+53,large-blue.png,"Hughes L. is receiving students from <a href=""/schools/60"">Kohn</a>"
+54,large-red-blank.png,"<a href=""/schools/48"">Henson</a> is closing"
+54,large-blue.png,"Hughes, C. is receiving students from <a href=""/schools/48"">Henson</a>"
+55,large-red.png,Jackson M. is closing
+55,large-blue-blank.png,"<a href=""/schools/222"">Fort Dearborn</a> is receiving students from Jackson M."
+143,large-red-blank.png,"<a href=""/schools/9"">Bontemps</a> is closing"
+143,large-blue.png,"Nicholson is receiving students from <a href=""/schools/9"">Bontemps</a>"
+85,large-yellow.png,O'Keeffe will be a Turnaround
+336,large-red-blank.png,"<a href=""/schools/92"">Peabody</a> is closing"
+336,large-blue.png,"Otis is receiving students from <a href=""/schools/92"">Peabody</a>"
+87,large-red.png,Overton is closing
+87,large-blue-blank.png,"<a href=""/schools/80"">Mollison</a> is receiving students from Overton"
+88,large-red.png,Owens is closing
+88,large-blue-blank.png,"<a href=""/schools/41"">Gompers</a> is receiving students from Owens"
+89,large-red.png,Paderewski is closing
+89,large-blue-blank.png,"<a href=""/schools/164"">Castellanos</a>, <a href=""/schools/284"">Cardenas</a> are receiving students from Paderewski"
+56,large-red-blank.png,"<a href=""/schools/70"">Manierre </a>is closing"
+56,large-blue.png,"Jenner is receiving students from <a href=""/schools/70"">Manierre </a>"
+426,large-red-blank.png,"<a href=""/schools/59"">King</a> is closing"
+426,large-blue.png,"Jensen is receiving students from <a href=""/schools/59"">King</a>"
+17,large-yellow.png,Carter will be a Turnaround
+164,large-red-blank.png,"<a href=""/schools/89"">Paderewski</a> is closing"
+164,large-blue.png,"Castellanos is receiving students from <a href=""/schools/89"">Paderewski</a>"
+421,large-red-blank.png,"<a href=""/schools/15"">Calhoun North</a> is closing"
+421,large-blue.png,"Cather is receiving students from <a href=""/schools/15"">Calhoun North</a>"
+19,large-yellow.png,Chalmers will be a Turnaround
+179,large-red-blank.png,"<a href=""/schools/116"">Trumbull</a> is closing"
+179,large-blue.png,"Chappell is receiving students from <a href=""/schools/116"">Trumbull</a>"
+181,large-red-blank.png,"<a href=""/schools/62"">LaFayette</a> is closing"
+181,large-blue.png,"Chopin is receiving students from <a href=""/schools/62"">LaFayette</a>"
+451,large-ltblue-blank.png,"<a href=""/schools/113"">Stockton</a> is closing and Courtenay is relocating to <a href=""/schools/113"">Stockton</a>'s building"
+451,large-blue.png,"Courtenay is receiving students from <a href=""/schools/113"">Stockton</a>"
+427,large-red-blank.png,"<a href=""/schools/97"">Pope</a> is closing"
+427,large-blue.png,"Johnson is receiving students from <a href=""/schools/97"">Pope</a>"
+58,large-red.png,Key is closing
+58,large-blue-blank.png,"<a href=""/schools/213"">Ellington</a> is receiving students from Key"
+59,large-red.png,King is closing
+59,large-blue-blank.png,"<a href=""/schools/426"">Jensen</a> is receiving students from King"
+274,large-red-blank.png,"<a href=""/schools/60"">Kohn</a> is closing"
+274,large-blue.png,"Cullen is receiving students from <a href=""/schools/60"">Kohn</a>"
+210,large-red-blank.png,"<a href=""/schools/110"">Songhai</a> is closing"
+210,large-blue.png,"Curtis is receiving students from <a href=""/schools/110"">Songhai</a>"
+24,large-red-blank.png,"<a href=""/schools/32"">Emmet</a> is closing"
+24,large-blue.png,"De Priest is receiving students from <a href=""/schools/32"">Emmet</a>"
+25,large-red.png,Delano is closing
+25,large-blue-blank.png,"<a href=""/schools/78"">Melody</a> is receiving students from Delano"
+26,large-ltblue-blank.png,"<a href=""/schools/49"">Herbert</a> is closing and Dett is relocating to <a href=""/schools/49"">Herbert</a>'s building"
+26,large-blue.png,"Dett is receiving students form <a href=""/schools/49"">Herbert</a>"
+27,large-yellow.png,Dewey will be a Turnaround
+438,large-red-blank.png,"<a href=""/schools/117"">Von Humboldt</a>, <a href=""/schools/30"">Duprey</a> are closing"
+438,large-blue.png,"Diego is receiving students from <a href=""/schools/117"">Von Humboldt</a>, <a href=""/schools/30"">Duprey</a>"
+62,large-red.png,LaFayette is closing
+62,large-blue-blank.png,"<a href=""/schools/181"">Chopin</a> is receiving students from LaFayette"
+60,large-red.png,Kohn is closing
+60,large-blue-blank.png,"<a href=""/schools/274"">Cullen</a>, <a href=""/schools/397"">Lavizzo</a>, <a href=""/schools/53"">Hughes L. </a>are receiving students from Kohn"
+90,large-red.png,Parkman is closing
+90,large-blue-blank.png,"<a href=""/schools/373"">Sherwood</a> is receiving students from Parkman"
+92,large-red.png,Peabody is closing
+92,large-blue-blank.png,"<a href=""/schools/336"">Otis</a> is receiving students from Peabody"
+347,large-ltblue-blank.png,"<a href=""/schools/94"">Pershing West</a> is closing and Pershing is relocating to <a href=""/schools/94"">Pershing West</a>'s building"
+347,large-blue.png,"Pershing is receiving students from <a href=""/schools/94"">Pershing West</a>"
+94,large-red.png,Pershing West is closing
+94,large-blue-blank.png,"<a href=""/schools/347"">Pershing</a> is receiving students from Pershing West"
+97,large-red.png,Pope is closing
+97,large-blue-blank.png,"<a href=""/schools/427"">Johnson</a> is receiving students from Pope"
+358,large-red-blank.png,"<a href=""/schools/16"">Canter Middle</a> is closing"
+358,large-blue.png,"Ray is receiving students from <a href=""/schools/16"">Canter Middle</a>"
+103,large-red.png,Ross is closing
+103,large-blue-blank.png,"<a href=""/schools/424"">Dulles</a> is receiving students from Ross"
+104,large-red-blank.png,"<a href=""/schools/82"">Morgan</a> is closing"
+104,large-blue.png,"Ryder is receiving students from <a href=""/schools/82"">Morgan</a>"
+105,large-red.png,Ryerson is closing
+105,large-blue-blank.png,"<a href=""/schools/119"">Ward, L.</a> is receiving students from Ryerson"
+106,large-red.png,Sexton is closing
+106,large-blue-blank.png,"<a href=""/schools/36"">Fiske</a> is receiving students from Sexton"
+373,large-red-blank.png,"<a href=""/schools/90"">Parkman</a> is closing"
+373,large-blue.png,"Sherwood is receiving students from <a href=""/schools/90"">Parkman</a>"
+110,large-red.png,Songhai is closing
+110,large-blue-blank.png,"<a href=""/schools/210"">Curtis</a> is receiving students from Songhai"
+28,large-red-blank.png,"<a href=""/schools/125"">Williams</a>, <a href=""/schools/126"">Williams Middle</a> are closing"
+28,large-blue.png,"Drake is receiving students from <a href=""/schools/125"">Williams</a>, <a href=""/schools/126"">Williams Middle</a>"
+424,large-red-blank.png,"<a href=""/schools/103"">Ross</a> is closing"
+424,large-blue.png,"Dulles is receiving students from <a href=""/schools/103"">Ross</a>"
+29,large-red.png,Dumas is closing
+29,large-blue-blank.png,"<a href=""/schools/118"">Wadsworth</a> is receiving students from Dumas"
+30,large-red.png,Duprey is closing
+30,large-blue-blank.png,"<a href=""/schools/438"">Diego</a> is receiving students from Duprey"
+31,large-ltblue-blank.png,"<a href=""/schools/42"">Goodlow</a> is closing and Earle is relocating to <a href=""/schools/42"">Goodlow</a>'s building"
+31,large-blue.png,"Earle is receiving students from <a href=""/schools/42"">Goodlow</a>"
+213,large-red-blank.png,"<a href=""/schools/32"">Emmet</a>, <a href=""/schools/58"">Key</a> are closing"
+213,large-blue.png,"Ellington is receiving students from <a href=""/schools/32"">Emmet</a>, <a href=""/schools/58"">Key</a>"
+32,large-red.png,Emmet is closing
+32,large-blue-blank.png,"<a href=""/schools/213"">Ellington</a>, <a href=""/schools/24"">De Priest</a> are receiving students from Emmet"
+33,large-red.png,Ericson is closing
+33,large-blue-blank.png,"<a href=""/schools/386"">Sumner</a> is receiving students from Ericson"
+397,large-red-blank.png,"<a href=""/schools/60"">Kohn</a> is closing"
+397,large-blue.png,"Lavizzo is receiving students from <a href=""/schools/60"">Kohn</a>"
+65,large-red.png,Lawrence is closing
+65,large-blue-blank.png,"<a href=""/schools/163"">Burnham</a> is receiving students from Lawrence"
+435,large-ltblue-blank.png,"<a href=""/schools/73"">May</a>,<a href=""/schools/3""> Armstrong, L.</a> are closing and Leland is relocating to <a href=""/schools/73"">May</a>'s building"
+435,large-blue.png,"Leland is receiving students from <a href=""/schools/73"">May</a>,<a href=""/schools/3""> Armstrong, L.</a>"
+66,large-yellow.png,Lewis will be a Turnaround
+70,large-red.png,Manierre is closing
+70,large-blue-blank.png,"<a href=""/schools/56"">Jenner</a> is receiving students from Manierre"
+71,large-red.png,Marconi is closing
+71,large-blue-blank.png,"<a href=""/schools/115"">Tilton</a> is receiving students from Marconi"
+72,large-yellow.png,Mason is closing grades 9 to 11
+73,large-red.png,May is closing
+73,large-blue-blank.png,"<a href=""/schools/435"">Leland</a> is receiving students from May"
+74,large-red.png,Mayo is closing
+74,large-blue-blank.png,"<a href=""/schools/122"">Wells</a> is receiving students from Mayo"
+75,large-ltblue-blank.png,"<a href=""/schools/6"">Banneker</a> is closing and Mays is relocating to <a href=""/schools/6"">Banneker</a>'s building"
+75,large-blue.png,"Mays is receiving students from <a href=""/schools/6"">Banneker</a>"
+425,large-red-blank.png,"<a href=""/schools/116"">Trumbull</a> is closing"
+425,large-blue.png,"McCutcheon is receiving students from <a href=""/schools/116"">Trumbull</a>"
+463,large-red-blank.png,"<a href=""/schools/34"">Fermi</a> is closing"
+463,large-blue.png,"South Shore is receiving students from <a href=""/schools/34"">Fermi</a>"
+112,large-red.png,Stewart is closing
+112,large-blue-blank.png,"<a href=""/schools/10"">Brennemann</a> is receiving students from Stewart"
+113,large-red.png,Stockton is closing
+113,large-blue-blank.png,"<a href=""/schools/451"">Courtenay</a> is receiving students from Stockton"
+386,large-red-blank.png,"<a href=""/schools/33"">Ericson</a> is closing"
+386,large-blue.png,"Sumner is receiving students from <a href=""/schools/33"">Ericson</a>"
+115,large-red-blank.png,"<a href=""/schools/71"">Marconi</a> is closing"
+115,large-blue.png,"Tilton is receiving students from <a href=""/schools/71"">Marconi</a>"
+116,large-red.png,Trumbull is closing
+116,large-blue-blank.png,"<a href=""/schools/179"">Chappell</a>, <a href=""/schools/307"">McPherson</a>, <a href=""/schools/425"">McCutcheon</a> are receiving students from Trumbull"
+117,large-red.png,Von Humboldt is closing
+117,large-blue-blank.png,"<a href=""/schools/438"">Diego</a> is receiving students from Von Humboldt"
+118,large-ltblue-blank.png,"<a href=""/schools/29"">Dumas</a> is closing and Wadsworth is relocating to <a href=""/schools/29"">Dumas</a>'s building"
+118,large-blue.png,"Wadsworth is receiving students from <a href=""/schools/29"">Dumas</a>"
+299,large-red-blank.png,"<a href=""/schools/38"">Garfield Park</a> is closing"
+299,large-blue.png,"Faraday is receiving students from <a href=""/schools/38"">Garfield Park</a>"
+34,large-red.png,Fermi is closing
+34,large-blue-blank.png,"<a href=""/schools/463"">South Shore</a> is receiving students from Fermi"
+36,large-ltblue-blank.png,"<a href=""/schools/106"">Sexton</a> is closing and Fiske is relocating to <a href=""/schools/106"">Sexton</a>'s building"
+36,large-blue.png,"Fiske is receiving students from <a href=""/schools/106"">Sexton</a>"
+222,large-red-blank.png,"<a href=""/schools/55"">Jackson, M.</a> is closing"
+222,large-blue.png,"Fort Dearborn is receiving students from <a href=""/schools/55"">Jackson M.</a>"
+38,large-red.png,Garfield Park is closing
+38,large-blue-blank.png,"<a href=""/schools/299"">Faraday</a> is receiving students from Garfield Park"
+39,large-red.png,Garvey is closing
+39,large-blue-blank.png,"<a href=""/schools/317"">Mount Vernon</a> is receiving students from Garvey"
+40,large-red.png,Goldblatt is closing
+40,large-blue-blank.png,"<a href=""/schools/264"">Hefferan</a> is receiving students from Goldblatt"
+41,large-red-blank.png,"<a href=""/schools/88"">Owens</a> is closing"
+41,large-blue.png,"Gompers is receiving students from <a href=""/schools/88"">Owens</a>"
+42,large-red.png,Goodlow is closing
+42,large-blue-blank.png,"<a href=""/schools/31"">Earle</a> is receiving students from Goodlow"
+241,large-red-blank.png,"<a href=""/schools/8"">Bethune</a> is closing"
+241,large-blue.png,"Gregory is receiving students from <a href=""/schools/8"">Bethune</a>"
+122,large-ltblue-blank.png,"<a href=""/schools/74"">Mayo</a> is closing and Wells is relocating to <a href=""/schools/74"">Mayo</a>'s building"
+122,large-blue.png,"Wells is receiving students from <a href=""/schools/74"">Mayo</a>"
+405,large-ltblue-blank.png,"<a href=""/schools/2"">Altgeld</a> is closing and Wentworth is relocating to <a href=""/schools/2"">Altgeld</a>'s building"
+405,large-blue.png,"Wentworth is receiving students from <a href=""/schools/2"">Altgeld</a>"
+123,large-red.png,West Pullman is closing
+123,large-blue-blank.png,"<a href=""/schools/155"">Haley</a> is receiving students from West Pullman"
+125,large-red.png,Williams is closing
+125,large-blue-blank.png,"<a href=""/schools/28"">Drake</a> is receiving students from Williams"
+307,large-red-blank.png,"<a href=""/schools/116"">Trumbull</a> is closing"
+307,large-blue.png,"McPherson is receiving students from <a href=""/schools/116"">Trumbull</a>"
+78,large-ltblue-blank.png,"<a href=""/schools/25"">Delano</a> is closing and Melody is relocating to <a href=""/schools/25"">Delano</a>'s building"
+78,large-blue.png,"Melody is receiving students from <a href=""/schools/25"">Delano</a>"
+80,large-red-blank.png,"<a href=""/schools/87"">Overton</a> is closing"
+80,large-blue.png,"Mollison is receiving students from <a href=""/schools/87"">Overton</a> "
+81,large-red-blank.png,"<a href=""/schools/83"">Near North</a>, <a href=""/schools/13"">Buckingham</a> are closing"
+81,large-blue.png,"Montefiore is receiving students from <a href=""/schools/83"">Near North</a>, <a href=""/schools/13"">Buckingham</a>"
+82,large-red.png,Morgan is closing
+82,large-blue-blank.png,"<a href=""/schools/104"">Ryder</a> is receiving students from Morgan"
+317,large-red-blank.png,"<a href=""/schools/39"">Garvey</a> is closing"
+317,large-blue.png,"Mount Vernon is receiving students from <a href=""/schools/39"">Garvey</a>"
+129,large-red.png,Yale is closing
+129,large-blue-blank.png,"<a href=""/schools/253"">Harvard</a> is receiving students from Yale"
+127,large-red.png,Woods Acad is closing
+127,large-blue-blank.png,"<a href=""/schools/141"">Bass</a> is receiving students from Woods Acad"
+119,large-ltblue-blank.png,"<a href=""/schools/105"">Ryerson</a> is closing and Ward, L. is relocating to <a href=""/schools/105"">Ryerson</a>'s building"
+119,large-blue.png,"Ward, L. is receiving students from <a href=""/schools/105"">Ryerson</a>"
+126,large-red.png,Williams Middle is closing
+126,large-blue-blank.png,"<a href=""/schools/28"">Drake</a> is receiving students from Williams Middle"
