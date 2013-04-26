@@ -146,7 +146,7 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   end
    
   def receiving_schools
-  	@receiving_schools = self.school_actions.map{|r| if(r.action_id==2 || r.action_id==7) then  r.result_id end}.join(", ")
+  	@receiving_schools = self.school_actions.map{|r| if(r.action_id==2 || r.action_id==7) then  r.result_id end}.uniq.join(", ")
   end
   
   def receiving_school_names
@@ -158,11 +158,11 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   end
 
   def colocating_schools
-   @colocating_schools = self.school_actions.map{|r| if(r.action_id==5) then  r.result_id end}.join(", ")
+   @colocating_schools = self.school_actions.map{|r| if(r.action_id==5) then  r.result_id end}.uniq.join(", ")
   end
   
   def sending_schools
-  	@sending_schools = SchoolAction.where("result_id=" + self.id.to_s + "").map{|sa| if(sa.action_id==2 || sa.action_id==7) then sa.school_id end }.join(",")
+  	@sending_schools = SchoolAction.where("result_id=" + self.id.to_s + "").map{|sa| if(sa.action_id==2 || sa.action_id==7) then sa.school_id end }.uniq.join(",")
   end 
   
   def sending_school_names

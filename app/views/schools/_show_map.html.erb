@@ -86,7 +86,7 @@ function query(){
     
 	  var receiving_schools = [<%= (@school.receiving_schools().size > 0) ? @school.receiving_schools() : 0 %>];
     var colocating_schools = [<%= (@school.colocating_schools().size > 0) ? @school.colocating_schools() : 0 %>];
-    var blue_schools = [<%= (@school.colocating_schools().size > 0) ? @school.colocating_schools() : 0 %>, <%= (@school.receiving_schools().size > 0) ? @school.receiving_schools() : 0 %>]
+    var blue_schools = [<%= (@school.colocating_schools().size > 0) ? @school.colocating_schools() : 0 %>, <%= (@school.receiving_schools().size > 0) ? @school.receiving_schools() : 0 %>];
 	  var sending_schools = [<%= (@school.sending_schools().size > 0) ? @school.sending_schools() : 0 %>];
 	  var new_building = <%= @school.new_building("id")%>;
 	  
@@ -126,7 +126,7 @@ function query(){
         styleId: 2,
         templateId: 2,
         styles: [{ 				
-        	where: "'SchoolCuts ID' in ("+ blue_schools + ")",
+        	where: "'SchoolCuts ID' in (" + blue_schools + ")",
           markerOptions: {
             iconName: "blu_blank"
           }
