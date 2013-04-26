@@ -318,7 +318,7 @@ ul { list-style: disc; margin-left: 2em; }
 
 /* School list */
 .schools li { margin: 0 0 0.25em; width: 245px; }
-.schools ol { height: 850px; list-style: none; margin-left: 0; }
+.schools ol { height: 975px; list-style: none; margin-left: 0; }
 
 /* School profile */
 #profile-primary { float: left; margin-bottom: 30px; width: 65.68%; }

@@ -4,6 +4,7 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   has_many :enrollments
   has_many :essentials
   has_many :isat_scores
+  has_many :map_legends
   has_many :mobilities
   has_many :probations
   has_many :races
@@ -99,7 +100,7 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   end
     
   def is_receiving?
-    self.receiving_status == 1
+    self.receiving_status == 1 || self.receiving_status == 2
   end 
    
   def is_closing?
@@ -140,30 +141,38 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   	@levelNumber
   end
    
+  def map_legends
+  	@map_legends = MapLegend.where('school_id='+self.id.to_s)
+  end
+   
   def receiving_schools
-  	@receiving_schools = self.school_actions.map{|r| if(r.action_id==2) then  r.result_id end}.join(", ")
+  	@receiving_schools = self.school_actions.map{|r| if(r.action_id==2 || r.action_id==7) then  r.result_id end}.uniq.join(", ")
   end
   
   def receiving_school_names
-	@receiving_school_names = self.school_actions.map{|r| if(r.action_id==2) then  School.find_by_id(r.result_id).short_name end}
+	@receiving_school_names = self.school_actions.map{|r| if(r.action_id==2 || r.action_id==7) then  School.find_by_id(r.result_id).short_name end}
   end
   
   def receiving_school_links
-	@receiving_school_links = self.school_actions.map{|r| if(r.action_id==2) then  "/schools/" + r.result_id.to_s end}
+	@receiving_school_links = self.school_actions.map{|r| if(r.action_id==2 || r.action_id==7) then  "/schools/" + r.result_id.to_s end}
+  end
+
+  def colocating_schools
+   @colocating_schools = self.school_actions.map{|r| if(r.action_id==5) then  r.result_id end}.uniq.join(", ")
   end
   
   def sending_schools
-  	@sending_schools = SchoolAction.where("result_id=" + self.id.to_s + "").map{|sa| if(sa.action_id==2) then sa.school_id end }.join(",")
+  	@sending_schools = SchoolAction.where("result_id=" + self.id.to_s + "").map{|sa| if(sa.action_id==2 || sa.action_id==7) then sa.school_id end }.uniq.join(",")
   end 
   
   def sending_school_names
 	@sending_school_names = SchoolAction.where("result_id=" + self.id.to_s + "").
-		map{|sa| if(sa.action_id==2) then School.find_by_id(sa.school_id).short_name end }
+		map{|sa| if(sa.action_id==2 || sa.action_id==7) then School.find_by_id(sa.school_id).short_name end }
   end
   
   def sending_school_links
 	@sending_school_links = SchoolAction.where("result_id=" + self.id.to_s + "").
-		map{|sa| if(sa.action_id==2) then "/schools/" + sa.school_id.to_s end }
+		map{|sa| if(sa.action_id==2 || sa.action_id==7) then "/schools/" + sa.school_id.to_s end }
   end
   
   def is_higher_performing?(other_school)
@@ -209,6 +218,5 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   	
 	@result
   end
-  
   
 end
