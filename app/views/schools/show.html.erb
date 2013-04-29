@@ -142,9 +142,9 @@
                 
                 <div class="levels">
 	                <ol>
-	                	<li class="<%= if(@school.level=="Level 1") then @school.level.downcase.tr(' ','') else "blank" end %>"><strong>Level</strong><span>1</span></li>
-	                	<li class="<%= if(@school.level=="Level 2") then @school.level.downcase.tr(' ','') else "blank" end %>"><strong>Level</strong><span>2</span></li>
-	                	<li class="<%= if(@school.level=="Level 3") then @school.level.downcase.tr(' ','') else "blank" end %>"><strong>Level</strong><span>3</span></li>
+                    <li class="<%= @school.level == 1 ?  "level1" :  "blank" %>"><strong>Level</strong><span>1</span></li>
+                    <li class="<%= @school.level == 2 ?  "level2" :  "blank" %>"><strong>Level</strong><span>2</span></li>
+                    <li class="<%= @school.level == 3 ?  "level3" :  "blank" %>"><strong>Level</strong><span>3</span></li>
 	                </ol>
 	                <p class="mute">Level 1 is best</p>
                 </div>
