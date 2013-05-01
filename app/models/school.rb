@@ -131,10 +131,6 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   	self.closing_status == 7
   end
    
-  def map_legends
-  	@map_legends = MapLegend.where('school_id='+self.id.to_s)
-  end
-   
   def receiving_schools
   	@receiving_schools = self.school_actions.map{|r| if(r.action_id==2 || r.action_id==7) then  r.result_id end}.uniq.join(", ")
   end
