@@ -19,4 +19,8 @@ group :development, :production do
   gem 'unicorn-rails'
 end
 
+group :test do
+  gem 'shoulda'
+end
+
 gem 'jquery-rails'
