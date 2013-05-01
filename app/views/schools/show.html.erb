@@ -37,8 +37,8 @@
         
         <div class="c2l">
         <ul class="legend">	
-        	<% for i in 0..(@school.map_legends.size - 1) %>
-        		<li><img src="/images/map icons/<%= @school.map_legends[i].marker %>" /><%= @school.map_legends[i].description.html_safe %></li>
+        	<% @school.map_legends.each do |map_legend| %>
+        		<li><img src="/images/map icons/<%= map_legend.marker %>" /><%= map_legend.description.html_safe %></li>
         	<% end %>
             <% if(@school.is_closing?) %>
                <li><p class="mute"><a href="../compare/<%= @school.id %>">Compare these schools</a> &raquo;</p>
