@@ -1,4 +1,7 @@
 require 'csv'
+require "#{Rails.root}/app/helpers/import_helper"
+
+include ImportHelper
 
 namespace :cps do
 	desc "import school data"
@@ -22,7 +25,7 @@ namespace :cps do
 					:community_area => row[6].to_s,
 					:cps_id => row[0].to_i,
 					:full_name => row[2].to_s,
-					:level => row[11].to_s,
+					:level => parse_level(row[11].to_s),
 					:phone => row[3].to_s,
 					:school_type => row[9].to_s,
 					:short_name => row[1].to_s,
@@ -51,7 +54,7 @@ namespace :cps do
 				school.community_area = row[6].to_s
 				school.cps_id = row[0].to_i
 				school.full_name = row[2].to_s
-				school.level = row[11].to_s
+				school.level = parse_level(row[11].to_s)
 				school.phone = row[3].to_s
 				school.school_type = row[9].to_s
 				school.short_name = row[1].to_s

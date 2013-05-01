@@ -61,7 +61,7 @@
             <div class="school">
                 <h3><a href="../schools/<%= @school.id%>"><%= @school.short_name %></a></h3>
                 
-                <div class="<%= "level#{@school.level_number}" %>"><strong>Level</strong><span><%= @school.level_number%></span></div>
+                <div class="<%= "level#{@school.level}" %>"><strong>Level</strong><span><%= @school.level%></span></div>
                 
                 <dl>
                     <dt>Enrollment</dt>
@@ -109,7 +109,7 @@
             <div class="school">
                 <h3><a href="../schools/<%= related_school.id %>"><%= related_school.short_name %></a></h3>
                 
-                <div class="<%= "level#{related_school.level_number}" %>"><strong>Level</strong><span><%= related_school.level_number%></span></div>
+                <div class="<%= "level#{related_school.level}" %>"><strong>Level</strong><span><%= related_school.level%></span></div>
                 
                 <dl>
                     <dt>Enrollment</dt>
@@ -124,7 +124,7 @@
                     </dt>
                     
                     <dd>
-                        <i title="Performance Level" class="icon-large <%= @school.level_number > related_school.level_number ? "icon-check" : "icon-check-empty" %>"></i> or 
+                        <i title="Performance Level" class="icon-large <%= @school.level > related_school.level ? "icon-check" : "icon-check-empty" %>"></i> or 
                         <i title="Performance Policy points" class="icon-large <%= @school.performance_metric.policy_points < related_school.performance_metric.policy_points ? "icon-check" : "icon-check-empty" %>" ></i>
                         <i title="ISAT composite" class="icon-large <%= @school.performance_metric.isat_composite < related_school.performance_metric.isat_composite ? "icon-check" : "icon-check-empty" %>" ></i>
                         <i title="Value-added reading" class="icon-large <%= @school.performance_metric.value_added_math < related_school.performance_metric.value_added_math ? "icon-check" : "icon-check-empty" %>" ></i>
