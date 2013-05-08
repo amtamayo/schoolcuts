@@ -2,7 +2,7 @@
 
 <!-- Content -->
 <div class="content">
-    <h1>Compare potential receiving schools if <a href="../schools/<%= @school.id%>"><%= @school.short_name %> </a> is closed</h1>
+  <h1>Compare potential receiving schools if <%=link_to @school.short_name, school_path(@school)%> is closed</h1>
     
     <p>CPS states that they will place students in higher-performing schools. How CPS is defining a school as "higher performing" is important to understand. A higher performing schools means a higher level on the Performance Policy for the year 2011-2012 school year or a school that performs higher in 3 of 4 selected metrics (performance points, ISAT composite meets or exceeds score, value added reading and value added math).  Here you can compare <%= @school.short_name %> to its welcoming schools using CPS's own criteria and other available data.</p>
     
@@ -59,7 +59,7 @@
     <ul class="compare">
         <li class="selected">
             <div class="school">
-                <h3><a href="../schools/<%= @school.id%>"><%= @school.short_name %></a></h3>
+                <h3><%= link_to @school.short_name, school_path(@school) %></h3>
                 
                 <div class="<%= "level#{@school.level}" %>"><strong>Level</strong><span><%= @school.level%></span></div>
                 
@@ -107,7 +107,7 @@
 
         <li>
             <div class="school">
-                <h3><a href="../schools/<%= related_school.id %>"><%= related_school.short_name %></a></h3>
+                <h3><%= link_to related_school.short_name, school_path(related_school) %></h3>
                 
                 <div class="<%= "level#{related_school.level}" %>"><strong>Level</strong><span><%= related_school.level%></span></div>
                 

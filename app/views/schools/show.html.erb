@@ -41,7 +41,7 @@
         		<li><img src="/images/map icons/<%= map_legend.marker %>" /><%= map_legend.description.html_safe %></li>
         	<% end %>
             <% if(@school.is_closing?) %>
-               <li><p class="mute"><a href="../compare/<%= @school.id %>">Compare these schools</a> &raquo;</p>
+              <li><p class="mute"><%= link_to "Compare these schools", compare_path(@school) %> &raquo;</p>
             <% end %>
 		</ul>
 		</div>
