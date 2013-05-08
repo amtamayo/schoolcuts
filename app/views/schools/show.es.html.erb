@@ -1,0 +1,279 @@
+<!-- Javascript -->
+<%= render :partial => "highcharts_show" %>
+
+<%= render :partial => "show_map" %>
+<!-- End Javascript -->
+
+<!-- Content -->
+<div class="content">
+    <div id="intro">
+        <h1><%= @school.short_name %>
+        	<% if(!@school.closing_status.nil?) %>
+        	<% 		closing_label = @school.closing_status_name %>
+        			<span class=<%= "flag-" + closing_label.tr(' ','-') %>><%= closing_label %></span>
+        	<% end %>
+        		
+        	<% if (@school.is_receiving?) %>
+        		<span class="flag-receiving">Receptora</span>
+        	<% end %>
+	        </h1>
+        </h1>
+        <p>
+        	<%= @school.full_name %> &bull; <%= @school.phone %> &bull; <%= @school.community_area.split(' ').map {|w| w.capitalize }.join(' ') %> &bull; 
+        	<%= @address.street_address %>, Chicago, Illinois <%= @address.zipcode %>
+        
+        
+        <% if @status_with_transition_links.include?(@school.closing_status)  %>
+        	<p class="mute"><a href="http://www.cps.edu/qualityschools/pages/schools.aspx?s=<%= @school.cps_id %>">Vea el plan de transición para esta escuela en  CPS.edu</a> &raquo;</p>
+        <% end %>
+        </p>
+        <div class="clear"></div>
+    </div>
+    
+    <div id="profile-primary">
+        <h2>Escuelas más cercanas a <%= @school.short_name %></h2>
+        <!-- <p>If <%= @school.short_name %> closes, its students might to moved to these nearby Neighborhood schools. </p> -->
+        <div id="map"></div>
+        
+        <div class="c2l">
+        <ul class="legend">	
+        	<% @school.map_legends.each do |map_legend| %>
+        		<li><img src="/images/map icons/<%= map_legend.marker %>" /><%= map_legend.description.html_safe %></li>
+        	<% end %>
+            <% if(@school.is_closing?) %>
+              <li><p class="mute"><%= link_to "Comparar estas escuelas", compare_path(@school) %> &raquo;</p>
+            <% end %>
+		</ul>
+		</div>
+		
+		<div class="c2r">
+            <ul class="legend">
+                <li><strong style="color: #f36968;"><i class="icon-circle"></i></strong> En proceso de cierre</li>
+                <li><strong style="color: #ebcc71;"><i class="icon-circle"></i></strong> Afectado</li>
+                <li><strong style="color: #c0c0c0;"><i class="icon-circle"></i></strong> Otro</li>                    	
+            </ul>
+            <ul class="legend">
+            	<li><strong style="color: #4b58a6;"><i class="icon-minus"></i></strong> 1 milla</li>
+            	<li><strong style="color: #a64b58;"><i class="icon-minus"></i></strong> 1.5 millas</li>
+            </ul>
+            <ul class="legend">
+                <li><strong style="color: #ff9900;"><i class="icon-minus"></i></strong> Proposed Attendance Boundary</li>
+            </ul>
+		</div>
+    </div>
+    
+    <div id="profile-secondary">
+    	<p><a class="action noprint" href="#evaluation">Pasar a datos de evaluación</a></p>
+        
+        <h3>Datos demográficos de <%= @school.short_name %></h3>
+        
+        <strong>Estadísticas</strong>
+        <div id="demographic-chart"></div>
+        
+        <strong>Raza/etnia</strong>
+        <div id="race-chart"></div>
+        <p class="noprint"><a href="http://www.cps.edu/Schools/Pages/school.aspx?id=<%= @school.cps_id %>">Ver más datos demográficos en CPS.edu</a> &raquo;</p>
+    </div>
+    
+    <div class="clear"></div>
+    <hr />
+    <div id="evaluation">
+        
+        <div class="c2l">
+            <% if (!@school.is_closing?) %>
+ 		       	<h3>Esta escuela no está en la lista de cierre</h3>
+            <% else %>
+	        	<h3>¿Por qué esta escuela está en la lista de escuelas a cerrar?</h3>
+            <% end %>
+	        
+            <div class="dataset">
+                <h4>Índice de utilización del CPS</h4>
+                <p>Este año, se inscribieron <%= @enrollment %> estudiantes en <%= @school.short_name %>. No obstante, CPS considera que un total de <%= @ideal_capacity %> estudiantes deberían estar inscritos en <%= @school.short_name %>.</p>
+                                
+                <div class=<%= @utilization_status.downcase %> id="utilization">
+                	<% utilization_rate = @enrollment.to_f / @ideal_capacity * 100 %>
+                	<% utilization_percent = number_to_percentage(utilization_rate, :precision => 0)%>
+                	
+                 	
+                	<h5>Según los cálculos del CPS, se utiliza el <%= utilization_percent %></h5>
+                	
+                	<p class="title"><%= @utilization_status %></p>
+                	        	
+                	<div class="homeroom">
+                		<div class="ideal">
+                			<div class="enrollment">
+                				<% util_box_size = 20 %>
+                				<% util_total_symbols = (utilization_rate / 5).to_i %>
+                				<% util_efficient_symbols = if (util_total_symbols >= util_box_size) then util_box_size else util_total_symbols end %>
+                				<% util_overflow_symbols = util_total_symbols - util_box_size %>
+                				<% for i in 0..(util_efficient_symbols - 1) %>
+                					<i class="icon-user"></i>
+                				<% end %>
+                			</div>
+                		</div>
+                		<div class="overflow">
+	                		<% for i in 0..(util_overflow_symbols - 1) %>
+                				<i class="icon-user"></i>
+                			<% end %>
+                		</div>
+            		</div>
+                	
+                	<!-- <div class="legend"><img alt="" src="/images/utilization.png" /></div> -->
+                </div>
+                <p>Para conocer más sobre cómo los cálculos de utilización del CPS podrían no ser precisos, vea <a href="http://cpsapples2apples.wordpress.com/2012/12/18/does-a2a-show-any-cps-schools-as-underutilized/">CPS Apples 2 Apples</a>.</p>
+                <p class="mute">Fuente: <a href="http://cps.edu/About_CPS/Policies_and_guidelines/Pages/qualityschools.aspx">Datos de utilización del espacio y de inscripción del CPS para el año escolar 2012-2013</a></p>
+            </div>
+            
+            <div class="dataset">
+                <h4>Nivel de desempeño de CPS</h4>
+                <p>El nivel de desempeño es el indicador de la calidad de una escuela que usa CPS basándose en una fórmula que utiliza los puntajes de la evaluación ISAT y los índices de asistencia. Un nivel 1 indica que una escuela ha obtenido los mayores puntajes en esta medición y el Nivel 3 es el más bajo.</p>
+                
+                <div class="levels">
+	                <ol>
+                    <li class="<%= @school.level == 1 ?  "level1" :  "blank" %>"><strong>Nivel</strong><span>1</span></li>
+                    <li class="<%= @school.level == 2 ?  "level2" :  "blank" %>"><strong>Nivel</strong><span>2</span></li>
+                    <li class="<%= @school.level == 3 ?  "level3" :  "blank" %>"><strong>Nivel</strong><span>3</span></li>
+	                </ol>
+	                <p class="mute">El nivel 1 es el mejor</p>
+                </div>
+                
+                <p class="mute">Fuente: <a href="http://www.cps.edu/Schools/Pages/school.aspx?id=<%= @school.cps_id %>">Perfil de escuelas de Chicago Public Schools</a></p>
+            </div>
+        </div>
+        <div class="c2r">
+            <h3>¿Qué sabemos sobre esta escuela?</h3>
+                       
+            <div class="dataset">
+                <h4>El desempeño de los estudiantes, ¿mejora con el correr del tiempo?</h4>
+                <p>Se registra el porcentaje de estudiantes que cumplen con o exceden los estándares estatales en las evaluaciones estandarizadas para un grupo o cohorte de estudiantes desde 3º a 8º grado. Esto muestra cómo se desempeñó un conjunto específico de estudiantes con el correr de los años.</p>
+                
+                <div id="chart-isat"></div>
+                <p class="mute">Fuente: <a href=<%= @school.isat_url %>>IIRC Source</a></p>
+            </div>
+            <div class="dataset">
+                <h4>Esta escuela, ¿está organizada para mejorar?</h4>
+                <p>La Universidad de Chicago identifica cinco elementos básicos para que una escuela tenga éxito y califica a cada escuela basándose en los resultados de las encuestas anuales realizadas a estudiantes y profesores.</p>
+                
+                <div class="essentials-charts">
+                	<div class="c2l">
+		                <!-- 2011 Essentials -->
+		                <h4>2011</h4>
+		                <div class="essentials">
+						    <div class="category leaders <%= @school.essentials.where("category = 'leaders' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'leaders' AND year_to=2011").first.rating.capitalize %>">
+						    	<span class="title">Líderes eficaces
+    						    	<span class="status"><%= @school.essentials.where("category = 'leaders' AND year_to=2011").first.rating.capitalize %></span>
+						    	</span>
+						    </div>
+						    <div class="category teachers <%= @school.essentials.where("category = 'teachers' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'teachers' AND year_to=2011").first.rating.capitalize %>">
+						    	<span class="title">Maestros que colaboran
+    						    	<span class="status"><%= @school.essentials.where("category = 'teachers' AND year_to=2011").first.rating.capitalize %></span>
+						    	</span>
+						    </div>
+						    <div class="category instruction <%= @school.essentials.where("category = 'instruction' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'instruction' AND year_to=2011").first.rating.capitalize %>">
+						    	<span class="title">Instrucción ambiciosa
+    						    	<span class="status"><%= @school.essentials.where("category = 'instruction' AND year_to=2011").first.rating.capitalize %></span>
+						    	</span>
+						    </div>
+						    <div class="category environment <%= @school.essentials.where("category = 'environment' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'environment' AND year_to=2011").first.rating.capitalize %>">
+						    	<span class="title">Entorno de apoyo
+    						    	<span class="status"><%= @school.essentials.where("category = 'environment' AND year_to=2011").first.rating.capitalize %></span>
+						    	</span>
+						    </div>
+						    <div class="category families <%= @school.essentials.where("category = 'families' AND year_to=2011").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'families' AND year_to=2011").first.rating.capitalize %>">
+						    	<span class="title">Familias involucradas
+    						    	<span class="status"><%= @school.essentials.where("category = 'families' AND year_to=2011").first.rating.capitalize %></span>
+						    	</span>
+						    </div>
+						</div>
+						<!-- /2011 Essentials -->
+                	</div>
+					<div class="c2r">
+						<h4>2012</h4>
+						<!-- 2012 Essentials -->
+						<div class="essentials">
+						    <div class="category leaders <%= @school.essentials.where("category = 'leaders' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'leaders' AND year_to=2012").first.rating.capitalize %>">
+						    	<span class="title">Líderes eficaces
+    						    	<span class="status"><%= @school.essentials.where("category = 'leaders' AND year_to=2012").first.rating.capitalize %></span>
+						    	</span>
+						    </div>
+						    <div class="category teachers <%= @school.essentials.where("category = 'teachers' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'teachers' AND year_to=2012").first.rating.capitalize %>">
+						    	<span class="title">Maestros que colaboran
+    						    	<span class="status"><%= @school.essentials.where("category = 'teachers' AND year_to=2012").first.rating.capitalize %></span>
+						    	</span>
+						    </div>
+						    <div class="category instruction <%= @school.essentials.where("category = 'instruction' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'instruction' AND year_to=2012").first.rating.capitalize %>">
+						    	<span class="title">Instrucción ambiciosa
+    						    	<span class="status"><%= @school.essentials.where("category = 'instruction' AND year_to=2012").first.rating.capitalize %></span>
+						    	</span>
+						    </div>
+						    <div class="category environment <%= @school.essentials.where("category = 'environment' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'environment' AND year_to=2012").first.rating.capitalize %>">
+						    	<span class="title">Entorno de apoyo
+    						    	<span class="status"><%= @school.essentials.where("category = 'environment' AND year_to=2012").first.rating.capitalize %></span>
+						    	</span>
+						    </div>
+						    <div class="category families <%= @school.essentials.where("category = 'families' AND year_to=2012").first.rating.tr(' ','-') %>" 
+						    	title="<%= @school.essentials.where("category = 'families' AND year_to=2012").first.rating.capitalize %>">
+						    	<span class="title">Familias involucradas
+    						    	<span class="status"><%= @school.essentials.where("category = 'families' AND year_to=2012").first.rating.capitalize %></span>
+						    	</span>
+						    </div>
+						</div>
+		                <!-- /2012 Essentials -->
+					</div>
+					<ul class="legend">
+			        	<li><strong style="background-color: #488714;"></strong> Muy fuerte</li>
+			        	<li><strong style="background-color: #77a161;"></strong> Fuerte</li>
+			        	<li><strong style="background-color: #ebcc71;"></strong> Neutro</li>
+			        	<li><strong style="background-color: #cf7e53;"></strong> Débil</li>
+			        	<li><strong style="background-color: #9e241d;"></strong> Muy débil</li>
+			        	<li><strong style="background-color: #ddd;"></strong> Sin datos</li>
+			        </ul>
+                </div>
+                
+                <p class="clear mute">Fuente: <a href="https://cps.5-essentials.org/2012/s/<%= @school.cps_id.to_s %>">5Essentials</a></p>
+            </div>
+            <div class="dataset">
+                <h4>¿Qué tan estable es la escuela?</h4>
+                <p>Las tendencias en la situación de prueba, índices de movilidad e inscripción, que se describen debajo, ayudan a mostrar qué tan estable ha sido una escuela. Es más difícil obtener una imagen clara de una escuela si ésta cambia.</p>
+                
+                <h5>Tendencias en la situación de prueba</h5>
+                <p>Cada año, el CPS evalúa a las escuelas para determinar si deberían estar en período de prueba y apuntar a cumplir con las medidas de mejoramiento. Las escuelas que están en período de prueba tienden a tener más cambios en el liderazgo.</p>
+                
+                <ol class="probation">
+	                <% @school.probations.each{|p|%>
+              			<li class=<%= p.status.downcase %>>
+		            	 	<span class="status"<%= if (p.status=="" || p.status.nil?) then " title='Data not available'" else p.status end %>><%= if (p.status=="" || p.status.nil?) then "NA" else p.status end %></span>
+		            	 	<span class="from">&lsquo;<%= p.year_from.to_s[-2,2] %></span>
+		            	 	<span class="to">&lsquo;<%= p.year_to.to_s[-2,2] %></span>
+		            	</li>
+		            <% } %>                
+	           	</ol>
+	           	<div class="clear"></div>
+                
+                <h5>Tendencia en el índice de movilidad</h5>
+                <p>Cuando una escuela tiene un alto índice de movilidad, es más difícil indicar si está progresando o no.</p>
+                <div id="chart-mobility"></div>
+
+                <h5>Tendencias de inscripción</h5>
+                <p>La cantidad de estudiantes que asisten a la escuela, medida el  día 20 de cada año escolar. El CPS considerará sólo los últimos tres años de tendencias de inscripción a la hora de tomar decisiones acerca de las escuelas que cerrará.</p>
+                <div id="chart-enrollment"></div>
+
+                <p class="mute">Fuente: <a href="http://cps.edu/SchoolData/Pages/SchoolData.aspx">Datos sobre el desempeño del Sistema de escuelas públicas de Chicago</a></p>
+            </div>
+        </div>
+        
+        <div class="clear"></div>
+    </div>
+</div>
+
+<!-- /Content -->
+

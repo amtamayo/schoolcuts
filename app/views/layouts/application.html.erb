@@ -78,7 +78,9 @@
         
         <ul class="nav-extras">
           <li><a href="#" onclick="print(); return false;"><i class="icon-print"></i> <%= I18n.t(:print_this_page)%></a></li>
-          <li><a href=<%= root_path(:locale => "es")%>><i class="icon-globe"></i> Espa&ntilde;ol</a></li>
+          <li><i class="icon-globe"></i><%= link_to I18n.t(:toggle_locale_label), url_for(:locale => I18n.t(:toggle_locale)) %></li>
+          
+          <!-- <li><a href=<%= root_path(:locale => "es")%>><i class="icon-globe"></i> Espa&ntilde;ol</a></li> -->
         </ul>
         
         <div class="clear"></div>
