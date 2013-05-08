@@ -2,4 +2,19 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  school_cuts: School Cuts
+  home: Home
+  blog: Blog
+  about: About
+  join_the_discussion: Join the discussion
+  print_this_page: Print this page
+  filter_by: Filter by
+  all: All
+  closing: Closing
+  turnaround: Turnaround
+  relocating: Relocating
+  colocating: Co-locating
+  closing_9_11: Closing grades 9-11
+  receiving: Receiving
+  phasing_out: Phasing out over 2 years
+  left: Left
