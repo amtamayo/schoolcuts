@@ -1,117 +1,63 @@
 <!-- Content -->
 <div class="content">
-    <div id="intro">
-        <!--
-<h1><%= number_with_delimiter(@students_affected, :delimiter => ',') %> students may see their school close</h1>
-        <p>Chicago Public Schools (CPS) has marked <strong><%= @schools.count %> elementary schools</strong> for possible closure based on utilization and performance. Closing a school is a very disruptive decision, affecting student outcomes, parental confidence, and neighborhood stability. In addition to showing the data being used by CPS, this website aims to help school leaders, parents, and communities learn more about the schools being considered, and what options will be available in case of closures.</p>
--->
-        
-        
-        <h1><%= number_with_delimiter(@students_affected, :delimiter => ',') %> students will be affected by school closings</h1>
-        <p>Chicago Public Schools (CPS) has marked <strong><%= @schools.count %> elementary schools</strong> for closure or consolidation based on utilization, performance, and community feedback. Closing a school is a very disruptive decision, affecting student outcomes, parental confidence, and neighborhood stability. In addition to showing the data being used by CPS, this website aims to help school leaders, parents, and communities learn more about the schools being closed, and what options may be available.</p>
-        
-        <div class="clear"></div>
-    </div>
-	    <h2><%= @schools.size.to_s %> <%= @schools.size > 1 ? " schools are" : " school is" %> affected </h2>
-	    
-	    <ul class="school-filters">
-		  <li><strong>Filter by:</strong></li>
-		  <li><a class="selected flag-all" href="#" data-filter="*">All</a></li>
-		  <li><a class="flag-closing" href="#" data-filter=".closing">Closing</a></li>
-		  <li><a class="flag-turnaround" href="#" data-filter=".turnaround">Turnaround</a></li>
-		  <li><a class="flag-relocating" href="#" data-filter=".relocating">Relocating</a></li>
-		  <li><a class="flag-co-locating" href="#" data-filter=".co-locating">Co-locating</a></li>
-		  <li><a class="flag-closing-grades-9-to-11" href="#" data-filter=".closing-grades-9-to-11">Closing grades 9-11</a></li>
-		  <li><a class="flag-receiving" href="#" data-filter=".receiving">Receiving</a></li>
-		  <li><a class="flag-phasing-out-over-2-years" href="#" data-filter=".phasing-out-over-2-years">Phasing out over 2 years</a></li>
-		</ul>
-		
-		<div class="clear"></div>
-	    
-        <div class="schools" id="names">
-                 <ol>
-                     
-                     <% for i in 0..(@schools.size-1) %> 
-                     <% school = @schools[i]  %>
-                     
-                     
-                     <li <%= "class='#{school.closing_status_name.tr(' ','-')} #{school.receiving_status_name.tr(' ','-')}'"  %> >
-                       <%= link_to school.short_name, school_path(school) %>
-	                     <span <%= (school.closing_status.nil? || school.closing_status == 0) ? "" : 
-	                     	"class=flag-#{school.closing_status_name.tr(' ','-')}" %>>
-		                    <%= (school.closing_status==0) ? "" : school.closing_status_name %>
-	                     </span>
-	                     <span <%= school.receiving_status.nil? ? "" : "class=flag-#{school.receiving_status_name.tr(' ','-')}" %>>
-		                 	<%= school.receiving_status_name %>
-	                     </span>
-	                     
-                     </li>
-                    <% end %>
-                </ol>
-                
-                <script src="/scripts/jquery.isotope.min.js" type="text/javascript"></script>
-                
-                <script type="text/javascript">
-                	$(function(){
-                		var $container = $("#names ol");
-                		
-	                	$container.isotope({
-						  itemSelector: "li",
-						  layoutMode: 'fitColumns'
-						});
-						
-						
-						$('.school-filters a').click(function(){
-							$(".school-filters a").removeClass("selected");
-							$(this).addClass("selected");
-						  var selector = $(this).attr('data-filter');
-						  $container.isotope({ filter: selector });
-						  return false;
-						});
-                	});
-                </script>
-        </div>
-        
-        <hr />
-        
-        <h2>A detailed look at schools on the list</h2>
-        
-        <p>The following data helps better understand each school. </p>
-        
-        <dl class="examples">
-            <dt><img alt="" src="/images/isat.jpg" /> ISAT performance by cohort</dt>
-            <dd>
-                <p>The percent of students meeting or exceeding state standards on standardized tests is tracked for one group, or cohort, of students from grades 3&mdash;8. This shows how a specific set of students performed over time. </p>
-                <p class="mute">Left: <%=link_to "King", school_path(59) %> </p>
-            </dd>
-            
-            <dt><img alt="" src="/images/5essentials.jpg"/> 5Essentials trends</dt>
-            <dd>
-                <p>An evaluation of a school’s ability to be successful, based on instructional content, school environment, family involvement, teacher collaboration, and effective leadership, according to The University of Chicago.</p>
-                <p class="mute">Left:  <%=link_to "Pershing West", school_path(94) %> </p>
-            </dd>
-            
-            <dt><img alt="" src="/images/probation.jpg"/> Probation status trends</dt>
-            <dd>
-                <p>Each year CPS evaluates schools to determine if they should be placed on probation and targeted for improvement measures. Schools on probation tend to have more leadership changes, creating a less stable learning environment.</p>
-                <p class="mute">Left:  <%=link_to "Marconi", school_path(71) %></p>
-            </dd>
-            
-            <dt><img alt="" src="/images/mobility.jpg" /> Mobility rate trends</dt>
-            <dd>
-                <p>Mobility rate measures how many students transfer into, or out of, the school at times other than the beginning or end of a school year. When a school has a high mobility rate, it is more difficult to tell whether a school is making progress.</p>
-                <p class="mute">Left:  <%=link_to "Lawrence", school_path(65) %></p>
-            </dd>
-            
-            <dt><img alt="" src="/images/enrollment.jpg" /> Enrollment trends</dt>
-            <dd>
-                <p>This is the number of students attending the school, taken on the 20th day of each school year. It is used to determine future needs for space, personnel, equipment, etc.</p>
-                <p class="mute">Left:  <%=link_to "Crown Community", school_path(22) %></p>
-            </dd>
-        </dl>
-    </div>
-    
-    <div class="clear"></div>
+  <%= render 'intro' %>
+  <%= render 'schools_affected' %>
+
+  <ul class="school-filters">
+    <li><strong><%= I18n.t(:filter_by) %>:</strong></li>
+    <li><a class="selected flag-all" href="#" data-filter="*"><%= I18n.t(:all) %></a></li>
+    <li><a class="flag-closing" href="#" data-filter=".closing"><%= I18n.t(:closing) %></a></li>
+    <li><a class="flag-turnaround" href="#" data-filter=".turnaround"><%= I18n.t(:turnaround) %></a></li>
+    <li><a class="flag-relocating" href="#" data-filter=".relocating"><%= I18n.t(:relocating) %></a></li>
+    <li><a class="flag-co-locating" href="#" data-filter=".co-locating"><%= I18n.t(:colocating) %></a></li>
+    <li><a class="flag-closing-grades-9-to-11" href="#" data-filter=".closing-grades-9-to-11"><%= I18n.t(:closing_9_11) %></a></li>
+    <li><a class="flag-receiving" href="#" data-filter=".receiving"><%= I18n.t(:receiving) %></a></li>
+    <li><a class="flag-phasing-out-over-2-years" href="#" data-filter=".phasing-out-over-2-years"><%= I18n.t(:phasing_out)%></a></li>
+  </ul>
+
+  <div class="clear"></div>
+
+  <div class="schools" id="names">
+    <ol>
+      <% @schools.each do |school| %> 
+        <li <%= "class='#{school.closing_status_name.tr(' ','-')} #{school.receiving_status_name.tr(' ','-')}'"  %> >
+          <%= link_to school.short_name, school_path(school) %>
+          <span <%= (school.closing_status.nil? || school.closing_status == 0) ? "" : 
+            "class=flag-#{school.closing_status_name.tr(' ','-')}" %>>
+            <%= (school.closing_status==0) ? "" : school.closing_status_name %>
+          </span>
+          <span <%= school.receiving_status.nil? ? "" : "class=flag-#{school.receiving_status_name.tr(' ','-')}" %>>
+            <%= school.receiving_status_name %>
+          </span>
+        </li>
+      <% end %>
+    </ol>
+
+  </div>
+
+  <hr />
+  <script src="/scripts/jquery.isotope.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    $(function(){
+      var $container = $("#names ol");
+
+      $container.isotope({
+      itemSelector: "li",
+      layoutMode: 'fitColumns'
+    });
+
+
+    $('.school-filters a').click(function(){
+      $(".school-filters a").removeClass("selected");
+      $(this).addClass("selected");
+      var selector = $(this).attr('data-filter');
+      $container.isotope({ filter: selector });
+      return false;
+    });
+          });
+  </script>
+  <%= render 'detailed_look' %>
+  <div class="clear"></div>
 </div>
 <!-- /Content -->
 
