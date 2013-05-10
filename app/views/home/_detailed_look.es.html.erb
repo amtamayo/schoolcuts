@@ -1,0 +1,35 @@
+<h2>Una mirada detallada de las escuelas de la lista</h2>
+
+<p>Los datos que están a continuación ayudan a comprender mejor cada escuela.</p>
+
+<dl class="examples">
+    <dt><img alt="" src="/images/isat.jpg" /> Desempeño en la evaluación ISAT por cohorte</dt>
+    <dd>
+        <p>Se registra el porcentaje de estudiantes que cumplen con o exceden los estándares estatales en las evaluaciones estandarizadas para un grupo o cohorte de estudiantes desde los grados 3º a 8º. Esto muestra cómo un conjunto específico de estudiantes se desempeñó con el correr de los años. </p>
+        <p class="mute"><%= I18n.t(:left) %>: <%= link_to 'King', school_path(59) %></p>
+    </dd>
+    
+    <dt><img alt="" src="/images/5essentials.jpg"/> Tendencias de 5Essentials</dt>
+    <dd>
+        <p>Una evaluación de la capacidad de una escuela para tener éxito, basada en el contenido educativo, el entorno escolar, la participación de la familia, la colaboración de los docentes y el liderazgo eficaz, de acuerdo con lo establecido por la Universidad de Chicago.</p>
+        <p class="mute"><%= I18n.t(:left) %>: <%= link_to 'Pershing West', school_path(94) %></p>
+    </dd>
+    
+    <dt><img alt="" src="/images/probation.jpg"/> Tendencias en la situación de prueba</dt>
+    <dd>
+        <p>Cada año, el CPS evalúa a las escuelas para determinar si deberían estar en período de prueba y apuntar a cumplir con las medidas de mejoramiento. Las escuelas que están en período de prueba tienden a tener más cambios en el liderazgo, creando un entorno menos estable de aprendizaje.</p>
+        <p class="mute"><%= I18n.t(:left) %>: <%= link_to 'Marconi', school_path(71) %></p>
+    </dd>
+    
+    <dt><img alt="" src="/images/mobility.jpg" /> Tendencia en el índice de movilidad</dt>
+    <dd>
+        <p>El índice de movilidad mide cuántos estudiantes se trasladan a una escuela o fuera de una escuela, en un momento diferente al inicio o fin del año escolar. Cuando una escuela tiene un alto índice de movilidad es más difícil indicar si la escuela está progresando o no.</p>
+        <p class="mute"><%= I18n.t(:left) %>: <%= link_to 'Lawrence', school_path(65) %></p>
+    </dd>
+    
+    <dt><img alt="" src="/images/enrollment.jpg" /> Tendencias de inscripción</dt>
+    <dd>
+        <p>La cantidad de estudiantes que asisten a la escuela, medida el  día 20 de cada año escolar. Se utiliza para determinar las necesidades futuras de espacio, personal, equipos, etc.</p>
+        <p class="mute"><%= I18n.t(:left) %>: <%= link_to 'Crown Community', school_path(22) %></p>
+    </dd>
+</dl>
