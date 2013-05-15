@@ -1,12 +1,9 @@
 class SchoolsController < ApplicationController
-  
-  caches_page :index
-  caches_page :show
 
   # GET /schools
   # GET /schools.json
   def index
-    @schools = School.all
+    @schools = Rails.cache.fetch('schools.all') { School.all } 
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,32 +14,31 @@ class SchoolsController < ApplicationController
   # GET /schools/1
   # GET /schools/1.json
   def show
-    @school = School.find(params[:id])
+    @school = Rails.cache.fetch("schools.#{params[:id]}") { School.find(params[:id]) }
     @year = 2012
     @enrollment = @school.enrollments_for_year(@year)
     @ideal_capacity = @school.ideal_capacity_for_year(@year)
     @first_enrollment_year = @school.first_enrollment_year
     @enrollment_totals = @school.enrollment_totals
-	
-	@latitude = @school.school_addresses.where('year_from=2012').first.address.latitude
-	@longitude = @school.school_addresses.where('year_from=2012').first.address.longitude
-	
-	@address = @school.school_addresses.where('year_from=2012').first.address
-	
-	@status_with_transition_links = [1,2,3,4,6,7]
-	
-	utilization_rate = @enrollment.to_f / @ideal_capacity * 100
+
+    @address = @school.school_addresses.where('year_from=2012').first.address
+  	@latitude = @address.latitude
+  	@longitude = @address.longitude
+  	
+  	@status_with_transition_links = [1,2,3,4,6,7]
+  	
+  	utilization_rate = @enrollment.to_f / @ideal_capacity * 100
     
     case utilization_rate 
 	    when 0..80
 	    	@utilization_status = "Underutilized"
-		when 80..120
+		  when 80..120
 		    @utilization_status = "Efficient"
-		when utilization_rate > 120
-			@utilization_status = "Overcrowded"
-		else
-			@utilization_status = "Overcrowded"
-	end
+		  when utilization_rate > 120
+        @utilization_status = "Overcrowded"
+		  else
+        @utilization_status = "Overcrowded"
+	  end
 	
     respond_to do |format|
       format.html # show.html.erb
