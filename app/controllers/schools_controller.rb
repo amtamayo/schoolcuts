@@ -3,7 +3,7 @@ class SchoolsController < ApplicationController
   # GET /schools
   # GET /schools.json
   def index
-    @schools = Rails.cache.fetch('schools.all') { School.all } 
+    @schools = School.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,7 +14,7 @@ class SchoolsController < ApplicationController
   # GET /schools/1
   # GET /schools/1.json
   def show
-    @school = Rails.cache.fetch("schools.#{params[:id]}") { School.find(params[:id]) }
+    @school = School.find(params[:id])
     @year = 2012
     @enrollment = @school.enrollments_for_year(@year)
     @ideal_capacity = @school.ideal_capacity_for_year(@year)
