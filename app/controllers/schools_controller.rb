@@ -1,4 +1,8 @@
 class SchoolsController < ApplicationController
+  
+  caches_page :index
+  caches_page :show
+
   # GET /schools
   # GET /schools.json
   def index
