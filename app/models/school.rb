@@ -4,6 +4,7 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   has_many :enrollments
   has_many :essentials
   has_many :isat_scores
+  has_many :map_legends
   has_many :mobilities
   has_many :probations
   has_many :races
@@ -14,12 +15,11 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   has_one :performance_metric
 
   def enrollments_for_year(number)
-  	enrollment = enrollments.select('count').where({
+    enrollment = enrollments.select('count').where({
       :year_from => number
     })
-    enrollment.nil? ? 0 : enrollment.first.count
+    enrollment.empty? ? 0 : enrollment.first.count
   end
-  
 
   def enrollment_totals
     enrollments.select('count').order('year_from').map(&:count).to_json
@@ -69,23 +69,22 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   end
   
   def closing_status_name
-	@closing_status_name = self.closing_status.nil? ? "" : 
-		Action.find_by_action_code(self.closing_status).nil? ? "" : 
-			Action.find_by_action_code(self.closing_status).name 
-	@closing_status_name
+    @closing_status_name = self.closing_status.nil? ? "" : 
+    Action.find_by_action_code(self.closing_status).nil? ? "" : 
+    Action.find_by_action_code(self.closing_status).name 
+    @closing_status_name
   end
   
   def receiving_status_name
-	@receiving_status_name = self.receiving_status.nil? ? "" : "receiving"
-	@receiving_status_name
+    @receiving_status_name = self.receiving_status.nil? ? "" : "receiving"
+    @receiving_status_name
   end
   
   def students_per_homeroom(year)
-  
   	@result=nil
   	if (self.school_type.include? "Special Ed")
-		@result=nil 
-	else
+      @result=nil 
+    else
 	  	@homerooms = self.utilizations.select{ |u| u.year_from==year}.first.homerooms
 	  	@enrollment = self.enrollments.select{ |e| e.year_from==year}.first.count
 	  	
@@ -99,7 +98,7 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   end
     
   def is_receiving?
-    self.receiving_status == 1
+    self.receiving_status == 1 || self.receiving_status == 2
   end 
    
   def is_closing?
@@ -129,41 +128,35 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   def is_special_turnaround?
   	self.closing_status == 7
   end
-  
-  #FIXME:  change the source file to have levels as integers not strings
-  def level_number
-  	@levelNumber
-  	matches = /Level\s+(?<level>\d)+/.match(self.level).captures
-  	if (!matches.nil?)
-  		@levelNumber = matches.first.to_i
-  	end
-  	@levelNumber
-  end
    
   def receiving_schools
-  	@receiving_schools = self.school_actions.map{|r| if(r.action_id==2) then  r.result_id end}.join(", ")
+  	@receiving_schools = self.school_actions.map{|r| if(r.action_id==2 || r.action_id==7) then  r.result_id end}.uniq.join(", ")
   end
   
   def receiving_school_names
-	@receiving_school_names = self.school_actions.map{|r| if(r.action_id==2) then  School.find_by_id(r.result_id).short_name end}
+	@receiving_school_names = self.school_actions.map{|r| if(r.action_id==2 || r.action_id==7) then  School.find_by_id(r.result_id).short_name end}
   end
   
   def receiving_school_links
-	@receiving_school_links = self.school_actions.map{|r| if(r.action_id==2) then  "/schools/" + r.result_id.to_s end}
+	@receiving_school_links = self.school_actions.map{|r| if(r.action_id==2 || r.action_id==7) then  "/schools/" + r.result_id.to_s end}
+  end
+
+  def colocating_schools
+   @colocating_schools = self.school_actions.map{|r| if(r.action_id==5) then  r.result_id end}.uniq.join(", ")
   end
   
   def sending_schools
-  	@sending_schools = SchoolAction.where("result_id=" + self.id.to_s + "").map{|sa| if(sa.action_id==2) then sa.school_id end }.join(",")
+  	@sending_schools = SchoolAction.where("result_id=" + self.id.to_s + "").map{|sa| if(sa.action_id==2 || sa.action_id==7) then sa.school_id end }.uniq.join(",")
   end 
   
   def sending_school_names
 	@sending_school_names = SchoolAction.where("result_id=" + self.id.to_s + "").
-		map{|sa| if(sa.action_id==2) then School.find_by_id(sa.school_id).short_name end }
+		map{|sa| if(sa.action_id==2 || sa.action_id==7) then School.find_by_id(sa.school_id).short_name end }
   end
   
   def sending_school_links
 	@sending_school_links = SchoolAction.where("result_id=" + self.id.to_s + "").
-		map{|sa| if(sa.action_id==2) then "/schools/" + sa.school_id.to_s end }
+		map{|sa| if(sa.action_id==2 || sa.action_id==7) then "/schools/" + sa.school_id.to_s end }
   end
   
   def is_higher_performing?(other_school)
@@ -183,7 +176,7 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
 		@score = @score + 1
 	end
   
-  	self.level_number < other_school.level_number ||  @score > 2  		  		
+  	self.level < other_school.level ||  @score > 2  		  		
   end 
   
   def new_building(format)
@@ -209,6 +202,5 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   	
 	@result
   end
-  
   
 end

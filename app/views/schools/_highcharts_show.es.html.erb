@@ -2,46 +2,6 @@
 $(function () {
 	var enrollment_chart, isat_chart, mobility_chart, race_chart;
     $(document).ready(function() {
-    	//AIR CONDITIONING
-    	ac_chart = new Highcharts.Chart({
-	    	chart: {
-	    		height: 80,
-	    		margin: 0,
-	    		spacingBottom: 0,
-	    		spacingLeft: 0,
-	    		spacingRight: 0,
-	    		spacingTop: 0,
-		    	renderTo: 'ac-chart',
-		    	type: 'pie'
-	    	},
-	    	colors: ["#3B653D", "#c8c8c8"],
-	    	credits: { enabled: false },
-            legend: { enabled:false },
-            plotOptions: {
-	            pie: {
-		            dataLabels: {
-		            	color: "#fff",
-			            distance: -20,
-			            formatter: function(){
-			            	return (this.point.name != "") ? this.percentage + "%": "";
-			            }/*,
-			            style: { fontSize: "9px" }*/
-		            },
-		            states: {
-			            hover: { enabled: false }
-		            }
-	            }
-            },
-            series: [{
-	            data: [
-		            ["AC", 60],
-		            ["", 40]
-	            ]
-            }],
-            title: { text: null },
-            tooltip: { enabled: false }
-    	});
-    	
     	//ENROLLMENT CHART
         enrollment_chart = new Highcharts.Chart({
             chart: {
@@ -56,12 +16,13 @@ $(function () {
 		            	lineColor: "#fff",
 		            	lineWidth: 1.5,
 		            	radius: 5
-	            	}
+	            	},
+		            shadow: false
 	            }
             },
             series: [{
             	color: "#3b5cb2",
-                name: 'Number of students enrolled',
+                name: 'Cantidad de estudiantes inscritos',
                 data: <%= raw @enrollment_totals %>,
                 pointStart: Date.UTC(<%= raw @first_enrollment_year %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
@@ -96,7 +57,7 @@ $(function () {
             	lineWidth: 1,
             	tickLength: 0,
                 title: {
-                    text: 'Number of students enrolled'
+                    text: 'Cantidad de estudiantes inscritos'
                 }
             }
         });
@@ -126,12 +87,13 @@ $(function () {
 		            	lineWidth: 1.5,
 		            	radius: 4,
 		            	symbol: "circle"
-	            	}
+	            	},
+	            	shadow: false
 	            }
             },
             series: [{
                 color: "#1F88EA",
-                name: 'Reading',
+                name: 'Lectura',
                 data: <%= raw @school.reading.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
                 pointStart: Date.UTC(<%= raw @school.reading.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
@@ -145,7 +107,7 @@ $(function () {
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
             },*/			
             {
-             	name: 'Math',
+             	name: 'Matemáticas',
                 color: "#9E241D",
                 data: <%= raw @school.math.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
                 pointStart: Date.UTC(<%= raw @school.math.first.year_to.to_i %>, 1, 1),
@@ -160,7 +122,7 @@ $(function () {
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
             },*/			
             {
-             	name: 'Science',
+             	name: 'Ciencias',
                 color: "#A9B80D",
                 data: <%= raw @school.science.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
                 pointStart: Date.UTC(<%= raw @school.science.first.year_to.to_i %>, 1, 1),
@@ -210,7 +172,7 @@ $(function () {
             	tickLength: 0,
                 title: {
                 	style: { fontWeight: "normal" },
-                    text: 'Students that meet or exceed state standards'
+                    text: 'Estudiantes que cumplen con o exceden los estándares estatales'
                 }
             }
         });
@@ -225,13 +187,13 @@ $(function () {
             series: [
             {
             	color: "#3b5cb2",
-                name: 'Mobility rate',
+                name: 'Índice de movilidad',
                 data: <%= raw @school.mobilities.sort_by{|m| m.year_to }.map{|m| m.rate}.to_json %>, 
                 pointStart: Date.UTC(<%= raw @school.mobilities.first.year_to.to_i %>, 1, 1),
                 pointInterval: 365 * 24 * 3600 * 1000 //one year
             }, {
              	color: "#3b5cb2",
-             	name: 'CPS average mobility rate',
+             	name: 'Índice de movilidad promedio del CPS',
              	dashStyle: "ShortDash",
                 data: [26.6, 25.2, 24.8, 24.5, 24.4, 24.0, 26.8, 22.4, 23.3, 18.8, 18.7, 17.9, 18.3],
                 pointStart: Date.UTC(2000, 1, 1),
@@ -250,22 +212,23 @@ $(function () {
 		            	lineWidth: 1.5,
 		            	radius: 5,
 		            	symbol: "circle"
-	            	}
+	            	},
+		            shadow: false
 	            }
             },
             subtitle: { text: ''},
             title: { text: ''},
             tooltip: {
                 formatter: function() {
-                        var s = "<strong>" + Highcharts.dateFormat('%Y', this.x) + "</strong>";
+                	var s = "<strong>" + Highcharts.dateFormat('%Y', this.x) + "</strong>";
                 	
                 	$.each(this.points, function(i, point){
                 		if (point.y > 0)
 	                		s += "<br />" + point.series.name + ": " + point.y + "%";
                 	});
                 	
-                	return s;                
-                },
+                	return s;
+                }, 
                 shared: true
             },
             xAxis: {
@@ -285,7 +248,7 @@ $(function () {
             	lineWidth: 1,
             	tickLength: 0,
                 title: {
-                    text: 'Mobility rate'
+                    text: 'Índice de movilidad'
                 }
             }
         });
@@ -308,9 +271,7 @@ $(function () {
 	                        }
 	                    },
 	                    groupPadding: 0,
-	                    states: {
-				            hover: { enabled: false }
-			            }
+	                    shadow: false
 	                }
 	            },
 	            series: [{
@@ -347,9 +308,7 @@ $(function () {
 	                        }
 	                    },
 	                    groupPadding: 0,
-	                    states: {
-				            hover: { enabled: false }
-			            }
+	                    shadow: false
 	                }
 	            },
 	            series: [{

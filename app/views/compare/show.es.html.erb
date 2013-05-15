@@ -2,51 +2,51 @@
 
 <!-- Content -->
 <div class="content">
-  <h1>Compare potential receiving schools if <%=link_to @school.short_name, school_path(@school)%> is closed</h1>
+  <h1>Compare las escuelas que podrían recibir a sus hijos si la Escuela <%=link_to @school.short_name, school_path(@school)%> se cierra</h1>
     
-    <p>CPS states that they will place students in higher-performing schools. How CPS is defining a school as "higher performing" is important to understand. A higher performing schools means a higher level on the Performance Policy for the year 2011-2012 school year or a school that performs higher in 3 of 4 selected metrics (performance points, ISAT composite meets or exceeds score, value added reading and value added math).  Here you can compare <strong><%= @school.short_name %></strong> to its welcoming schools using CPS's own criteria and other available data.</p>
+    <p>El CPS (Escuelas públicas de Chicago) indica que colocará a los estudiantes en escuelas con un alto nivel de desempeño. Es importante comprender cómo el CPS define a una escuela con “alto nivel de desempeño escolar”. Una escuela con alto nivel de desempeño significa que ha tenido un nivel superior en la Política de Desempeño durante el año escolar 2011-2012, o una escuela que tiene un desempeño superior en 3 de 4 mediciones seleccionadas (puntos de desempeño, la composición ISAT cumple con o excede el puntaje, valor agregado en lectura y valor agregado en matemáticas). Aquí puede comparar a <strong><%= @school.short_name %></strong> con las escuelas que podrían recibir a sus hijos utilizando los criterios del CPS y otros datos disponibles.</p>
     
     <p>
 	    
     </p>
     
-    <h2>How is CPS defining "higher-performing" school?</h2>
+    <h2>¿De qué modo el CPS define a una escuela como con “alto nivel de desempeño”?</h2>
     
     <div id="perform">
         <div id="perform-level">
-            <h3><i class="icon-check"></i> Better level (1 or 2)</h3>
+            <h3><i class="icon-check"></i> Mejor nivel (1 ó 2)</h3>
             <div class="levels">
                 <ol>
-                	<li class="level1"><strong>Level</strong><span>1</span></li>
-                	<li class="level2"><strong>Level</strong><span>2</span></li>
+                	<li class="level1"><strong>Nivel</strong><span>1</span></li>
+                	<li class="level2"><strong>Nivel</strong><span>2</span></li>
                 </ol>
-                <p class="mute">Level 1 is best</p>
-                <p>A rating of a school's performance calculated from Performance Policy points. <a href="http://cps.edu/Performance/Pages/Performancepolicy.aspx">More</a> &raquo;</p>
+                <p class="mute">El nivel 1 es el mejor</p>
+                <p>Una calificación del desempeño de una escuela se calcula a partir de los puntos obtenidos en la política de desempeño. <a href="http://cps.edu/Performance/Pages/Performancepolicy.aspx">Más</a> &raquo;</p>
             </div>
         </div>
-        <div id="perform-or">or</div>
+        <div id="perform-or">O</div>
         <div id="perform-other">
-            <h3>Perform better in 3 out of 4 areas</h3>
+            <h3>Ha tenido un buen desempeño en 3 de las 4 áreas</h3>
             <ul id="perform-points">
                 <li>
                     <h4><i class="icon-large icon-check"></i></h4>
-                    <h4>Performance Policy points</h4>
-                    <p>Percent of points on 8 metrics including ISAT Composite, Value-added reading and Value-added math. <a href="http://cps.edu/Performance/Pages/Performancepolicy.aspx">More</a>&nbsp;&raquo;</p>
+                    <h4>Puntos en la política de desempeño</h4>
+                    <p>Porcentaje de puntos en 8 mediciones, incluyendo la composición ISAT, lectura con valor agregado y matemáticas con valor agregado. <a href="http://cps.edu/Performance/Pages/Performancepolicy.aspx">Más</a>&nbsp;&raquo;</p>
                 </li>
                 <li>
                     <h4><i class="icon-large icon-check"></i></h4>
-                    <h4>ISAT composite</h4>
-                    <p>Percent of students meeting or exceeding state testing standards. <a href=" http://cps.edu/Performance/Documents/DataFiles/CPS%20FACT%20SHEET%20ON%20ISAT%20COMPOSITE.pdf">More</a>&nbsp;&raquo;</p>
+                    <h4>La composición ISAT</h4>
+                    <p>Porcentaje de estudiantes que cumplen con o exceden los estándares de esta evaluación estatal. <a href=" http://cps.edu/Performance/Documents/DataFiles/CPS%20FACT%20SHEET%20ON%20ISAT%20COMPOSITE.pdf">Más</a>&nbsp;&raquo;</p>
                 </li>
                 <li>
                     <h4><i class="icon-large icon-check"></i></h4>
-                    <h4>Value-added reading</h4>
-                    <p>Measure of individual improvement in Math ISAT relative to district average <a href="http://cps.edu/pages/valueadded.aspx">More</a>&nbsp;&raquo;</p>
+                    <h4>Lectura con valor agregado</h4>
+                    <p>Medición de la mejora individual en la ISAT de matemáticas en relación con el promedio del distrito. <a href="http://cps.edu/pages/valueadded.aspx">Más</a>&nbsp;&raquo;</p>
                 </li>
                 <li>
                     <h4><i class="icon-large icon-check"></i></h4>
-                    <h4>Value-added math</h4>
-                    <p>Measure of individual improvement in Reading ISAT relative to district average. <a href="http://cps.edu/pages/valueadded.aspx">More</a>&nbsp;&raquo;</p>
+                    <h4>Matemática con valor agregado</h4>
+                    <p>Medición de la mejora individual en la lectura ISAT en relación con el promedio del distrito. <a href="http://cps.edu/pages/valueadded.aspx">Más</a>&nbsp;&raquo;</p>
                 </li>
             </ul>
         </div>
@@ -61,17 +61,17 @@
             <div class="school">
                 <h3><%= link_to @school.short_name, school_path(@school) %></h3>
                 
-                <div class="<%= "level#{@school.level}" %>"><strong>Level</strong><span><%= @school.level%></span></div>
+                <div class="<%= "level#{@school.level}" %>"><strong>Nivel</strong><span><%= @school.level%></span></div>
                 
                 <dl>
-                    <dt>Enrollment</dt>
+                    <dt>Inscripción</dt>
                     <dd><%= @school.enrollments_for_year(2012) %></dd>
                     
-                    <dt>Compare to other schools</dt>
-                    <dd>See right and below</dd>
+                    <dt>Comparación con otras escuelas</dt>
+                    <dd>Vea a la derecha y abajo</dd>
                     
-                    <dt>Other available data</dt>
-                    <dt>ISAT cohort trend</dt>
+                    <dt>Otros datos disponibles</dt>
+                    <dt>Tendencia de cohorte ISAT</dt>
                     <dd><div class="isat" id="<%= @school.short_name.tr(' ', '-') %>"></div></dd>
                     
                     <dt>5Essentials (2012)</dt>
@@ -79,23 +79,23 @@
                         <div class="essentials">
 						    <div class="category leaders <%= @school.essentials.where("category = 'leaders' AND year_to=2012").first.rating.tr(' ','-') %>" 
 						    	title="<%= @school.essentials.where("category = 'leaders' AND year_to=2012").first.rating.capitalize %>">
-						    	<span class="title">Effective leaders</span>
+						    	<span class="title">Líderes eficaces</span>
 						    </div>
 						    <div class="category teachers <%= @school.essentials.where("category = 'teachers' AND year_to=2012").first.rating.tr(' ','-') %>" 
 						    	title="<%= @school.essentials.where("category = 'teachers' AND year_to=2012").first.rating.capitalize %>">
-						    	<span class="title">Collaborative teachers</span>
+						    	<span class="title">Maestros que colaboran</span>
 						    </div>
 						    <div class="category instruction <%= @school.essentials.where("category = 'instruction' AND year_to=2012").first.rating.tr(' ','-') %>" 
 						    	title="<%= @school.essentials.where("category = 'instruction' AND year_to=2012").first.rating.capitalize %>">
-						    	<span class="title">Ambitious instruction</span>
+						    	<span class="title">Instrucción ambiciosa</span>
 						    </div>
 						    <div class="category environment <%= @school.essentials.where("category = 'environment' AND year_to=2012").first.rating.tr(' ','-') %>" 
 						    	title="<%= @school.essentials.where("category = 'environment' AND year_to=2012").first.rating.capitalize %>">
-						    	<span class="title">Supportive environment</span>
+						    	<span class="title">Entorno de apoyo</span>
 						    </div>
 						    <div class="category families <%= @school.essentials.where("category = 'families' AND year_to=2012").first.rating.tr(' ','-') %>" 
 						    	title="<%= @school.essentials.where("category = 'families' AND year_to=2012").first.rating.capitalize %>">
-						    	<span class="title">Involved families</span>
+						    	<span class="title">Familias involucradas</span>
 						    </div>
 						</div>
                     </dd>
@@ -109,17 +109,17 @@
             <div class="school">
                 <h3><%= link_to related_school.short_name, school_path(related_school) %></h3>
                 
-                <div class="<%= "level#{related_school.level}" %>"><strong>Level</strong><span><%= related_school.level%></span></div>
+                <div class="<%= "level#{related_school.level}" %>"><strong>Nivel</strong><span><%= related_school.level%></span></div>
                 
                 <dl>
-                    <dt>Enrollment</dt>
+                    <dt>Inscripción</dt>
                     <dd>
-                    	<%= related_school.proposed_empty_seats(2012) %> empty seats
+                    	<%= related_school.proposed_empty_seats(2012) %> vacantes
                     </dd>
                     
-                    <dt class="question">Meets CPS criteria?
+                    <dt class="question">¿Cumple con los criterios de las CPS?
                     	<span class="<%=  related_school.is_higher_performing?(@school) ? "yes" : "no" %>">
-                    	<%=  related_school.is_higher_performing?(@school) ? "Yes" : "No" %>
+                    	<%=  related_school.is_higher_performing?(@school) ? "Sí" : "No" %>
 	                    	</span>
                     </dt>
                     
@@ -131,9 +131,9 @@
                         <i title="Value-added math" class="icon-large <%= @school.performance_metric.value_added_reading < related_school.performance_metric.value_added_reading ? "icon-check" : "icon-check-empty" %>" ></i>
                     </dd>
 
-                    <dt>Other available data</dt>
+                    <dt>Otros datos disponibles</dt>
 
-                    <dt>ISAT cohort trend</dt>
+                    <dt>Tendencia de cohorte ISAT</dt>
                     <dd><div class="isat" id="<%= related_school.short_name.tr(' ', '-') %>"></div></dd>
                     
                     <dt>5Essentials (2012)</dt>
@@ -141,23 +141,23 @@
                         <div class="essentials">
 						    <div class="category leaders <%= related_school.essentials.where("category = 'leaders' AND year_to=2012").first.rating.tr(' ','-') %>" 
 						    	title="<%= related_school.essentials.where("category = 'leaders' AND year_to=2012").first.rating.capitalize %>">
-						    	<span class="title">Effective leaders</span>
+						    	<span class="title">Líderes eficaces</span>
 						    </div>
 						    <div class="category teachers <%= related_school.essentials.where("category = 'teachers' AND year_to=2012").first.rating.tr(' ','-') %>" 
 						    	title="<%= related_school.essentials.where("category = 'teachers' AND year_to=2012").first.rating.capitalize %>">
-						    	<span class="title">Collaborative teachers</span>
+						    	<span class="title">Maestros que colaboran</span>
 						    </div>
 						    <div class="category instruction <%= related_school.essentials.where("category = 'instruction' AND year_to=2012").first.rating.tr(' ','-') %>" 
 						    	title="<%= related_school.essentials.where("category = 'instruction' AND year_to=2012").first.rating.capitalize %>">
-						    	<span class="title">Ambitious instruction</span>
+						    	<span class="title">Instrucción ambiciosa</span>
 						    </div>
 						    <div class="category environment <%= related_school.essentials.where("category = 'environment' AND year_to=2012").first.rating.tr(' ','-') %>" 
 						    	title="<%= related_school.essentials.where("category = 'environment' AND year_to=2012").first.rating.capitalize %>">
-						    	<span class="title">Supportive environment</span>
+						    	<span class="title">Entorno de apoyo</span>
 						    </div>
 						    <div class="category families <%= related_school.essentials.where("category = 'families' AND year_to=2012").first.rating.tr(' ','-') %>" 
 						    	title="<%= related_school.essentials.where("category = 'families' AND year_to=2012").first.rating.capitalize %>">
-						    	<span class="title">Involved families</span>
+						    	<span class="title">Familias involucradas</span>
 						    </div>
 						</div>
                     </dd>

@@ -1,0 +1,115 @@
+	<script type="text/javascript">
+        $(function(){
+            var charts = [], options;
+            
+            options = {
+                chart: {
+                    animation: false,
+                    backgroundColor: "rgba(255, 255, 255, 0)",
+                    spacingBottom: 5,
+                    spacingLeft: 0,
+                    spacingRight: 10,
+                    spacingTop: 3,
+                    type: "line"
+                },
+                credits: { enabled: false },
+                legend: {
+                    borderColor: "none",
+                    padding: 0,
+                },
+                plotOptions: {
+    	            line: {
+    	            	animation: false,
+    	            	marker: {
+    		            	lineColor: "#fff",
+    		            	lineWidth: 0,
+    		            	radius: 3.5,
+    		            	symbol: "circle"
+    	            	},
+    	            	pointStart: Date.UTC(2007, 1, 1),
+                        pointInterval: 365 * 24 * 3600 * 1000,
+    	            	shadow: false
+    	            }
+                },
+                tooltip: { shared: true },
+                title: { text: null },
+                xAxis: {
+                	tickInterval: 365 * 24 * 3600 * 1000 * 2,
+                    tickLength: 0,
+                	type: "datetime"
+                },
+                yAxis: {
+                    gridLineColor: "#ccc",
+                	gridLineDashStyle: "ShortDash",
+                	gridLineWidth: 1,
+                	max: 100,
+                	min: 0,
+                	labels: {
+    	            	formatter: function(){
+    		            	return this.value + "%";
+    	            	}
+                	},
+                	lineWidth: 1,
+                	tickInterval: 25,
+                	tickLength: 0,
+                    title: { text: null }
+                }
+            };
+            
+            
+            // <%= @school.short_name %>
+            charts[0] = new Highcharts.Chart($.extend(true, {}, options, {
+                chart: { renderTo: "<%= @school.short_name.tr(' ', '-')  %>" },
+                series: [
+                    {
+                        color: "#1F88EA",
+                        data: <%= raw @school.reading.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
+                        pointStart: Date.UTC(<%= raw @school.reading.first.year_to.to_i %>, 1, 1),
+                        name: "Lectura"
+                    },
+                    {
+                     	color: "#9E241D",
+                        data: <%= raw @school.math.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
+                        pointStart: Date.UTC(<%= raw @school.math.first.year_to.to_i %>, 1, 1),
+                        name: "Matemáticas",
+                    },
+                    {
+                     	color: "#A9B80D",
+                        data: <%= raw @school.science.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
+                        pointStart: Date.UTC(<%= raw @school.science.first.year_to.to_i %>, 1, 1),
+                        name: "Ciencias"
+                    }		
+                ],
+            }));
+
+            <% @associated_schools.each do |related_school| %>
+            <% chart_i = 1 %>
+            	charts[<%= chart_i %>] = new Highcharts.Chart($.extend(true, {}, options, {
+                chart: { renderTo: "<%= related_school.short_name.tr(' ', '-') %>" },
+                series: [
+                    {
+                        color: "#1F88EA",
+                        data: <%= raw related_school.reading.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
+                        pointStart: Date.UTC(<%= raw related_school.reading.first.year_to.to_i %>, 1, 1),
+                        name: "Lectura"
+                    },
+                    {
+                     	color: "#9E241D",
+                        data: <%= raw related_school.math.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
+                        pointStart: Date.UTC(<%= raw related_school.math.first.year_to.to_i %>, 1, 1),
+                        name: "Matemáticas",
+                    },
+                    {
+                     	color: "#A9B80D",
+                        data: <%= raw related_school.science.sort_by{|s| s.year_from}.collect{|s| s.percent}.to_json %>,
+                        pointStart: Date.UTC(<%= raw related_school.science.first.year_to.to_i %>, 1, 1),
+                        name: "Ciencias"
+                    }		
+                ],
+            }));
+            <% chart_i = chart_i + 1 %>
+            <% chart_i %>
+            <% end %>
+
+    });
+    </script>

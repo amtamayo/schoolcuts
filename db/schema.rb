@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130403012813) do
+ActiveRecord::Schema.define(:version => 20130501000631) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -70,6 +70,16 @@ ActiveRecord::Schema.define(:version => 20130403012813) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "map_legends", :force => true do |t|
+    t.integer  "school_id"
+    t.string   "marker"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "map_legends", ["school_id"], :name => "index_map_legends_on_school_id"
+
   create_table "mobilities", :force => true do |t|
     t.integer  "school_id"
     t.integer  "year_from"
@@ -106,12 +116,20 @@ ActiveRecord::Schema.define(:version => 20130403012813) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "receiving_actions", :force => true do |t|
+    t.string   "name"
+    t.integer  "receiving_code"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "school_actions", :force => true do |t|
     t.integer  "school_id"
     t.integer  "action_id"
     t.integer  "result_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "result_code"
   end
 
   create_table "school_addresses", :force => true do |t|
@@ -144,10 +162,10 @@ ActiveRecord::Schema.define(:version => 20130403012813) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.string   "phone"
-    t.string   "level"
     t.string   "isat_url"
     t.integer  "closing_status"
     t.integer  "receiving_status"
+    t.integer  "level"
   end
 
   create_table "utilizations", :force => true do |t|

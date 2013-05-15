@@ -1,4 +1,7 @@
 require 'csv'
+require "#{Rails.root}/app/helpers/import_helper"
+
+include ImportHelper
 
 namespace :cps do
 	desc "import school data"
@@ -22,7 +25,7 @@ namespace :cps do
 					:community_area => row[6].to_s,
 					:cps_id => row[0].to_i,
 					:full_name => row[2].to_s,
-					:level => row[11].to_s,
+					:level => parse_level(row[11].to_s),
 					:phone => row[3].to_s,
 					:school_type => row[9].to_s,
 					:short_name => row[1].to_s,
@@ -51,7 +54,7 @@ namespace :cps do
 				school.community_area = row[6].to_s
 				school.cps_id = row[0].to_i
 				school.full_name = row[2].to_s
-				school.level = row[11].to_s
+				school.level = parse_level(row[11].to_s)
 				school.phone = row[3].to_s
 				school.school_type = row[9].to_s
 				school.short_name = row[1].to_s
@@ -78,32 +81,39 @@ namespace :cps do
 		}
 	end
 	
-	desc "import mobility rates"
-	task :import_mobility_rates => :environment do
-		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
+	desc "import action types"
+	task :import_actions => :environment do
+		puts "Importing action types"
+		Action.delete_all
 		
-		Mobility.delete_all()
-		
-		list = CSV.read(inputfile, :headers => true)
-		
-		list.each { |row|
-			school = School.find_by_cps_id(row[0].to_i)
-			year_from = 1999
-			if(!school.nil?)
-				(75..87).map{|i| 
-					rate=nil				 
-					if !(row[i]=="" || row[i].nil?) 
-						rate=row[i].to_f 
-					end
-					puts "Importing mobility rates for #{i.to_s}: #{row[1].to_s} => #{rate.to_s}"
-					Mobility.create(:school_id=>school.id, :year_from=>year_from, :year_to=>year_from+1, :rate=>rate)
-					year_from = year_from + 1
-				}
-			else
-				puts "School #{row[1].to_s} not found"
-			end
-		}
-	end
+		Action.create(:action_code => 0, :name=>"considered but not closing")
+		Action.create(:action_code => 1, :name=>"closing")
+		Action.create(:action_code => 2, :name=>"turnaround")
+		Action.create(:action_code => 3, :name=>"relocating")
+		Action.create(:action_code => 4, :name=>"co-locating")
+		Action.create(:action_code => 5, :name=>"closing grades 9 to 11")
+		Action.create(:action_code => 6, :name=>"phasing out over 2 years")
+		Action.create(:action_code => 7, :name=>"not considered but will be turnaround")
+    end
+	
+	desc "Import Demographics (Language, SPED, Low Income)"
+	    task :import_demographics => :environment do
+
+	    inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
+
+	    Demographic.delete_all()
+
+	    list = CSV.read(inputfile, :headers => true)
+	    list.each {|row|
+		    puts row[0].to_s + row[21].to_s
+		    school = School.find_by_cps_id(row[0])
+		    if (!school.nil?)
+			    Demographic.create(:school_id => school.id, :year_from => 2012, :year_to => 2013, :category => "Bilingual", :percent => row[20].to_f)
+			    Demographic.create(:school_id => school.id, :year_from => 2012, :year_to => 2013, :category => "Special Education", :percent => row[24].to_f)
+			    Demographic.create(:school_id => school.id, :year_from => 2012, :year_to => 2013, :category => "Low Income", :percent => row[28].to_f)
+		    end	
+	    }
+    end
 	
     desc "import enrollment"
     task :import_enrollment => :environment do
@@ -216,6 +226,69 @@ namespace :cps do
 		}
 	end
     
+    desc "import map legends"
+    task :import_map_legends => :environment do
+    	MapLegend.delete_all()
+    	
+    	inputfile = "#{Rails.root.to_s}/lib/tasks/data/schoolMapLegends.csv"
+    	list = CSV.read(inputfile, :headers => true)
+    	list.each{ |row|
+    		school = School.find_by_id(row[0].to_i)
+    		if(!school.nil?)
+    			puts "MapLegend for #{school.short_name}"
+    			MapLegend.create(:school_id=>school.id, :marker=>row[1].to_s, :description=> row[2].to_s)
+    		end
+    	}
+    end
+    
+    desc "import mobility rates"
+	task :import_mobility_rates => :environment do
+		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
+		
+		Mobility.delete_all()
+		
+		list = CSV.read(inputfile, :headers => true)
+		
+		list.each { |row|
+			school = School.find_by_cps_id(row[0].to_i)
+			year_from = 1999
+			if(!school.nil?)
+				(75..87).map{|i| 
+					rate=nil				 
+					if !(row[i]=="" || row[i].nil?) 
+						rate=row[i].to_f 
+					end
+					puts "Importing mobility rates for #{i.to_s}: #{row[1].to_s} => #{rate.to_s}"
+					Mobility.create(:school_id=>school.id, :year_from=>year_from, :year_to=>year_from+1, :rate=>rate)
+					year_from = year_from + 1
+				}
+			else
+				puts "School #{row[1].to_s} not found"
+			end
+		}
+	end
+    
+    desc "import performance_metrics"
+	task :import_performance_metrics => :environment do
+	
+		PerformanceMetric.delete_all
+		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
+		
+		list = CSV.read(inputfile, :headers => true )
+		list.each{ |row|
+    		school = School.find_by_cps_id(row[0])
+    		if (!school.nil?)
+    			PerformanceMetric.create(:school_id => school.id, 
+    			:policy_points => row[139].to_f, 
+    			:isat_composite => row[140].to_f, 
+    			:value_added_math => row[141].to_f, 
+    			:value_added_reading => row[142].to_f)
+    			
+    			puts "#{row[0]} -> #{row[139]} -> #{row[140]} "
+    		end
+    	}
+	end
+    
     desc "import probation"
     task :import_probation => :environment do
         inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
@@ -277,6 +350,50 @@ namespace :cps do
 		
 	end
 	
+	desc "import receiving action types"
+	task :import_receiving_actions => :environment do
+		puts "Importing receiving action types"
+		ReceivingAction.delete_all
+		
+		ReceivingAction.create(:receiving_code => 1, :name=>"welcoming")
+		ReceivingAction.create(:receiving_code => 2, :name=>"boundary")
+    end
+        
+    desc "import school actions"
+	task :import_school_actions => :environment do
+		puts "Importing school actions"
+		
+		SchoolAction.delete_all
+		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schoolActions.csv"
+		
+		list = CSV.read(inputfile, :headers => true )
+		list.each{ |row|
+    		school = School.find_by_cps_id(row[0])
+    		to_school = School.find_by_cps_id(row[2])
+    		if (!school.nil? & !to_school.nil?)
+    		
+    			SchoolAction.create(:school_id => school.id, :result_id => to_school.id, :action_id => row[1].to_i + 1, :result_code => row[3].to_i)
+    			#puts "#{row[0]} -> #{row[1]} -> #{row[2]} "
+    		end
+    	}
+		
+	end
+	desc "Import school distances"
+    task :import_school_distances => :environment do
+    	inputfile = "#{Rails.root.to_s}/lib/tasks/data/schooldistances.csv"
+    	list  = CSV.read(inputfile, :headers => true )
+    	list.each{ |row|
+    		school = School.find_by_cps_id(row[0])
+    		to_school = School.find_by_cps_id(row[1])
+    		if (!school.nil? & !to_school.nil?)
+    		
+    			SchoolDistance.create(:from_school_id => school.id, :to_school_id => to_school.id, :distance => row[2].to_i)
+    			#puts "#{row[0]} -> #{row[1]} is #{row[2]} feet apart"
+    		end
+    	}
+    	puts "School distances import completed"
+    end
+	
 	desc "import utilization"
 	task :import_utilization => :environment do
 		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
@@ -293,99 +410,7 @@ namespace :cps do
 			end
 		}
 	end
-    
-    desc "Import Demographics (Language, SPED, Low Income)"
-	    task :import_demographics => :environment do
 
-	    inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
-
-	    Demographic.delete_all()
-
-	    list = CSV.read(inputfile, :headers => true)
-	    list.each {|row|
-		    puts row[0].to_s + row[21].to_s
-		    school = School.find_by_cps_id(row[0])
-		    if (!school.nil?)
-			    Demographic.create(:school_id => school.id, :year_from => 2012, :year_to => 2013, :category => "Bilingual", :percent => row[20].to_f)
-			    Demographic.create(:school_id => school.id, :year_from => 2012, :year_to => 2013, :category => "Special Education", :percent => row[24].to_f)
-			    Demographic.create(:school_id => school.id, :year_from => 2012, :year_to => 2013, :category => "Low Income", :percent => row[28].to_f)
-		    end	
-	    }
-    end
-    
-    desc "Import school distances"
-    task :import_school_distances => :environment do
-    	inputfile = "#{Rails.root.to_s}/lib/tasks/data/schooldistances.csv"
-    	list  = CSV.read(inputfile, :headers => true )
-    	list.each{ |row|
-    		school = School.find_by_cps_id(row[0])
-    		to_school = School.find_by_cps_id(row[1])
-    		if (!school.nil? & !to_school.nil?)
-    		
-    			SchoolDistance.create(:from_school_id => school.id, :to_school_id => to_school.id, :distance => row[2].to_i)
-    			#puts "#{row[0]} -> #{row[1]} is #{row[2]} feet apart"
-    		end
-    	}
-    	puts "School distances import completed"
-    end
-
-    desc "import action types"
-	task :import_actions => :environment do
-		puts "Importing action types"
-		Action.delete_all
-		
-		Action.create(:action_code => 0, :name=>"considered but not closing")
-		Action.create(:action_code => 1, :name=>"closing")
-		Action.create(:action_code => 2, :name=>"turnaround")
-		Action.create(:action_code => 3, :name=>"relocating")
-		Action.create(:action_code => 4, :name=>"co-locating")
-		Action.create(:action_code => 5, :name=>"closing grades 9 to 11")
-		Action.create(:action_code => 6, :name=>"phasing out over 2 years")
-		Action.create(:action_code => 7, :name=>"not considered but will be turnaround")
-    end
-    
-    desc "import school actions"
-	task :import_school_actions => :environment do
-		puts "Importing school actions"
-		
-		SchoolAction.delete_all
-		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schoolActions.csv"
-		
-		list = CSV.read(inputfile, :headers => true )
-		list.each{ |row|
-    		school = School.find_by_cps_id(row[0])
-    		to_school = School.find_by_cps_id(row[2])
-    		if (!school.nil? & !to_school.nil?)
-    		
-    			SchoolAction.create(:school_id => school.id, :result_id => to_school.id, :action_id => row[1].to_i + 1)
-    			#puts "#{row[0]} -> #{row[1]} -> #{row[2]} "
-    		end
-    	}
-		
-	end
-	
-	desc "import performance_metrics"
-	task :import_performance_metrics => :environment do
-	
-		PerformanceMetric.delete_all
-		inputfile = "#{Rails.root.to_s}/lib/tasks/data/schools.csv"
-		
-		list = CSV.read(inputfile, :headers => true )
-		list.each{ |row|
-    		school = School.find_by_cps_id(row[0])
-    		if (!school.nil?)
-    			PerformanceMetric.create(:school_id => school.id, 
-    			:policy_points => row[139].to_f, 
-    			:isat_composite => row[140].to_f, 
-    			:value_added_math => row[141].to_f, 
-    			:value_added_reading => row[142].to_f)
-    			
-    			puts "#{row[0]} -> #{row[139]} -> #{row[140]} "
-    		end
-    	}
-
-		
-	end
     
 	desc "Show column names"
 		task :list_import_column_names => :environment do
@@ -418,6 +443,7 @@ namespace :cps do
     	Rake::Task['cps:import_enrollment'].invoke
     	Rake::Task['cps:import_essential'].invoke
     	Rake::Task['cps:import_isat_score'].invoke
+    	Rake::Task['cps:import_map_legends'].invoke
     	Rake::Task['cps:import_mobility_rates'].invoke
     	Rake::Task['cps:import_probation'].invoke
     	Rake::Task['cps:import_race'].invoke
@@ -426,7 +452,7 @@ namespace :cps do
     	Rake::Task['cps:import_actions'].invoke
     	Rake::Task['cps:import_school_actions'].invoke
     	Rake::Task['cps:import_performance_metrics'].invoke
-
+    	Rake::Task['cps:import_receiving_actions'].invoke
     end
 end
 

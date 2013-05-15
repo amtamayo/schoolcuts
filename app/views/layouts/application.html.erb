@@ -2,7 +2,7 @@
 <html>
 <head>
     <!-- Title -->
-    <title><%= @school.nil? ? 'School Cuts' : @school.short_name + " - School Cuts" %></title>
+    <title><%= @school.nil? ? I18n.t(:school_cuts) : @school.short_name + " - #{I18n.t(:school_cuts)}" %></title>
     <link rel="Shortcut Icon" href="/images/favicon.ico" type="image/x-icon" />
     
     <!-- Meta -->
@@ -46,7 +46,7 @@
 <!-- /Header -->
 <div id="header">
     <div id="header-content">
-        <div id="logo"><a href="/"><i class="icon-cut"></i> School Cuts</a></div>
+        <div id="logo"><a href=<%= root_path %>><i class="icon-cut"></i> <%= I18n.t(:school_cuts) %></a></div>
         
         <div id="sharing">
             <!-- AddThis Button BEGIN -->
@@ -71,13 +71,16 @@
     <div id="nav-content">
         <ul>
             <!--<li class="current"><a href="/">Home</a></li>-->
-            <li><a href="/">Home</a></li>
-            <li><a href="http://schoolcuts.wordpress.com">Blog</a></li>
-            <li><a href="/about/index">About</a></li>
+            <li><%= link_to I18n.t(:home), root_path%></li>
+            <li><a href="http://schoolcuts.wordpress.com"><%= I18n.t(:blog) %></a></li>
+            <li><%= link_to I18n.t(:about), about_index_path %></li>
         </ul>
         
         <ul class="nav-extras">
-            <li><a href="#" onclick="print(); return false;"><i class="icon-print"></i> Print this page</a></li>
+          <li><a href="#" onclick="print(); return false;"><i class="icon-print"></i> <%= I18n.t(:print_this_page)%></a></li>
+          <li><i class="icon-globe"></i><%= link_to I18n.t(:toggle_locale_label), url_for(:locale => I18n.t(:toggle_locale)) %></li>
+          
+          <!-- <li><a href=<%= root_path(:locale => "es")%>><i class="icon-globe"></i> Espa&ntilde;ol</a></li> -->
         </ul>
         
         <div class="clear"></div>
@@ -88,7 +91,7 @@
 
 <div class="content" id="discussion">
 	<hr />
-	<h2>Join the discussion</h2>
+  <h2><%= I18n.t(:join_the_discussion) %></h2>
 	
 	<div class="c2l">
 		<!-- Twitter Feed -->
@@ -123,30 +126,7 @@ js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement
 <!-- /Disqus -->
 
 <!-- Footer -->
-<div id="footer">
-	<div id="footer-content">
-	    <div id="footer-primary">
-	        <h2>About this project</h2>
-	        <p>This website presents data from several sources, including the <a href="http://cps.edu">Chicago Public Schools</a>, the <a href="http://isbe.state.il.us">Illinois State Board of Education</a>, and the <a href="http://uei.uchicago.edu/">University of Chicago Urban Education Institute</a>. Our goal is to help families with school children, other Chicago residents, and policy makers access and understand data that will help make informed decisions about the future of public schools.</p>
-	        <p><a href="/about/index">Learn more about the project &raquo;</a></p>
-	    </div>
-	    
-	    <div id="footer-secondary">
-	        <h2>Collaborators</h2>        
-	        <ul class="collaborators">
-	            <li><a href="http://twitter.com/JMOChicago">Jeanne Marie Olson</a>, <a href="http://cpsapples2apples.wordpress.com">Apples 2 Apples</a></li>
-	            <li><a href="http://twitter.com/shua123">Josh Kalov</a>, <a href="http://cpsapples2apples.wordpress.com">Apples 2 Apples</a></li>
-	            <li><a href="http://www.linkedin.com/in/ljchandler">Lincoln Chandler</a></li>
-	            <li><a href="http://twitter.com/_amtamayo">Anna Marie-Tamayo</a>, <a href="http://opendatainstitute.org">Open Data Institute</a></li>
-	            <li><a href="http://twitter.com/elnazem">Elnaz Moshfeghian</a>, <a href="http://opendatainstitute.org">Open Data Institute</a></li>
-	            <li><a href="http://twitter.com/PaulBaker">Paul Baker</a>, <a href="http://opendatainstitute.org">Open Data Institute</a></li>
-	            <li><a href="http://twitter.com/rougeux">Nick Rougeux</a>, <a href="http://opendatainstitute.org">Open Data Institute</a></li>
-	        </ul>
-	    </div>
-	</div>
-    
-    <div class="clear"></div>
-</div>
+<%= render 'partials/footer' %>
 <!-- /Footer -->
 
 </body>

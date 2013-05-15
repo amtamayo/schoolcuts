@@ -212,7 +212,7 @@ ul { list-style: disc; margin-left: 2em; }
 .school-filters { list-style: none; margin: 2.5em 0 2em; }
 .school-filters [class *= "flag"] { border: 2px solid #fff; }
 .school-filters [class *= "flag"].selected { border-color: #000; }
-.school-filters li { display: inline; margin-right: 1em; }
+.school-filters li { display: inline; margin-right: 0.8em; }
 
 .isotope-item {
   z-index: 2;
@@ -325,7 +325,7 @@ ul { list-style: disc; margin-left: 2em; }
 
 /* School list */
 .schools li { margin: 0 0 0.25em; width: 245px; }
-.schools ol { height: 850px; list-style: none; margin-left: 0; }
+.schools ol { height: 975px; list-style: none; margin-left: 0; }
 
 /* School profile */
 #profile-primary { float: left; margin-bottom: 30px; width: 65.68%; }
