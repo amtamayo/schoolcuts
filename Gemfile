@@ -1,9 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.6'
+gem 'rails', '3.2.13'
 
 # database
 gem 'pg'
+
+# caching
+gem 'memcachier'
+gem 'dalli'
 
 # utility
 gem 'newrelic_rpm'

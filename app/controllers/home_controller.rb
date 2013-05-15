@@ -1,4 +1,7 @@
 class HomeController < ApplicationController
+  
+  caches_page :index
+
   def index
   	include_status = [1,2,3,4,5,6,7]
   	@schools = School.where("closing_status> 0 or receiving_status in (1, 2)").sort_by{ |s| s.short_name }
