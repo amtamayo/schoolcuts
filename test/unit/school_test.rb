@@ -31,5 +31,23 @@ class SchoolTest < ActiveSupport::TestCase
       assert_equal 0, @school.enrollments_for_year(2009)
     end
   end
+
+  context "closing_status_name" do
+    should "return an empty string if closing status is nil" do
+      school = School.create :closing_status => nil
+      assert_equal "", school.closing_status_name  
+    end
+
+    should "return an empty string if action does not exist for the given closing status" do
+      school = School.create :closing_status => 1
+      assert_equal "", school.closing_status_name  
+    end
+
+    should "return action name for closing status" do
+      Action.create :action_code => 1, :name => "Closing"
+      school = School.create :closing_status => 1
+      assert_equal "Closing", school.closing_status_name  
+    end
+  end
 end
 
