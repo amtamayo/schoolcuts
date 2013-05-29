@@ -58,9 +58,9 @@ namespace :cps do
 				school.phone = row[3].to_s
 				school.school_type = row[9].to_s
 				school.short_name = row[1].to_s
-				school.isat_url = row[88].to_s,
-				school.closing_status = closing_status , 
-				school.receiving_status = receiving_status,
+				school.isat_url = row[88].to_s
+				school.closing_status = closing_status  
+				school.receiving_status = receiving_status
 				school.save
 
 				
