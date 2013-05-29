@@ -69,15 +69,12 @@ attr_accessible :access_type, :community_area, :cps_id, :full_name, :latitude, :
   end
   
   def closing_status_name
-    @closing_status_name = self.closing_status.nil? ? "" : 
-    Action.find_by_action_code(self.closing_status).nil? ? "" : 
-    Action.find_by_action_code(self.closing_status).name 
-    @closing_status_name
+    action = Action.find_by_action_code(closing_status)
+    action ? action.name : ""
   end
   
   def receiving_status_name
-    @receiving_status_name = self.receiving_status.nil? ? "" : "receiving"
-    @receiving_status_name
+    @receiving_status_name ||= self.receiving_status.nil? ? "" : "receiving"
   end
   
   def students_per_homeroom(year)
