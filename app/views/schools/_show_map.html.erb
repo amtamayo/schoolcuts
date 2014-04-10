@@ -115,11 +115,10 @@ function query(){
         });
 
 
-
       layerl0 = new google.maps.FusionTablesLayer({
         query: {
           select: LocationColumn,
-          from: '1rwYoQj6HhxjrdFnCQ4wSHYx43ilxMdPjnusdkSc',
+          from: "1rwYoQj6HhxjrdFnCQ4wSHYx43ilxMdPjnusdkSc",
           where: whereClause
         },
         map: map,
@@ -141,7 +140,7 @@ function query(){
             iconName: "large_blue"
           }
         },{     
-        where: "'SchoolCuts ID' =  <%= @school.id %>  AND 'ClosingStatus' in (1, 6)",
+        where: "'SchoolCuts ID' =  <%= @school.id %>  AND col52\x3e\x3e0 in (1, 6)",
           markerOptions: {
             iconName: "large_red"
           }
@@ -152,17 +151,17 @@ function query(){
         	}	
         }]
       });
-      
+
       layerThis = new google.maps.FusionTablesLayer({
         query: {
           select: LocationColumn,
           from: '1rwYoQj6HhxjrdFnCQ4wSHYx43ilxMdPjnusdkSc',
-          where: "'SchoolCuts ID' =  <%= @school.id %>  AND 'ClosingStatus' in (2, 4, 5, 7)"
+          where: "'SchoolCuts ID' =  <%= @school.id %>  AND col52\x3e\x3e0 in (2, 4, 5, 7)"
         },
         map: map,
         styleId: 4,
         templateId: 2
-		});
+		  });
       
       
       
